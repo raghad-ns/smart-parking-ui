@@ -1,13 +1,28 @@
 import React from "react";
-import './intro.scss'
-import BackgroundImage from './pg.png';
+import "./intro.scss";
 const Intro = () => {
   return (
-    <div>
-    <div className="intro">introoo</div>,
-    </div>
+      <div className="content">
+        <div className="text-container">
+          <h1>Parking System</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
+            amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+          </p>
+        </div>
+        <div className="button2">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Get Started
+        </div>
+        </div>
 
-  )
+  );
 };
 
 export default Intro;
