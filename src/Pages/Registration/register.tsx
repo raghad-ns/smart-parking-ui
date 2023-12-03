@@ -1,4 +1,8 @@
-import './register.scss'; // Import your SCSS module
+import React from "react";
+import { InputAdornment } from "@mui/material";
+import { Person, CarRental, Email } from "@mui/icons-material";
+import "./register.scss";
+
 import useRegistration from '../../hooks/registration.hook';
 
 const Register = () => {
@@ -14,9 +18,13 @@ const Register = () => {
   } = useRegistration();
 
   return (
-
-    <div className='register-form'>
+    <div className="register-form">
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <Person className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="text"
           id="ownerName"
@@ -26,6 +34,11 @@ const Register = () => {
         />
       </div>
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <CarRental className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="text"
           id="carId"
@@ -35,6 +48,11 @@ const Register = () => {
         />
       </div>
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <Email className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="email"
           id="email"
