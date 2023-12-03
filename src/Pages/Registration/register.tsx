@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
 import './register.scss'; // Import your SCSS module
+import useRegistration from '../../hooks/registration.hook';
 
 const Register = () => {
-  const [ownerName, setOwnerName] = useState<string>('');
-  const [carId, setCarId] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-
-  const handleRegistration = () => {
-    // Handle registration logic here, e.g., sending data to server or validating inputs
-    console.log('Owner Name:', ownerName);
-    console.log('Car ID:', carId);
-    console.log('Email:', email);
-  };
+  const {
+    ownerName,
+    setOwnerName,
+    carId,
+    setCarId,
+    email,
+    setEmail,
+    handleRegistration,
+    buttonEnable,
+  } = useRegistration();
 
   return (
 
-      <div className='register-form'>
+    <div className='register-form'>
       <div className="input-group">
         <input
           type="text"
@@ -43,8 +43,12 @@ const Register = () => {
           placeholder="Email"
         />
       </div>
-      <button onClick={handleRegistration}>Register</button>
-      </div>
+      <button
+        disabled={!buttonEnable}
+        onClick={handleRegistration}
+        className={buttonEnable ? '' : 'disabled'}
+      >Register</button>
+    </div>
   );
 };
 

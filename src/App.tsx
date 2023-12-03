@@ -5,6 +5,7 @@ import Login from './Pages/Login/login';
 import logo from "./ps-logo.png";
 import Register from './Pages/Registration/register';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Pages/home/home.page';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/' element={<Intro />} />
             <Route path='/signin' element={<Login />} />
             <Route path='/signup' element={<Register />} />
+            <Route path='/home' element={<Home />} />
           </Routes>
         </BrowserRouter>
       </div>
