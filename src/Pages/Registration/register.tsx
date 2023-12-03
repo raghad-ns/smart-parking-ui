@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import './register.scss'; // Import your SCSS module
+import React, { useState } from "react";
+import { InputAdornment } from "@mui/material";
+import { Person, CarRental, Email } from "@mui/icons-material";
+import "./register.scss";
 
 const Register = () => {
-  const [ownerName, setOwnerName] = useState<string>('');
-  const [carId, setCarId] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [ownerName, setOwnerName] = useState<string>("");
+  const [carId, setCarId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const handleRegistration = () => {
-    // Handle registration logic here, e.g., sending data to server or validating inputs
-    console.log('Owner Name:', ownerName);
-    console.log('Car ID:', carId);
-    console.log('Email:', email);
+    console.log("Owner Name:", ownerName);
+    console.log("Car ID:", carId);
+    console.log("Email:", email);
   };
 
   return (
-
-      <div className='register-form'>
+    <div className="register-form">
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <Person className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="text"
           id="ownerName"
@@ -26,6 +31,11 @@ const Register = () => {
         />
       </div>
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <CarRental className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="text"
           id="carId"
@@ -35,6 +45,11 @@ const Register = () => {
         />
       </div>
       <div className="input-group">
+        <span>
+          <InputAdornment position="start">
+            <Email className="icons" />
+          </InputAdornment>
+        </span>
         <input
           type="email"
           id="email"
@@ -43,8 +58,8 @@ const Register = () => {
           placeholder="Email"
         />
       </div>
-      <button onClick={handleRegistration}>Register</button>
-      </div>
+      <button onClick={handleRegistration}> Register</button>
+    </div>
   );
 };
 

@@ -1,225 +1,81 @@
-
 .register-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    // height: 100vh;
-    padding: 0 20px; /* Adjust left padding to position the form to the left */
-    // background-color: #000; /* Setting the background color to black */
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-  }
-  
-  input[type='text'],
-  input[type='email'] {
-    width: calc(100% - 1px);
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.4); /* Setting input background to transparent black */
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    width: calc(100%);
-    padding: 8px;    border: none;
-    border-radius: 5px;
-    background-color:rgb(161, 0, 161,.4);
-      /* Setting button background to transparent purple */
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: rgba(56, 0, 56, 0.9); /* Hover color for the button */
-  }
-  
-
-
-
-  
-// /* login form */
-
-// position: absolute;
-// width: 509.5px;
-// height: 432px;
-
-
-
-// /* Car-Id */
-
-// position: absolute;
-// width: 125px;
-// height: 31.84px;
-
-// font-family: 'Inter';
-// font-style: normal;
-// font-weight: 500;
-// font-size: 25px;
-// line-height: 30px;
-// display: flex;
-// align-items: center;
-// text-align: center;
-
-// color: #D0D0D0;
-
-
-
-// /* carid */
-
-// position: absolute;
-// width: 500px;
-// height: 68.84px;
-
-
-
-// /* Rectangle 11 */
-
-// position: absolute;
-// width: 500px;
-// height: 68.84px;
-
-// background: rgba(0, 0, 0, 0.21);
-// border-radius: 5px;
-
-
-// /* mdi:user */
-
-// position: absolute;
-// width: 50px;
-// height: 43.03px;
-
-
-
-// /* mingcute:car-fill */
-
-// position: absolute;
-// width: 50px;
-// height: 47px;
-// left: 0px;
-// top: 3px;
-
-
-
-// /* Group */
-
-// position: absolute;
-// left: 0%;
-// right: 0%;
-// top: 0%;
-// bottom: 0%;
-
-
-
-// /* Vector */
-
-// position: absolute;
-// left: 0%;
-// right: 0%;
-// top: 0%;
-// bottom: 0%;
-
-
-
-// /* Vector */
-
-// position: absolute;
-// left: 8.33%;
-// right: 8.33%;
-// top: 16.67%;
-// bottom: 12.5%;
-
-// background: #FFFFFF;
-
-
-// /* Rectangle 13 */
-
-// position: absolute;
-// width: 500px;
-// height: 64.54px;
-
-// background: linear-gradient(268.29deg, rgba(166, 0, 207, 0.21) 24.2%, rgba(143, 151, 220, 0.21) 102.72%);
-// border-radius: 5px;
-
-
-// /* username */
-
-// position: absolute;
-// width: 500px;
-// height: 68.84px;
-
-
-
-// /* Rectangle 11 */
-
-// position: absolute;
-// width: 500px;
-// height: 68.84px;
-
-// background: rgba(0, 0, 0, 0.21);
-// border-radius: 5px;
-
-
-// /* Owner-name */
-
-// position: absolute;
-// width: 156px;
-// height: 25.82px;
-
-// font-family: 'Inter';
-// font-style: normal;
-// font-weight: 500;
-// font-size: 25px;
-// line-height: 30px;
-// display: flex;
-// align-items: center;
-// text-align: center;
-
-// color: #D0D0D0;
-
-
-
-// /* mdi:user */
-
-// position: absolute;
-// width: 50px;
-// height: 43.03px;
-
-
-
-// /* Vector */
-
-// position: absolute;
-// left: 16.67%;
-// right: 16.67%;
-// top: 16.67%;
-// bottom: 16.67%;
-
-// background: #FFFFFF;
-
-
-// /* Register */
-
-// position: absolute;
-// width: 119px;
-// height: 30.98px;
-
-// font-family: 'Inter';
-// font-style: normal;
-// font-weight: 500;
-// font-size: 30px;
-// line-height: 36px;
-// display: flex;
-// align-items: center;
-// text-align: center;
-
-// color: #FFFFFF;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  width: 250px;
+  height: max-content;
+  padding: 0 20px; /* Adjust left padding to position the form to the left */
+}
+
+.input-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+
+  // width: calc(100% - 5px);
+}
+
+input[type="text"],
+input[type="email"] {
+  width: calc(100% - 1px);
+  padding: 14px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.4
+  ); /* Setting input background to transparent black */
+  margin-bottom: 10px;
+  font-size: larger;
+}
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
+  color: #ffffff;
+  padding-left: 20px;
+  font-family: "Montserrat";
+  font-style: normal;
+  // text-shadow: 1px 1px 2px white ; /* Add white shadow effect */
+}
+input[type="text"]:not(:placeholder-shown),
+input[type="email"]:not(:placeholder-shown) {
+  color: white;
+  font-family: "Montserrat";
+  font-style: normal;
+  padding-left: 20px;
+}
+
+button {
+  width: 290px;
+  margin-bottom: 5px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(161, 0, 161, 0.4);
+  color: #ffffff;
+  text-shadow: 1px 1px 7px white; /* Add white shadow effect */
+  font-family: "Montserrat";
+  font-style: normal;
+  font-size: larger;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(
+    268.29deg,
+    rgba(166, 0, 207, 0.21) 24.2%,
+    rgba(143, 151, 220, 0.21) 102.72%
+  );
+}
+.icons {
+  position: absolute;
+  color: #ffffff;
+  top: 20%;
+  left: 3%;
+}
