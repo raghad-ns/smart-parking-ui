@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import "./login.scss"; // Import your SCSS module
 import { InputAdornment } from "@mui/material";
-import { Person, CarRental, Email } from "@mui/icons-material";
+import {  CarRental, Email, Key } from "@mui/icons-material";
 import useSignin from "../../hooks/signin.hook";
 
 const Login = () => {
@@ -51,7 +51,7 @@ const Login = () => {
           <div className="input-group">
             <span>
               <InputAdornment position="start">
-                <Person className="icons" />
+                <Key className="icons" />
               </InputAdornment>
             </span>
             <input
@@ -85,7 +85,7 @@ const Login = () => {
           <div className="input-group">
             <span>
               <InputAdornment position="start">
-                <Person className="icons" />
+                <Key className="icons" />
               </InputAdornment>
             </span>
             <input

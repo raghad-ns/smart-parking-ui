@@ -7,8 +7,6 @@ const SetPassword = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-
-
   return (
     <div className="set-form">
       <div className="input-group">
