@@ -11,10 +11,10 @@ function App() {
     <div className="App">
       <div className="background-image">
       <img className="logo" src={logo} alt="Logo" />
-      {/* <Intro/> */}
+      <Intro/>
       {/* <Login/> */}
       {/* <Register/> */}
-      <SetPassword/>
+      {/* <SetPassword/> */}
 
       
       </div>

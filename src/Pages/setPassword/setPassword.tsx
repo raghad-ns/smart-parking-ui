@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./setPassword.scss";
 import { InputAdornment } from "@mui/material";
-import { VpnKey,Key } from "@mui/icons-material";
+import { VpnKey, Key } from "@mui/icons-material";
 
 const SetPassword = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-
 
   return (
     <div className="set-form">
@@ -28,7 +26,7 @@ const SetPassword = () => {
       <div className="input-group">
         <span>
           <InputAdornment position="start">
-            <Key  className="icons" />
+            <Key className="icons" />
           </InputAdornment>
         </span>
         <input

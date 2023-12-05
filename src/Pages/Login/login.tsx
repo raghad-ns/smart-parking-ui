@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./login.scss"; // Import your SCSS module
 import { log } from "console";
 import { InputAdornment } from "@mui/material";
-import { Person, CarRental, Email } from "@mui/icons-material";
+import {  CarRental, Email, Key } from "@mui/icons-material";
 const Login = () => {
   const [carId, setCarId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -56,7 +56,7 @@ const Login = () => {
           <div className="input-group">
             <span>
               <InputAdornment position="start">
-                <Person className="icons" />
+                <Key className="icons" />
               </InputAdornment>
             </span>
             <input
@@ -90,7 +90,7 @@ const Login = () => {
           <div className="input-group">
             <span>
               <InputAdornment position="start">
-                <Person className="icons" />
+                <Key className="icons" />
               </InputAdornment>
             </span>
             <input
