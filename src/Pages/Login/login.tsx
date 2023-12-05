@@ -1,42 +1,38 @@
-import { useState } from "react";
 import { Link } from 'react-router-dom';
 import "./login.scss"; // Import your SCSS module
 import { InputAdornment } from "@mui/material";
 import { Person, CarRental, Email } from "@mui/icons-material";
+import useSignin from "../../hooks/signin.hook";
+
 const Login = () => {
-  const [carId, setCarId] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const {
+    carId,
+    email,
+    password,
+    selectedRole,
+    handleRoleSelection,
+    handleSignin,
+  } = useSignin();
 
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
-
-  const handleRoleSelection = (role: string) => {
-    console.log(role);
-
-    setSelectedRole(role);
-  };
-  if (selectedRole === null) {
-    setSelectedRole("user");
-  }
 
   return (
     <div className="login-page">
       <div className="role-selection">
         <button
-          className={`role-button ${selectedRole === "user" ? "active" : ""}`}
+          className={`role-button ${selectedRole.value === "user" ? "active" : ""}`}
           onClick={() => handleRoleSelection("user")}
         >
           User
         </button>
         <button
-          className={`role-button ${selectedRole === "manager" ? "active" : ""
+          className={`role-button ${selectedRole.value === "manager" ? "active" : ""
             }`}
           onClick={() => handleRoleSelection("manager")}
         >
           Manager
         </button>
       </div>
-      {selectedRole === "user" && (
+      {selectedRole.value === "user" && (
         <div className="user-login">
           <div className="input-group">
             <span>
@@ -47,8 +43,8 @@ const Login = () => {
             <input
               type="text"
               id="carId"
-              value={carId}
-              onChange={(e) => setCarId(e.target.value)}
+              value={carId.value}
+              onChange={(e) => carId.setState(e.target.value)}
               placeholder="Car-ID"
             />
           </div>
@@ -61,15 +57,15 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password.value}
+              onChange={(e) => password.setState(e.target.value)}
               placeholder="Password"
             />
           </div>
           <button className="sign-in-button">Sign In</button>
         </div>
       )}
-      {selectedRole === "manager" && (
+      {selectedRole.value === "manager" && (
         <div className="manager-login">
 
           <div className="input-group">
@@ -81,8 +77,8 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email.value}
+              onChange={(e) => email.setState(e.target.value)}
               placeholder="Email"
             />
           </div>
@@ -95,12 +91,12 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password.value}
+              onChange={(e) => password.setState(e.target.value)}
               placeholder="Password"
             />
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <button className="sign-in-button" type="submit" onClick={() => handleSignin()}>Sign In</button>
         </div>
       )}
       <div className="signup-link">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupService } from "../services/signup.service";
+import { signupService } from "../services/user.service";
 
 const useRegistration = () => {
   const [ownerName, setOwnerName] = useState<string>("");
