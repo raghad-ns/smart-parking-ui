@@ -1,17 +1,30 @@
 import { IUser } from "../types/users.types";
 
-export const signupService = (carObject: IUser): Promise<Response> => {
+export const signupService = async (carObject: IUser) => {
   return fetch("http://localhost:5000/home/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: sessionStorage.getItem("token") || "",
     },
     body: JSON.stringify({
       Owner: carObject.ownerName,
       Car_Id: carObject.carId,
       Email: carObject.email,
     }),
-  });
+  })
+    .then(async (response) => {
+      try {
+        return { state: response.status === 201, value: await response.json() };
+      } catch (error) {
+        console.error(error);
+        return { state: false, value: {} };
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return { state: false, value: {} };
+    });
 };
 
 export const signinService = (userObject: IUser, role: string) => {
@@ -31,5 +44,17 @@ export const signinService = (userObject: IUser, role: string) => {
             Password: userObject.password,
           }
     ),
-  });
+  })
+    .then(async (response) => {
+      try {
+        return { state: response.status === 200, value: await response.json() };
+      } catch (error) {
+        console.error(error);
+        return { state: false, value: {} };
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return { state: false, value: {} };
+    });
 };

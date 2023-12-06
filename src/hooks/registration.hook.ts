@@ -13,16 +13,13 @@ const useRegistration = () => {
     setButtonEnable(ownerName !== "" && carId !== "" && email !== "");
   };
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     // Handle registration logic here, e.g., sending data to server or validating inputs
-    signupService({ ownerName, carId, email })
-      .then((res) => {
-        if (res.status === 201) {
-          window.alert("Car added successfylly!");
-          navigate("/home");
-        }
-      })
-      .catch((error: ErrorEvent) => console.error("Error message: ", error));
+    const signup = await signupService({ ownerName, carId, email });
+    if (signup.state) {
+      window.alert("Car added successfylly!");
+      navigate("/set-password");
+    }
   };
 
   useEffect(() => {
