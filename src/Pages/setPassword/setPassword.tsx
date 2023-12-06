@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import "./setPassword.scss";
 import { InputAdornment } from "@mui/material";
 import { Key } from "@mui/icons-material";
+import { passwordSetService } from "../../services/user.service";
 
 const SetPassword = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const handlePasswordSetting = async () => {
+    const setPassword = await passwordSetService(password, confirmPassword)
+    if (setPassword.state) {
+      window.alert('password set successfully!')
+    } else {
+      window.alert('invalid password!')
+    }
+  }
 
   return (
     <div className="set-form">
@@ -37,7 +46,7 @@ const SetPassword = () => {
           placeholder="Confirm-Password"
         />
       </div>
-      <button> Set </button>
+      <button onClick={handlePasswordSetting}> Set </button>
     </div>
   );
 };

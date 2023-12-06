@@ -17,7 +17,9 @@ const useRegistration = () => {
     // Handle registration logic here, e.g., sending data to server or validating inputs
     const signup = await signupService({ ownerName, carId, email });
     if (signup.state) {
-      window.alert("Car added successfylly!");
+      console.log("passwordLink: ", signup.value.data.passwordLink);
+      sessionStorage.setItem("setPassworkAPI", signup.value.data.passwordLink);
+      window.alert("Car added successfylly! set your password");
       navigate("/set-password");
     }
   };
