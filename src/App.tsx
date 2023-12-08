@@ -13,8 +13,8 @@ function App() {
       <img className="logo" src={logo} alt="Logo" />
       {/* <Intro/> */}
       {/* <Login/> */}
-      <Register/>
-      {/* <SetPassword/> */}
+      {/* <Register/> */}
+      <SetPassword/>
 
       
       </div>
