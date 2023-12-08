@@ -12,8 +12,8 @@ function App() {
       <div className="background-image">
       <img className="logo" src={logo} alt="Logo" />
       {/* <Intro/> */}
-      <Login/>
-      {/* <Register/> */}
+      {/* <Login/> */}
+      <Register/>
       {/* <SetPassword/> */}
 
       
