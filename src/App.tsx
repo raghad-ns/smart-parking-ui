@@ -4,7 +4,7 @@ import Intro from './Pages/Introduction/intro';
 import Login from './Pages/Login/login';
 import logo from "./ps-logo.png";
 import Register from './Pages/Registration/register';
-
+import Parking from './Pages/parking/parking';
 function App() {
   return (
     <div className="App">
@@ -12,7 +12,8 @@ function App() {
       <img className="logo" src={logo} alt="Logo" />
       {/* <Intro/> */}
       {/* <Login/> */}
-      <Register/>
+      {/* <Register/> */}
+      <Parking/>
 
       </div>
       </div>
