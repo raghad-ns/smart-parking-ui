@@ -7,6 +7,7 @@ import Register from './Pages/Registration/register';
 import Reflect from './Pages/Reflect/reflect';
 import Charge from './Pages/Charge-Recharge/charge-recharge';
 import Parking from './Pages/parking/parking';
+import HistoryTable from './Pages/History-table/History-table';
 function App() {
   return (
     <div className="App">
@@ -15,7 +16,10 @@ function App() {
       {/* <Intro/> */}
       {/* <Login/> */}
       {/* <Register/> */}
-      <Parking/>
+      {/* <Parking/> */}
+      {/* <Reflect/> */}
+      {/* <Charge/> */}
+      <HistoryTable/>
 
       </div>
       </div>
