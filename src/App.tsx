@@ -16,10 +16,10 @@ function App() {
       {/* <Intro/> */}
       {/* <Login/> */}
       {/* <Register/> */}
-      {/* <Parking/> */}
+      <Parking/>
       {/* <Reflect/> */}
       {/* <Charge/> */}
-      <HistoryTable/>
+      {/* <HistoryTable/> */}
 
       </div>
       </div>

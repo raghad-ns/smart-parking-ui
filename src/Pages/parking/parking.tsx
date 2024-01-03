@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { InputAdornment } from "@mui/material";
-import { LocationOn, GppGood } from '@mui/icons-material';
+import { LocationOn,Label } from '@mui/icons-material';
+
 import './parking.scss'
 
 const Parking = () => {
     const [location, setLocation] = useState<string>("");
-    const [status, setStatus] = useState<string>("");
+    const [customId, setCustomId] = useState<string>("");
     const handleAddParking = () => {
         console.log("Location: ", location);
-        console.log("Status: ", status);
+        console.log("Custom-id:",customId );
 
 
     }
@@ -25,10 +26,10 @@ const Parking = () => {
             <div className="input-group">
                 <span>
                     <InputAdornment position="start">
-                        <GppGood className='icons' />
+                        <Label  className='icons' />
                     </InputAdornment>
                 </span>
-                <input type="text" id="status" value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Status"/>
+                <input type="text" id="customId" value={customId} onChange={(e) => setCustomId(e.target.value)} placeholder="Custom-Id"/>
             </div>
             <button onClick={handleAddParking}>Add Parking</button>
         </div>
