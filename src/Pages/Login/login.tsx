@@ -1,6 +1,6 @@
 import "./login.scss"; // Import your SCSS module
 import { InputAdornment } from "@mui/material";
-import {  CarRental, Email, Key } from "@mui/icons-material";
+import { CarRental, Email, Key } from "@mui/icons-material";
 import useSignin from "../../hooks/signin.hook";
 
 const Login = () => {
@@ -12,7 +12,6 @@ const Login = () => {
     handleRoleSelection,
     handleSignin,
   } = useSignin();
-
 
   return (
     <div className="login-page">
@@ -61,7 +60,7 @@ const Login = () => {
               placeholder="Password"
             />
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <button className="sign-in-button" onClick={handleSignin}>Sign In</button>
         </div>
       )}
       {selectedRole.value === "manager" && (

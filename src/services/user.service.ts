@@ -28,7 +28,7 @@ export const signupService = (carObject: IUser) => {
 };
 
 export const signinService = (userObject: IUser, role: string) => {
-  return fetch("http://localhost:5000/home/manager/signin", {
+  return fetch(`http://localhost:5000/home/${role}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const signinService = (userObject: IUser, role: string) => {
     body: JSON.stringify(
       role === "user"
         ? {
-            Car_Id: userObject.carId,
+            Car_ID: userObject.carId,
             Password: userObject.password,
           }
         : {
