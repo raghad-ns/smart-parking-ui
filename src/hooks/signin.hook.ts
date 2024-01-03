@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signinService } from "../services/user.service";
 import { IUser } from "../types/users.types";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../providers/user.provider";
 
 const useSignin = () => {
   const [carId, setCarId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
@@ -26,6 +28,7 @@ const useSignin = () => {
       window.alert("logged in successfully!");
       console.log("signin response: ", signin.value);
       sessionStorage.setItem("token", signin.value.data?.token);
+      userContext.setUser && userContext?.setUser(signin.value.data.car);
       navigate("/home");
     }
   };

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import "./login.scss"; // Import your SCSS module
 import { InputAdornment } from "@mui/material";
 import {  CarRental, Email, Key } from "@mui/icons-material";
@@ -99,10 +98,6 @@ const Login = () => {
           <button className="sign-in-button" type="submit" onClick={() => handleSignin()}>Sign In</button>
         </div>
       )}
-      <div className="signup-link">
-        <span>Don't have an account </span>
-        <Link to={'/signup'}>Signup</Link>
-      </div>
     </div>
   );
 };
