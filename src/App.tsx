@@ -4,6 +4,7 @@ import Intro from './Pages/Introduction/intro';
 import Login from './Pages/Login/login';
 import logo from "./ps-logo.png";
 import Register from './Pages/Registration/register';
+import SetPassword from './Pages/setPassword/setPassword';
 
 function App() {
   return (
@@ -12,8 +13,10 @@ function App() {
       <img className="logo" src={logo} alt="Logo" />
       {/* <Intro/> */}
       {/* <Login/> */}
-      <Register/>
+      {/* <Register/> */}
+      <SetPassword/>
 
+      
       </div>
       </div>
   );
