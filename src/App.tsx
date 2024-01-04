@@ -10,6 +10,7 @@ import Info from './Pages/info/info.page';
 import SetPassword from './Pages/setPassword/setPassword';
 import UserProvider from './providers/user.provider';
 import EmailSimulator from './Pages/email-simulator/email-simulator.page';
+import RoleGuard from './components/core/role-guard/role-guard.component';
 // import { Info } from 'Pages/info/info.page';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Intro />} />
               <Route path='/signin' element={<Login />} />
-              <Route path='/signup' element={<Register />} />
+              <Route path='/signup' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Register /></RoleGuard>} />
               <Route path='/home' element={<Home />} />
               <Route path='/set-password' element={<SetPassword />} />
               <Route path='/info' element={<Info />} />
