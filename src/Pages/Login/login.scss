@@ -6,135 +6,148 @@
   position: absolute;
   top: 25%;
   left: 20%;
-  width: 250px;
+  width: 320px;
   height: max-content;
   padding: 0 20px;
-}
-.input-group {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  position: relative;
+  user-select: none;
 
-  // width: calc(100% - 5px);
-}
+  .input-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-  width: calc(100% - 1px);
-  padding: 14px 20px;
-  border-radius: 5px;
-  border: none;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.4
-  ); /* Setting input background to transparent black */
-  margin-bottom: 10px;
-  font-size: larger;
-  text-shadow: 1px 1px 7px white; 
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: calc(100%);
+      padding: 14px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-bottom: 10px;
+      font-size: larger;
 
-}
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="email"]::placeholder {
-  color: #ffffff;
-  padding-left: 20px;
-  font-family: "Montserrat";
-  font-style: normal;
-  // text-shadow: 1px 1px 2px white ; /* Add white shadow effect */
-}
-input[type="text"]:not(:placeholder-shown),
-input[type="password"]:not(:placeholder-shown),
-input[type="email"]:not(:placeholder-shown) {
-  color: white; 
-  padding-left:40px;
-  font-family: "Montserrat";
-  font-style: normal;
- 
-}
+      &::placeholder {
+        color: #ffffff;
+        font-family: "Montserrat";
+        font-style: normal;
+      }
 
-.icons {
-  position: absolute;
-  color: #ffffff;
-  top: 20%;
-  left: 3%;
-  z-index: 1
-}
-
-
-.role-selection {
-  // background-color: aqua;
-  width: 330px;
-  // margin:  6px;
-  // padding: 5px 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
- 
-  button:nth-child(1) {
-    cursor: pointer;
-    color: #ffffff;
-    width: calc(100% - 1px);
-    padding: 14px 20px;
-    text-shadow: 1px 1px 7px white; 
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.4);
-    margin-bottom: 10px;
-    font-size: larger;
-
-    &.active {
-      background: linear-gradient(270deg, rgba(166, 0, 207, 0.21) 0%, rgba(248, 244, 247, 0) 100%);
-
-    }
-   
-  } 
-  button:nth-child(2){
-    cursor: pointer;
-    color: #ffffff;
-    width: calc(100% - 1px);
-    padding: 14px 20px;
-    text-shadow: 1px 1px 7px white; 
-    border-top-right-radius:5px;
-    border-bottom-right-radius:5px;
-    border: none;
-    background-color: rgba(
-      0,
-      0,
-      0,
-      0.4
-    ); /* Setting input background to transparent black */
-    margin-bottom: 10px;
-    font-size: larger;
-    &.active {
-      background: linear-gradient(270deg, rgba(166, 0, 207, 0.21) 0%, rgba(248, 244, 247, 0) 100%);
+      &:not(:placeholder-shown) {
+        color: white;
+        font-family: "Montserrat";
+        font-style: normal;
+      }
     }
   }
-  
-}
-.sign-in-button {
-  width: 290px;
-  margin-bottom: 5px;
-  padding: 12px 10px;
-  border: none;
-  border-radius: 5px;
-  background: linear-gradient(268.29deg, rgba(100, 1, 125, 0.55) 18.36%, rgba(89, 96, 160, 0.21) 96.88%);
-  color: #ffffff;
-  text-shadow: 1px 1px 7px white; 
-  font-family: "Montserrat";
-  font-style: normal;
-  font-size: larger;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 
-  &:hover {
+  .icons {
+    position: absolute;
+    color: #ffffff;
+    top: 20%;
+    left: 85%;
+    z-index: 1;
+  }
+
+  .role-selection {
+    width: 330px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    button:nth-child(1) {
+      cursor: pointer;
+      color: #ffffff;
+      width: calc(100% - 1px);
+      padding: 14px 20px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-bottom: 10px;
+      font-size: larger;
+
+      &.active {
+        background: linear-gradient(
+          270deg,
+          rgba(166, 0, 207, 0.21) 0%,
+          rgba(248, 244, 247, 0) 100%
+        );
+      }
+    }
+
+    button:nth-child(2) {
+      cursor: pointer;
+      color: #ffffff;
+      width: calc(100% - 1px);
+      padding: 14px 20px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-bottom: 10px;
+      font-size: larger;
+
+      &.active {
+        background: linear-gradient(
+          270deg,
+          rgba(166, 0, 207, 0.21) 0%,
+          rgba(248, 244, 247, 0) 100%
+        );
+      }
+    }
+  }
+
+  .sign-in-button {
+    width: 330px;
+    margin-bottom: 5px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
     background: linear-gradient(
       268.29deg,
-      rgba(166, 0, 207, 0.21) 24.2%,
-      rgba(143, 151, 220, 0.21) 102.72%
+      rgba(100, 1, 125, 0.55) 18.36%,
+      rgba(89, 96, 160, 0.21) 96.88%
     );
+    color: #ffffff;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-size: larger;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(
+        268.29deg,
+        rgba(166, 0, 207, 0.21) 24.2%,
+        rgba(143, 151, 220, 0.21) 102.72%
+      );
+    }
+  }
+
+  .dont-have-account {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: larger;
+    font-family: "Montserrat";
+    font-style: normal;
+
+    a {
+      margin-left: 5px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #7c0b99;
+      }
+    }
   }
 }
