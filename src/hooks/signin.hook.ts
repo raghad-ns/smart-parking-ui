@@ -3,8 +3,12 @@ import { signinService } from "../services/user.service";
 import { IUser } from "../types/users.types";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../providers/user.provider";
-import useAesEncryption from "./AESencryption.hook";
 import { validateInputs } from "../utils/utils";
+import {
+  decryptMessage,
+  encryptMessage,
+  generateRandomKey,
+} from "../utils/AESencryption.util";
 
 const useSignin = () => {
   const [carId, setCarId] = useState<string>("");
@@ -12,7 +16,6 @@ const useSignin = () => {
   const [email, setEmail] = useState<string>("");
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
-  const { encryptMessage } = useAesEncryption();
 
   const [selectedRole, setSelectedRole] = useState<string | null>("user");
 
@@ -34,17 +37,18 @@ const useSignin = () => {
     if (validInputs) {
       const signin = await signinService(payload, selectedRole || "");
       if (signin.state) {
+        generateRandomKey();
         window.alert("logged in successfully!");
-        // const encryptedToken = cryptoJS.AES.encrypt(
-        //   signin.value.data?.token,
-        //   process.env.SECRET_KEY as string
-        // );
-        // console.log("token: ", signin.value.data?.token);
-        console.log(
-          "encrypted token: ",
-          encryptMessage(signin.value.data?.token)
+        sessionStorage.setItem(
+          "token",
+          encryptMessage(
+            signin.value.data?.token || "",
+            decryptMessage(
+              sessionStorage.getItem("sessionKey") || "",
+              process.env.REACT_APP_SECRET_KEY || ""
+            ) as string
+          ) as string
         );
-        sessionStorage.setItem("token", signin.value.data?.token);
         userContext.setUser && userContext?.setUser(signin.value.data.car);
         navigate("/home");
       } else {

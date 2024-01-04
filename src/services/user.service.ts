@@ -1,11 +1,19 @@
 import { IUser } from "../types/users.types";
+import { decryptMessage } from "../utils/AESencryption.util";
 
 export const signupService = (carObject: IUser) => {
-  return fetch("http://localhost:5000/home/signup", {
+  const token = decryptMessage(
+    sessionStorage.getItem("token") || "",
+    decryptMessage(
+      sessionStorage.getItem("sessionKey") || "",
+      process.env.REACT_APP_SECRET_KEY || ""
+    ) as string
+  ) as string;
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/home/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: sessionStorage.getItem("token") || "",
+      Authorization: token || "",
     },
     body: JSON.stringify({
       Owner: carObject.ownerName,
@@ -28,7 +36,7 @@ export const signupService = (carObject: IUser) => {
 };
 
 export const signinService = (userObject: IUser, role: string) => {
-  return fetch(`http://localhost:5000/home/${role}/signin`, {
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/home/${role}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
