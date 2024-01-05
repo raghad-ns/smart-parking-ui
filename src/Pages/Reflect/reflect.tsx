@@ -7,13 +7,11 @@ const Reflect = () => {
     const [owner, setOwner] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [confirm_password, setConfirm_password] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
     const handleAddReflect = () => {
         console.log("Owner: ", owner);
         console.log("Phone: ", phone);
         console.log("Password: ", password);
-        console.log("Confirm Password: ", confirm_password);
         console.log("Amount: ", amount);
 
     }
@@ -42,14 +40,6 @@ const Reflect = () => {
                     </InputAdornment>
                 </span>
                 <input type="text" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
-            </div>
-            <div className="input-group">
-                <span>
-                    <InputAdornment position="start">
-                        <VpnKeyOutlined className='icons' />
-                    </InputAdornment>
-                </span>
-                <input type="text" id="confirm_password" value={confirm_password} onChange={(e) => setConfirm_password(e.target.value)} placeholder="Confirm Password"/>
             </div>
             <div className="input-group">
                 <span>
