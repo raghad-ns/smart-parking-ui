@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { UserNS } from '../typess/user.type';
+// import { decryptMessage, encryptMessage, generateRandomKey } from '../utils/AESencryption.util';
 
 interface IState {
     setUser?: React.Dispatch<React.SetStateAction<UserNS.User | undefined>>,
@@ -17,10 +18,30 @@ interface IPopupParams {
 * }} props Component props
 */
 const UserProvider = (props: IPopupParams) => {
+    // generateRandomKey("userKey");
 
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") || '{}')
+        //     JSON.parse(decryptMessage(
+        //     sessionStorage.getItem("user") || "",
+        //     decryptMessage(
+        //         sessionStorage.getItem("userKey") || "",
+        //         process.env.REACT_APP_SECRET_KEY || ""
+        //     ) as string
+        // ) || '{}')
+    );
+
     useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(user || {}))
+        sessionStorage.setItem(
+            "user",
+            JSON.stringify(user)
+            // encryptMessage(
+            //     JSON.stringify(user) || "",
+            //     decryptMessage(
+            //         sessionStorage.getItem("sessionKey") || "",
+            //         process.env.REACT_APP_SECRET_KEY || ""
+            //     ) as string
+            // ) as string
+        );
     }, [user])
 
     return (

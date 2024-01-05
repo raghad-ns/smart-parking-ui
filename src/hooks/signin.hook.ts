@@ -37,7 +37,7 @@ const useSignin = () => {
     if (validInputs) {
       const signin = await signinService(payload, selectedRole || "");
       if (signin.state) {
-        generateRandomKey();
+        generateRandomKey("sessionKey");
         window.alert("logged in successfully!");
         sessionStorage.setItem(
           "token",

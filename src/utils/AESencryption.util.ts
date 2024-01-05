@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const generateRandomKey = () => {
+const generateRandomKey = (keyName:string) => {
   // Generate a random 256-bit (32-byte) key on mount
   const randomKey = CryptoJS.lib.WordArray.random(256 / 8);
   const keyString = CryptoJS.enc.Hex.stringify(randomKey);
@@ -14,7 +14,7 @@ const generateRandomKey = () => {
     ).toString()
   );
   sessionStorage.setItem(
-    "sessionKey",
+    keyName,
     CryptoJS.AES.encrypt(
       keyString.toString(),
       process.env.REACT_APP_SECRET_KEY || ""

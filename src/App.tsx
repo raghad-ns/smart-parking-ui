@@ -26,7 +26,7 @@ function App() {
               <Route path='/' element={<Intro />} />
               <Route path='/signin' element={<Login />} />
               <Route path='/signup' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Register /></RoleGuard>} />
-              <Route path='/home' element={<Home />} />
+              <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
               <Route path='/set-password' element={<SetPassword />} />
               <Route path='/info' element={<Info />} />
               <Route path='/email' element={<EmailSimulator />} />
