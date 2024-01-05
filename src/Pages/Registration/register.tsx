@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputAdornment } from "@mui/material";
 import { Person, CarRental, Email } from "@mui/icons-material";
 import "./register.scss";
 
-const Register = () => {
-  const [ownerName, setOwnerName] = useState<string>("");
-  const [carId, setCarId] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+import useRegistration from '../../hooks/registration.hook';
 
-  const handleRegistration = () => {
-    console.log("Owner Name:", ownerName);
-    console.log("Car ID:", carId);
-    console.log("Email:", email);
-  };
+const Register = () => {
+  const {
+    ownerName,
+    setOwnerName,
+    carId,
+    setCarId,
+    email,
+    setEmail,
+    handleRegistration,
+    buttonEnable,
+  } = useRegistration();
 
   return (
     <div className="register-form">
@@ -58,7 +61,11 @@ const Register = () => {
           placeholder="Email"
         />
       </div>
-      <button onClick={handleRegistration}> Register</button>
+      <button
+        disabled={!buttonEnable}
+        onClick={handleRegistration}
+        className={buttonEnable ? '' : 'disabled'}
+      >Register</button>
     </div>
   );
 };

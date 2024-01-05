@@ -4,6 +4,7 @@ import { Person, ArrowLeft, ArrowRight } from "@mui/icons-material";
 import { historyData } from "./Data-table";
 
 const HistoryTable = () => {
+  // eslint-disable-next-line
   const [data, setData] = useState(historyData);
   const itemsPerPage = 5; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,6 +13,7 @@ const HistoryTable = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // eslint-disable-next-line
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPageCount = Math.ceil(data.length / itemsPerPage);

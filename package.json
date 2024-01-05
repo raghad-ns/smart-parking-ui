@@ -14,6 +14,8 @@
     "@types/node": "^16.18.59",
     "@types/react": "^18.2.29",
     "@types/react-dom": "^18.2.13",
+    "@types/react-router-dom": "^5.3.3",
+    "crypto-js": "^4.2.0",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
     "svg-inline-loader": "^0.8.2"
   }
 }
