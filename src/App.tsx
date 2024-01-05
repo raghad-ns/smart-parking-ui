@@ -7,12 +7,14 @@ import Register from './Pages/Registration/register';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/home/home.page';
 import Info from './Pages/info/info.page';
+import Reflect from './Pages/Reflect/reflect';
+import Charge from './Pages/Charge-Recharge/charge-recharge';
+import Parking from './Pages/parking/parking';
+import HistoryTable from './Pages/History-table/History-table';
 import SetPassword from './Pages/setPassword/setPassword';
 import UserProvider from './providers/user.provider';
 import EmailSimulator from './Pages/email-simulator/email-simulator.page';
 import RoleGuard from './components/core/role-guard/role-guard.component';
-// import { Info } from 'Pages/info/info.page';
-
 function App() {
   return (
     <div className="App">
@@ -28,6 +30,10 @@ function App() {
               <Route path='/set-password' element={<SetPassword />} />
               <Route path='/info' element={<Info />} />
               <Route path='/email' element={<EmailSimulator />} />
+              <Route path='/parking-enrollment' element={<Parking />} />
+              <Route path='/reflect-enrollment' element={<Reflect />} />
+              <Route path='/charge-wallet' element={<Charge />} />
+              <Route path='/history' element={<HistoryTable />} />
             </Routes>
           </BrowserRouter>
         </UserProvider>
