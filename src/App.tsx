@@ -16,9 +16,9 @@ function App() {
       {/* <Intro/> */}
       {/* <Login/> */}
       {/* <Register/> */}
-      <Parking/>
+      {/* <Parking/> */}
       {/* <Reflect/> */}
-      {/* <Charge/> */}
+      <Charge/>
       {/* <HistoryTable/> */}
 
       </div>
