@@ -8,6 +8,7 @@ import Reflect from './Pages/Reflect/reflect';
 import Charge from './Pages/Charge-Recharge/charge-recharge';
 import Parking from './Pages/parking/parking';
 import HistoryTable from './Pages/History-table/History-table';
+import SetPassword from './Pages/setPassword/setPassword';
 function App() {
   return (
     <div className="App">
@@ -20,7 +21,9 @@ function App() {
       {/* <Reflect/> */}
       <Charge/>
       {/* <HistoryTable/> */}
+      <SetPassword/>
 
+      
       </div>
       </div>
   );
