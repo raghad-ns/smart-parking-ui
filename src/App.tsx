@@ -8,6 +8,7 @@ import Reflect from './Pages/Reflect/reflect';
 import Charge from './Pages/Charge-Recharge/charge-recharge';
 import Parking from './Pages/parking/parking';
 import HistoryTable from './Pages/History-table/History-table';
+import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation';
 function App() {
   return (
     <div className="App">
@@ -18,8 +19,10 @@ function App() {
       {/* <Register/> */}
       {/* <Parking/> */}
       {/* <Reflect/> */}
-      <Charge/>
+      {/* <Charge/> */}
       {/* <HistoryTable/> */}
+      <ParkingSimulationComponent/>
+      
 
       </div>
       </div>

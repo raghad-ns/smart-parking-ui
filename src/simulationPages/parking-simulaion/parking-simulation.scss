@@ -1,0 +1,82 @@
+// /* ParkingComponent.scss */
+// .parking-container {
+//     text-align: center;
+//     margin-top: 20px;
+  
+//     .parking-spots {
+//       display: flex;
+//       justify-content: center;
+//       gap: 10px;
+  
+//       .parking-spot {
+//         width: 50px;
+//         height: 50px;
+//         border: 1px solid #000;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         cursor: pointer;
+//         font-weight: bold;
+  
+//         &.available {
+//           background-color: green;
+//           color: white;
+//         }
+  
+//         &.occupied {
+//           background-color: red;
+//           color: white;
+//           cursor: not-allowed;
+//         }
+  
+//         &.selected {
+//           border: 2px solid blue;
+//         }
+//       }
+//     }
+//   }
+  
+/* ParkingList.scss */
+.parking-list-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .parking-list {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+  }
+  
+  .parking-spot {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  
+    &.available {
+      background-color: green;
+      color: white;
+    }
+  
+    &.occupied {
+      background-color: red;
+      color: white;
+    }
+  }
+  
+  .arrow {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .left {
+    transform: rotate(180deg);
+  }
+  
