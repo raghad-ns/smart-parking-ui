@@ -1,6 +1,9 @@
 import React from "react";
 import "./intro.scss";
+import { useNavigate } from "react-router-dom";
 const Intro = () => {
+  const navigate = useNavigate()
+
   return (
       <div className="content">
         <div className="text-container">
@@ -13,7 +16,7 @@ const Intro = () => {
             adipiscing elit.
           </p>
         </div>
-        <div className="button2">
+        <div className="button2" onClick={() => navigate('/signin')}>
           <span></span>
           <span></span>
           <span></span>

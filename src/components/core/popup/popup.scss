@@ -1,0 +1,10 @@
+.popUp {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgb(67 216 233 / 30%);
+    padding: 20px 40px;
+    border-radius: 12px;
+}
