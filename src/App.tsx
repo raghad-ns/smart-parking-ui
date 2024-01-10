@@ -30,10 +30,10 @@ function App() {
               <Route path='/set-password' element={<SetPassword />} />
               <Route path='/info' element={<Info />} />
               <Route path='/email' element={<EmailSimulator />} />
-              <Route path='/parking-enrollment' element={<Parking />} />
-              <Route path='/reflect-enrollment' element={<Reflect />} />
+              <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager", "Admin"]}><Parking /></RoleGuard>} />
+              <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Reflect /></RoleGuard>} />
               <Route path='/charge-wallet' element={<Charge />} />
-              <Route path='/history' element={<HistoryTable />} />
+              <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
             </Routes>
           </BrowserRouter>
         </UserProvider>
