@@ -7,12 +7,17 @@
   background-position: center;
   height: 100vh;
   width: 100%;
+
   .logo {
     position: absolute;
-    top: 10px; /* Adjust top position as needed */
-    left: 7px; /* Adjust left position as needed */
-    width: 100px; /* Set the width of the logo */
-    height: auto; /* Maintain aspect ratio */
+    top: 10px;
+    /* Adjust top position as needed */
+    left: 0px;
+    /* Adjust left position as needed */
+    width: 70px;
+    /* Set the width of the logo */
+    height: auto;
+    /* Maintain aspect ratio */
     z-index: 1;
   }
 }
