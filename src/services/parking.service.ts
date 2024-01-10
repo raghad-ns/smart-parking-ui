@@ -1,7 +1,7 @@
 import { decryptMessage } from "../utils/AESencryption.util";
 
 interface IParking {
-  customid: number | string;
+  customid: string;
   location: string;
 }
 export const parkingEnrollmentService = (parking: IParking) => {

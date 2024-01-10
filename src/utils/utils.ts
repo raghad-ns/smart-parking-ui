@@ -11,6 +11,8 @@ interface IInputs {
 export const validateInputs = (inputs: Array<IInputs>) => {
   return inputs.every((input) => {
     switch (input.type) {
+      case "customid":
+        return /^[0-9]+(?:\.[0-9]+)?$/.test(input.value);
       case "password":
         const strongRegex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
