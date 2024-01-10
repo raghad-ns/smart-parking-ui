@@ -1,23 +1,17 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { InputAdornment, MenuItem, Select } from "@mui/material";
 import { LocationOn, Label } from "@mui/icons-material";
 import "./parking.scss";
+import { useParkingEnrollment } from "../../hooks/parking.hook";
 
 const Parking = () => {
-  const [location, setLocation] = useState("");
-  const [customId, setCustomId] = useState("");
-
-  const handleAddParking = () => {
-    console.log("Location: ", location);
-    console.log("Custom-id:", customId);
-  };
-
-  const handleLocationChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setLocation(event.target.value as string);
-  };
-  const capitalizeFirstLetter = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
+  const {
+    customid,
+    location,
+    handleAddParking,
+    handleLocationChange,
+    capitalizeFirstLetter
+  } = useParkingEnrollment()
 
   return (
     <div className="parking-page">
@@ -30,7 +24,7 @@ const Parking = () => {
         <Select
           className="MuiSelect-root"
           id="location"
-          value={location}
+          value={location.value}
           onChange={(event) =>
             handleLocationChange(event as ChangeEvent<{ value: unknown }>)
           }
@@ -60,8 +54,8 @@ const Parking = () => {
         <input
           type="text"
           id="customId"
-          value={customId}
-          onChange={(e) => setCustomId(e.target.value)}
+          value={customid.value}
+          onChange={(e) => customid.setState(e.target.value)}
           placeholder="Custom-Id"
         />
       </div>
