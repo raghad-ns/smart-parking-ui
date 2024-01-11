@@ -3,7 +3,7 @@ import { UserNS } from '../typess/user.type';
 // import { decryptMessage, encryptMessage, generateRandomKey } from '../utils/AESencryption.util';
 
 interface IState {
-    setUser?: React.Dispatch<React.SetStateAction<UserNS.User | undefined>>,
+    setUser?: React.Dispatch<React.SetStateAction<UserNS.User | undefined | {}>>,
     user?: UserNS.User;
 }
 export const UserContext: React.Context<IState> = React.createContext({});
