@@ -1,82 +1,297 @@
-// /* ParkingComponent.scss */
-// .parking-container {
-//     text-align: center;
-//     margin-top: 20px;
-  
-//     .parking-spots {
-//       display: flex;
-//       justify-content: center;
-//       gap: 10px;
-  
-//       .parking-spot {
-//         width: 50px;
-//         height: 50px;
-//         border: 1px solid #000;
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         cursor: pointer;
-//         font-weight: bold;
-  
-//         &.available {
-//           background-color: green;
-//           color: white;
-//         }
-  
-//         &.occupied {
-//           background-color: red;
-//           color: white;
-//           cursor: not-allowed;
-//         }
-  
-//         &.selected {
-//           border: 2px solid blue;
-//         }
-//       }
-//     }
-//   }
-  
-/* ParkingList.scss */
-.parking-list-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .parking-list {
-    display: flex;
-    gap: 10px;
-    overflow: hidden;
-  }
-  
-  .parking-spot {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  
-    &.available {
-      background-color: green;
-      color: white;
-    }
-  
-    &.occupied {
-      background-color: red;
-      color: white;
+.body {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  //   position: relative;
+
+  .sky {
+    height: 40%;
+    background: #303a59;
+    // display: flex;/
+    // justify-content: space-evenly;
+    // align-items: center;
+   .moon{ color: #fff;
+    width: 120px;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    // font-size: 2rem;
+    margin-right: 20px;
+    
+   }
+   .star1{
+    position: absolute;
+    top: 50px;
+    left: 45%;
+    width: 80px;
+   }
+   
+   .star{
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    // width: 80px;
+   }
+    .cloud-icon {
+      color: #fff;
+      width: 200px;
+      font-size: 6rem;
+      margin-right: 20px;
     }
   }
-  
-  .arrow {
-    border: none;
-    background: transparent;
-    font-size: 24px;
-    cursor: pointer;
+
+  .grass {
+    height: 30%;
+    background: rgb(1, 80, 35);
+    // position: relative;
+    z-index: 1;
   }
-  
-  .left {
-    transform: rotate(180deg);
+
+  .road {
+    height: 30%;
+    background: rgb(79, 78, 78);
+    box-sizing: border-box;
+    border-top: 10px solid rgb(93, 90, 90);
+    border-bottom: 10px solid rgb(71, 69, 69);
+    width: 100%;
+    position: relative;
+    z-index: 2;
+
+    .lines {
+      box-sizing: border-box;
+      border: 5px dashed #acacac;
+      height: 0px;
+      width: 100%;
+      position: absolute;
+      top: 45%;
+    }
+
+    .car-icon {
+      font-size: 2rem;
+      position: absolute;
+      bottom: 10px;
+      left: 2px;
+      transform: translateX(-50%);
+    }
+    // .car-animation {
+    //     left: calc(${selectedParkPosition}px - 2rem); /* Assuming the car width is 2rem */
+    //   }
+      
+    .car-animation {
+      animation: moveCar 7s linear forwards; /* Adjust the duration as needed */
+    // position: absolute;
+    // top: -90px;
+    animation-fill-mode: forwards; /* Maintain the final position after animation */
+
+    }
+    .car-stopped {
+        position: absolute;
+        top: -90px;
+      }
+
+    @keyframes moveCar {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(600%);
+      }
+    }
+}
+  .connect {
+    position: absolute;
+    top: 300px; /* Adjust top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    img {
+      width: 50px;
+    }
   }
-  
+
+  .parkmeter {
+    display: flex;
+    width: 100%;
+    // background-color: #00A9C2;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 53%; /* Adjust top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    button {
+      .parkmeter-Info {
+        // background-color: #00a9c2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: #ffffff;
+        font-size: 13px;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-weight: 600;
+      }
+      img {
+        width: 60px;
+      }
+      border: none;
+      background-color: rgba(250, 235, 215, 0);
+      .avilableParkMeter {
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White shadow effect */
+        }
+      }
+      .disabledParkMeter {
+        position: relative;
+        &:hover {
+          cursor: no-drop;
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); /* White shadow effect */
+        }
+        .no-signal-icon {
+          max-width: 30px;
+          position: absolute;
+          right: 10px;
+          top: -35px;
+        }
+      }
+    }
+  }
+}
+
+//connection symbol
+.wifi-symbol {
+  display: flex;
+  position: absolute;
+  top: 265px;
+  right: 310px;
+  z-index: 10;
+}
+
+.wifi-symbol [foo],
+.wifi-symbol {
+  display: inline-block;
+  // width: .01px;
+  // height: .5rem;
+  -ms-transform: rotate(-45deg) translate(-100px);
+  -moz-transform: rotate(-45deg) translate(-100px);
+  -o-transform: rotate(-45deg) translate(-100px);
+  -webkit-transform: rotate(-45deg) translate(-100px);
+  transform: rotate(-45deg) translate(-100px);
+}
+
+.wifi-symbol .wifi-circle {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 7.42857px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-color: rgb(1, 36, 177);
+  border-style: solid;
+  border-width: 1em 1em 0 0;
+  -webkit-border-radius: 0 100% 0 0;
+  border-radius: 0 100% 0 0;
+  opacity: 0;
+  -o-animation: wifianimation 2s infinite;
+  -moz-animation: wifianimation 2s infinite;
+  -webkit-animation: wifianimation 2s infinite;
+  animation: wifianimation 2s infinite;
+}
+
+.wifi-symbol .wifi-circle.first {
+  -o-animation-delay: 800ms;
+  -moz-animation-delay: 800ms;
+  -webkit-animation-delay: 800ms;
+  animation-delay: 800ms;
+}
+
+.wifi-symbol .wifi-circle.second {
+  width: 5em;
+  height: 5em;
+  -o-animation-delay: 400ms;
+  -moz-animation-delay: 400ms;
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}
+
+.wifi-symbol .wifi-circle.third {
+  width: 3em;
+  height: 3em;
+}
+
+.wifi-symbol .wifi-circle.fourth {
+  width: 1em;
+  height: 1em;
+  opacity: 1;
+  background-color: #00a9c2;
+  -o-animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  animation: none;
+}
+
+@-o-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@-moz-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@-webkit-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
