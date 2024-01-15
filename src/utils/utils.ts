@@ -11,6 +11,10 @@ interface IInputs {
 export const validateInputs = (inputs: Array<IInputs>) => {
   return inputs.every((input) => {
     switch (input.type) {
+      case "mobileNo":
+        return /^05\d{8}$/.test(input.value);
+      case "number":
+        return /^\d+$/.test(input.value);
       case "customid":
         return /^[0-9]+(?:\.[0-9]+)?$/.test(input.value);
       case "password":

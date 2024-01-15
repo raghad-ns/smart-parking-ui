@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { signinService } from "../services/user.service";
 import { IUser } from "../types/users.types";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,14 @@ const useSignin = () => {
   const navigate = useNavigate();
 
   const [selectedRole, setSelectedRole] = useState<string | null>("user");
+
+  useEffect(() => {
+    if (userContext.user?.id) {
+      window.alert("you are already signed in");
+      navigate("/home");
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const handleRoleSelection = (role: string) => {
     setSelectedRole(role);
