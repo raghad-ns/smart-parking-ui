@@ -11,28 +11,28 @@
     // display: flex;/
     // justify-content: space-evenly;
     // align-items: center;
-   .moon{ color: #fff;
-    width: 120px;
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    // font-size: 2rem;
-    margin-right: 20px;
-    
-   }
-   .star1{
-    position: absolute;
-    top: 50px;
-    left: 45%;
-    width: 80px;
-   }
-   
-   .star{
-    position: absolute;
-    top: 90px;
-    left: 50%;
-    // width: 80px;
-   }
+    .moon {
+      color: #fff;
+      width: 120px;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      // font-size: 2rem;
+      margin-right: 20px;
+    }
+    .star1 {
+      position: absolute;
+      top: 50px;
+      left: 45%;
+      width: 80px;
+    }
+
+    .star {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      // width: 80px;
+    }
     .cloud-icon {
       color: #fff;
       width: 200px;
@@ -77,18 +77,18 @@
     // .car-animation {
     //     left: calc(${selectedParkPosition}px - 2rem); /* Assuming the car width is 2rem */
     //   }
-      
+
     .car-animation {
       animation: moveCar 7s linear forwards; /* Adjust the duration as needed */
-    // position: absolute;
-    // top: -90px;
-    animation-fill-mode: forwards; /* Maintain the final position after animation */
-
+      // position: absolute;
+      // top: -90px;
+      animation-fill-mode: forwards; /* Maintain the final position after animation */
     }
     .car-stopped {
-        position: absolute;
-        top: -90px;
-      }
+      position: absolute;
+      top: -90px;
+      left: 65%;
+    }
 
     @keyframes moveCar {
       0% {
@@ -98,7 +98,7 @@
         transform: translateX(600%);
       }
     }
-}
+  }
   .connect {
     position: absolute;
     top: 300px; /* Adjust top position as needed */
@@ -141,14 +141,14 @@
       .avilableParkMeter {
         &:hover {
           cursor: pointer;
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White shadow effect */
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
         }
       }
       .disabledParkMeter {
         position: relative;
         &:hover {
           cursor: no-drop;
-          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); /* White shadow effect */
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); 
         }
         .no-signal-icon {
           max-width: 30px;
@@ -157,17 +157,40 @@
           top: -35px;
         }
       }
+      .deservedParkMeter {
+        position: relative;
+        // width: 500px;
+        // background-color: #00a9c2;
+        &:hover {
+          cursor: no-drop;
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); 
+        }
+        
+        .blackCar{
+          position: absolute;
+          bottom:-70px;
+          right: -3px;
+          font-size: 2rem;
+          // background-color: #00a9c2;
+          img{
+            font-size: 2rem;
+            width: 120px;
+          }
+          
+        }
+        //connection symbol
+      }
     }
   }
 }
-
-//connection symbol
 .wifi-symbol {
   display: flex;
+  max-width:30px ;
   position: absolute;
-  top: 265px;
-  right: 310px;
-  z-index: 10;
+  left: 103px;
+  top: -75px;
+  // right: 310px;
+  // z-index: 10;
 }
 
 .wifi-symbol [foo],
@@ -192,7 +215,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  border-color: rgb(1, 36, 177);
+  border-color: rgb(38, 72, 209);
   border-style: solid;
   border-width: 1em 1em 0 0;
   -webkit-border-radius: 0 100% 0 0;
@@ -295,3 +318,293 @@
     opacity: 0.1;
   }
 }
+// TIMERCLOCKL
+// @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400);
+
+// // * {
+// //   box-sizing: border-box;
+// // }
+
+// // html {
+// //   background: #111 url(https://codepen.io/images/classy_fabric.png);
+// //   color: #fff;
+// //   font-family: 'Yanone Kaffeesatz', sans-serif;
+// // }
+
+// // body {
+// //   padding: 20px;
+// // }
+
+// .timer-group {
+//   color: #fff;
+//   background-color: #111;
+//   height: 400px;
+//   margin: 0 auto;
+//   position: absolute;
+//   width: 400px;
+// }
+// .timer-group {
+//   color: #fff;
+//   // background-color: #111;
+//   // height: 50px; /* Adjust the height as needed */
+//   margin: 0 auto;
+//   position: absolute;
+//   width: 5px; /* Adjust the width as needed */
+//   top: 20px; /* Adjust the top position to position it in the sky */
+//   left: 50%; /* Center the clock horizontally */
+//   transform: translateX(-50%);
+// }
+
+// .timer {
+//   border-radius: 50%;
+//   height: 100px;
+//   overflow: hidden;
+//   position: absolute;
+//   width: 100px;
+// }
+
+// .timer:after {
+//   background: #111 url(https://codepen.io/images/classy_fabric.png);
+//   border-radius: 50%;
+//   content: "";
+//   display: block;
+//   height: 80px;
+//   left: 10px;
+//   position: absolute;
+//   width: 80px;
+//   top: 10px;
+// }
+
+// .timer .hand {
+//   float: left;
+//   height: 100%;
+//   overflow: hidden;
+//   position: relative;
+//   width: 50%;
+// }
+
+// .timer .hand span {
+//   border: 50px solid rgba(0, 255, 255, .4);
+//   border-bottom-color: transparent;
+//   border-left-color: transparent;
+//   border-radius: 50%;
+//   display: block;
+//   height: 0;
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+//   transform: rotate(225deg);
+//   width: 0;
+// }
+
+// .timer .hand:first-child {
+//   transform: rotate(180deg);
+// }
+
+// .timer .hand span {
+//   animation-duration: 4s;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: linear;
+// }
+
+// .timer .hand:first-child span {
+//   animation-name: spin1;
+// }
+
+// .timer .hand:last-child span {
+//   animation-name: spin2; 
+// }
+
+// .timer-group {
+//   color: #fff;
+//   position: absolute;
+//   top: 20px;
+//   left: 50%;
+//   transform: translateX(-50%);
+// }
+.timer-group {
+  color: #fff;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+}
+
+.timer {
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.timer:after {
+  background: #111 url(https://codepen.io/images/classy_fabric.png);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 10px;
+  left: 10px;
+  position: absolute;
+  width: 10px;
+  top: 10px;
+}
+
+.timer .hand {
+  float: left;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 50%;
+}
+
+.timer .hand span {
+  border: 5px solid rgba(30, 232, 232, 0.4);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-radius: 50%;
+  display: block;
+  height: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: rotate(225deg);
+  width: 0;
+}
+
+.timer .hand:first-child {
+  transform: rotate(180deg);
+}
+
+.timer .hand span {
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.timer .hand:first-child span {
+  animation-name: spin1;
+}
+
+.timer .hand:last-child span {
+  animation-name: spin2; 
+}
+
+
+.timer.hour {
+  background: rgba(0, 0, 0, .3);
+  height: 400px;
+  left: 0;
+  width: 400px;
+  top: 0;
+}
+
+.timer.hour .hand span {
+  animation-duration: 3600s;
+  border-top-color: rgba(255, 0, 255, .4);
+  border-right-color: rgba(255, 0, 255, .4);
+  border-width: 200px;
+}
+
+.timer.hour:after {
+  height: 360px;
+  left: 20px;
+  width: 360px;
+  top: 20px;
+}
+
+.timer.minute {
+  background: rgba(0, 0, 0, .2);
+  height: 350px;
+  left: 25px;
+  width: 350px;
+  top: 25px;
+}
+
+.timer.minute .hand span {
+  animation-duration: 60s;
+  border-top-color: rgba(0, 255, 255, .4);
+  border-right-color: rgba(0, 255, 255, .4);
+  border-width: 175px;
+}
+
+.timer.minute:after {
+  height: 310px;
+  left: 20px;
+  width: 310px;
+  top: 20px;
+}
+
+.timer.second {
+  background: rgba(0, 0, 0, .2);
+  height: 300px;
+  left: 50px;
+  width: 300px;
+  top: 50px;
+}
+
+.timer.second .hand span {
+  animation-duration: 1s;
+  border-top-color: rgba(255, 255, 255, .15);
+  border-right-color: rgba(255, 255, 255, .15);
+  border-width: 150px;
+}
+
+.timer.second:after {
+  height: 296px;
+  left: 2px;
+  width: 296px;
+  top: 2px;
+}
+
+.face {
+  // background: rgba(0, 0, 0, .1);
+  // border-radius: 50%;
+  height: 296px;
+  left: 52px;
+  position: absolute;
+  width: 296px;
+  text-align: center;
+  top: 52px;
+}
+
+.face h2 {
+  font-weight: 300; 
+}
+
+.face p {
+  border-radius: 20px;
+  font-size: 76px;
+  font-weight: 400;
+  position: absolute;
+  top: 17px;
+  width: 260px;
+  left: 20px;
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(225deg);
+  }
+  50% {
+    transform: rotate(225deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(225deg);
+  }
+  50% {
+    transform: rotate(405deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+
