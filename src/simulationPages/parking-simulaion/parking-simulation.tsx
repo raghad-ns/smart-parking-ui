@@ -49,6 +49,7 @@ const ParkingSimulationComponent: React.FC = () => {
     // After 5 seconds, change the park status and show wifi symbol
     setTimeout(() => {
       updateParkStatus(parkId);
+      setStartDate(new Date())
     }, 5000);
   };
 
@@ -56,7 +57,7 @@ const ParkingSimulationComponent: React.FC = () => {
   const one_minute = one_second * 60;
   const one_hour = one_minute * 60;
 
-  const [startDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   const faceRef = useRef<HTMLParagraphElement | null>(null);
 
   const requestAnimationFrameRef = useRef<number | null>(null);
@@ -105,7 +106,7 @@ const ParkingSimulationComponent: React.FC = () => {
 
   //   if (timerStarted && selectedPark && startedTimers.includes(selectedPark)) {
   //     console.log("start tick");
-      
+
   //     tick();
   //   }
 
@@ -192,7 +193,7 @@ const ParkingSimulationComponent: React.FC = () => {
                       <p id="lazy">{parts.join(":")}</p>
                     </div>
                   </div>
-                  <button className="button-84" role="button">
+                  <button className="button-84">
                     Leave 🧭
                   </button>
                 </div>
