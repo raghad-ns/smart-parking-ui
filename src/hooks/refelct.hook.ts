@@ -22,7 +22,6 @@ export const useReflect = () => {
         const reflect = await reflectEnrollmentService({
           owner,
           password,
-          code: "fdsf",
           mobileNo: phone,
           amount: Number(amount),
           cofirm_password: confirmPassword,

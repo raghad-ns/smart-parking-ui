@@ -5,7 +5,6 @@ interface IReflect {
   mobileNo: string;
   password: string;
   cofirm_password: string;
-  code: string;
   amount: number;
 }
 export const reflectEnrollmentService = (reflectAccount: IReflect) => {
