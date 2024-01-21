@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { signupService } from "../services/user.service";
 import { validateInputs } from "../utils/utils";
 
@@ -8,7 +7,6 @@ const useRegistration = () => {
   const [carId, setCarId] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [buttonEnable, setButtonEnable] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const checkButtonEnable = () => {
     setButtonEnable(ownerName !== "" && carId !== "" && email !== "");
@@ -29,7 +27,8 @@ const useRegistration = () => {
           signup.value.data.passwordLink
         );
         window.alert("Car added successfully! set your password");
-        navigate("/email");
+        const newTab: Window = window.open("", "_blank") as Window;
+        newTab.location.href = "/email";
       }
     } else {
       window.alert("Invalid inputs format, please check your data!");
