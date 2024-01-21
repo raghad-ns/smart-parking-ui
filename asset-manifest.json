@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/smart-parking-ui/static/css/main.3bd8dea7.css",
+    "main.js": "/smart-parking-ui/static/js/main.d10b11a1.js",
+    "static/js/787.2739153f.chunk.js": "/smart-parking-ui/static/js/787.2739153f.chunk.js",
+    "static/media/pg.png": "/smart-parking-ui/static/media/pg.d11ba52401f938541a8d.png",
+    "static/media/ps-logo.png": "/smart-parking-ui/static/media/ps-logo.edd231b3c0fa36bcf86c.png",
+    "index.html": "/smart-parking-ui/index.html",
+    "main.3bd8dea7.css.map": "/smart-parking-ui/static/css/main.3bd8dea7.css.map",
+    "main.d10b11a1.js.map": "/smart-parking-ui/static/js/main.d10b11a1.js.map",
+    "787.2739153f.chunk.js.map": "/smart-parking-ui/static/js/787.2739153f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3bd8dea7.css",
+    "static/js/main.d10b11a1.js"
+  ]
+}
