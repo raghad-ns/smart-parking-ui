@@ -1,23 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./parking-simulation.scss";
-import DriveEtaIcon from "@mui/icons-material/DriveEta";
-import CloudIcon from "@mui/icons-material/Cloud";
-import Parkmeter from "./parkingData";
+// import CloudIcon from "@mui/icons-material/Cloud";
 import car from "../../sport-car.png";
-import parkmeterDatafile from "./parkingData";
+import {
+  parkmeterDatafile,
+  Parkmeter,
+  Vehicle,
+  vehicleData,
+} from "./parkingData";
 import parkmeterImage from "../../parking-meter (4).png";
 import disabledParkMeterImage from "../../parking-meter (3).png";
 import noSignalImage from "../../no-signal.png";
 import moon from "../../moon.png";
-import moon2 from "../../cloudy-night.png";
 import star from "../../stars.png";
 import blackCar from "../../blackCar.png";
-import { log } from "console";
-import { WidthFull } from "@mui/icons-material";
-
 
 const ParkingSimulationComponent: React.FC = () => {
-  const [isMoving, setIsMoving] = useState(false);
   const [selectedPark, setSelectedPark] = useState<number | null>(null);
   const [parkmeterData, setParkmeterData] = useState(parkmeterDatafile);
   const [startedTimers, setStartedTimers] = useState<number[]>([]);
@@ -25,32 +23,58 @@ const ParkingSimulationComponent: React.FC = () => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
 
+  const [selectedVehicle, setSelectedVehicle] = useState(0);
+  const [isVehicleSelected, setIsVehicleSelected] = useState(false);
 
-  const handleStopClick = () => {
-    setIsMoving(false);
-    console.log("move1", isMoving);
+  const handleActiveParkmeter = (ele: Parkmeter) => {
+    if (selectedVehicle === 0) {
+      alert("You must select a car first!");
+    } else if (ele.status === "Available") {
+      setIsVehicleSelected(false);
+      // connect car to park meter
+
+      const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+      const meter = document.getElementById(`parkmeter-${ele.id}`);
+
+      if (meter !== null && vehicle !== null) {
+        const vehicleBounds = vehicle.getBoundingClientRect();
+        const meterBounds = meter.getBoundingClientRect();
+
+        const horizontalDistance = meterBounds.left - vehicleBounds.right;
+        const verticalDistance = meterBounds.top - vehicleBounds.bottom;
+
+        // logic is in progress...
+        if (horizontalDistance < 0) {
+          vehicle.style.transform = "";
+        } else {
+          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${
+            verticalDistance + 150
+          }px) `;
+        }
+      }
+    }
+
+    setSelectedPark(ele.id);
+    // After 7 seconds, change the park status and show wifi symbol
+    setTimeout(() => {
+      updateParkStatus(ele.id);
+      setStartDate(new Date());
+    }, 7000);
+  };
+
+  const handleBlueCar = (ele: Vehicle) => {
+    setSelectedVehicle((prev) => (prev === ele.id ? 0 : ele.id));
+    setIsVehicleSelected(true);
   };
 
   const updateParkStatus = (parkId: number) => {
-    setParkmeterData((prevParkmeterData) => {
-      return prevParkmeterData.map((park) =>
+    setParkmeterData((prevParkmeterData: any) => {
+      return prevParkmeterData.map((park: any) =>
         park.id === parkId ? { ...park, status: "Deserved" } : park
       );
     });
     setStartedTimers((prevStartedTimers) => [...prevStartedTimers, parkId]);
     setTimerStarted(true);
-  };
-
-  const handleParkSelect = (parkId: number) => {
-    console.log(parkId);
-    setIsMoving(true);
-    setSelectedPark(parkId);
-
-    // After 5 seconds, change the park status and show wifi symbol
-    setTimeout(() => {
-      updateParkStatus(parkId);
-      setStartDate(new Date())
-    }, 5000);
   };
 
   const one_second = 1000;
@@ -86,7 +110,9 @@ const ParkingSimulationComponent: React.FC = () => {
       return;
     }
 
-    const selectedParkData = parkmeterData.find((park) => park.id === selectedPark);
+    const selectedParkData = parkmeterData.find(
+      (park: any) => park.id === selectedPark
+    );
 
     if (timerStarted && selectedPark && startedTimers.includes(selectedPark)) {
       tick();
@@ -98,24 +124,6 @@ const ParkingSimulationComponent: React.FC = () => {
       }
     };
   }, [parkmeterData, selectedPark, startedTimers, timerStarted, initialRender]);
-
-  // useEffect(() => {
-  //   const selectedParkData = parkmeterData.find(
-  //     (park) => park.id === selectedPark
-  //   );
-
-  //   if (timerStarted && selectedPark && startedTimers.includes(selectedPark)) {
-  //     console.log("start tick");
-
-  //     tick();
-  //   }
-
-  //   return () => {
-  //     if (requestAnimationFrameRef.current) {
-  //       cancelAnimationFrame(requestAnimationFrameRef.current);
-  //     }
-  //   };
-  // }, [parkmeterData, selectedPark, startedTimers, timerStarted]);
 
   return (
     <div className="body">
@@ -131,10 +139,11 @@ const ParkingSimulationComponent: React.FC = () => {
       </div>
       <div className="grass"></div>
       <div className="parkmeter">
-        {parkmeterData.map((meter) => (
+        {parkmeterData.map((meter: any) => (
           <button
             key={meter.id}
-            onClick={() => handleParkSelect(meter.id)}
+            onClick={() => handleActiveParkmeter(meter)}
+            id={`parkmeter-${meter.id}`}
             disabled={
               meter.status === "Disabled" || meter.status === "Deserved"
             }
@@ -193,9 +202,7 @@ const ParkingSimulationComponent: React.FC = () => {
                       <p id="lazy">{parts.join(":")}</p>
                     </div>
                   </div>
-                  <button className="button-84">
-                    Leave 🧭
-                  </button>
+                  <button className="button-84">Leave 🧭</button>
                 </div>
               )}
               {meter.status === "Disabled" && (
@@ -222,18 +229,28 @@ const ParkingSimulationComponent: React.FC = () => {
       </div>
       <div className="road">
         <div className="lines"></div>
-
-        <div
-          className={`car-icon ${isMoving ? "car-animation" : "car-stopped"}`}
-          onClick={handleStopClick}
-        >
-          <img src={car} alt="car" />
-        </div>
+        {vehicleData.map((ele) => (
+          <div
+            className="vehicle"
+            key={ele.id}
+            id={`vehicle-${ele.id}`}
+            onClick={() => handleBlueCar(ele)}
+          >
+            {selectedVehicle === ele.id && isVehicleSelected && (
+              <div className="vehicle-is-selected">Selected!</div>
+            )}
+            <img
+              src={car}
+              alt=""
+              className={`vehicle-image car ${
+                selectedVehicle === ele.id ? "vehicle-is-active" : ""
+              }`}
+            />
+          </div>
+        ))}
       </div>
-      //timer
     </div>
   );
 };
-
 
 export default ParkingSimulationComponent;
