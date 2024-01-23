@@ -17,6 +17,7 @@ import RoleGuard from './components/core/role-guard/role-guard.component';
 import Header from './components/core/header/header';
 import OTPForm from './Pages/OTP/OTP.page';
 import OTPMessage from './Pages/otp-message/otp-message.page';
+import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,7 @@ function App() {
               <Route path='/otp' element={<OTPForm />} />
               <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager", "Admin"]}><Parking /></RoleGuard>} />
               <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
+              <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
               <Route path='/charge-wallet' element={<Charge />} />
               <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
             </Routes>

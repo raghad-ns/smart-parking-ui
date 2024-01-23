@@ -35,6 +35,40 @@ export const signupService = (carObject: IUser) => {
     });
 };
 
+interface IManager {
+  Email: string;
+  Name: string;
+}
+export const managerEnrollment = (manager: IManager) => {
+  const token = decryptMessage(
+    sessionStorage.getItem("token") || "",
+    decryptMessage(
+      sessionStorage.getItem("sessionKey") || "",
+      process.env.REACT_APP_SECRET_KEY || ""
+    ) as string
+  ) as string;
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/home/manager/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token || "",
+    },
+    body: JSON.stringify({ ...manager }),
+  })
+    .then(async (response) => {
+      try {
+        return { state: response.status === 201, value: await response.json() };
+      } catch (error) {
+        console.error(error);
+        return { state: false, value: {} };
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return { state: false, value: {} };
+    });
+};
+
 export const signinService = (userObject: IUser, role: string) => {
   return fetch(`${process.env.REACT_APP_SERVER_URL}/home/${role}/signin`, {
     method: "POST",

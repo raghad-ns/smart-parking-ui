@@ -1,21 +1,19 @@
 import React from "react";
 import { InputAdornment } from "@mui/material";
-import { Person, CarRental, Email } from "@mui/icons-material";
-import "./register.scss";
+import { Person, Email } from "@mui/icons-material";
+import "./manager-enrollment.scss";
 
 import useRegistration from '../../hooks/registration.hook';
 
-const Register = () => {
+const ManagerEnrollment = () => {
   const {
     ownerName,
     setOwnerName,
-    carId,
-    setCarId,
     email,
     setEmail,
-    handleRegistration,
+    handleManagerEnrollment,
     buttonEnable,
-  } = useRegistration('car');
+  } = useRegistration('manager');
 
   return (
     <div className="register-form">
@@ -30,21 +28,7 @@ const Register = () => {
           id="ownerName"
           value={ownerName}
           onChange={(e) => setOwnerName(e.target.value)}
-          placeholder="Owner-Name"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <CarRental className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="carId"
-          value={carId}
-          onChange={(e) => setCarId(e.target.value)}
-          placeholder="Car-ID"
+          placeholder="Name"
         />
       </div>
       <div className="input-group">
@@ -63,11 +47,11 @@ const Register = () => {
       </div>
       <button
         disabled={!buttonEnable}
-        onClick={handleRegistration}
+        onClick={handleManagerEnrollment}
         className={buttonEnable ? '' : 'disabled'}
-      >Register</button>
+      >Enroll manager</button>
     </div>
   );
 };
 
-export default Register;
+export default ManagerEnrollment;
