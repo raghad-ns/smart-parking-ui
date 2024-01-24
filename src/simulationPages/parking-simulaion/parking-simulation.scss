@@ -80,27 +80,36 @@
       top: 45%;
     }
 
-    .car-icon {
-      font-size: 2rem;
-      position: absolute;
-      bottom: 10px;
-      left: 2px;
-      transform: translateX(-50%);
+    .vehicle {
+      z-index: 1000;
+      position: relative;
+      width: 140px;
+      margin-left: 20px;
+      cursor: pointer;
+      transition: transform 7s ease-in-out;
     }
-    // .car-animation {
-    //     left: calc(${selectedParkPosition}px - 2rem); /* Assuming the car width is 2rem */
-    //   }
 
-    .car-animation {
-      animation: moveCar 7s linear forwards; /* Adjust the duration as needed */
+    .vehicle-image {
+      width: 100%;
       // position: absolute;
-      // top: -90px;
-      animation-fill-mode: forwards; /* Maintain the final position after animation */
+      // top: 2px;
+      // right: 120px;
+      max-width: 100%;
+      max-height: 100%;
     }
-    .car-stopped {
+
+    .vehicle-is-selected {
       position: absolute;
-      top: -90px;
-      left: 65%;
+      top: -10px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid black;
+      background-color: rgb(2, 2, 2);
+      padding: 5px;
+      border-radius: 12px;
+      color: #ffffff;
     }
 
     @keyframes moveCar {
@@ -154,14 +163,14 @@
       .avilableParkMeter {
         &:hover {
           cursor: pointer;
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
       }
       .disabledParkMeter {
         position: relative;
         &:hover {
           cursor: no-drop;
-          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); 
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8);
         }
         .no-signal-icon {
           max-width: 30px;
@@ -176,22 +185,20 @@
         // background-color: #00a9c2;
         &:hover {
           cursor: no-drop;
-          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8); 
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8);
         }
-        
-        .blackCar{
+
+        .blackCar {
           position: absolute;
-          bottom:-70px;
+          bottom: -70px;
           right: -3px;
           font-size: 2rem;
           // background-color: #00a9c2;
-          img{
+          img {
             font-size: 2rem;
             width: 120px;
           }
-          
         }
-        //connection symbol
       }
     }
   }
@@ -199,7 +206,7 @@
 //wifi
 .wifi-symbol {
   display: flex;
-  max-width:30px ;
+  max-width: 30px;
   position: absolute;
   left: 103px;
   top: -75px;
@@ -351,7 +358,7 @@
 }
 
 .timer:after {
-  background: #111 ;
+  background: #111;
   border-radius: 50%;
   content: "";
   display: block;
@@ -403,7 +410,7 @@
 }
 
 .timer.hour {
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
   height: 130px; /* Adjust the height as needed */
   left: 0;
   width: 130px; /* Adjust the width as needed */
@@ -412,8 +419,8 @@
 
 .timer.hour .hand span {
   animation-duration: 3600s;
-  border-top-color: rgba(255, 0, 255, .4);
-  border-right-color: rgba(255, 0, 255, .4);
+  border-top-color: rgba(255, 0, 255, 0.4);
+  border-right-color: rgba(255, 0, 255, 0.4);
   border-width: 60px; /* Adjust the border-width as needed */
 }
 
@@ -425,7 +432,7 @@
 }
 
 .timer.minute {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   height: 110px; /* Adjust the height as needed */
   left: 12.5px;
   width: 110px; /* Adjust the width as needed */
@@ -434,8 +441,8 @@
 
 .timer.minute .hand span {
   animation-duration: 60s;
-  border-top-color: rgba(0, 255, 255, .4);
-  border-right-color: rgba(0, 255, 255, .4);
+  border-top-color: rgba(0, 255, 255, 0.4);
+  border-right-color: rgba(0, 255, 255, 0.4);
   border-width: 52.5px; /* Adjust the border-width as needed */
 }
 
@@ -447,7 +454,7 @@
 }
 
 .timer.second {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   height: 90px; /* Adjust the height as needed */
   left: 25px;
   width: 90px; /* Adjust the width as needed */
@@ -456,13 +463,10 @@
 
 .timer.second .hand span {
   animation-duration: 1s;
-  border-top-color: rgba(255, 255, 255, .15);
-  border-right-color: rgba(255, 255, 255, .15);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-right-color: rgba(255, 255, 255, 0.15);
   border-width: 45px; /* Adjust the border-width as needed */
 }
-
-
-
 
 .timer.second:after {
   height: 80px; /* Adjust the height as needed */
@@ -481,7 +485,7 @@
   text-align: center;
   justify-content: center;
   top: 26px;
-  span{
+  span {
     position: absolute;
     font-size: x-small;
     top: 50px;
@@ -523,23 +527,25 @@
     transform: rotate(405deg);
   }
 }
-//buttton leave 
+//buttton leave
 .button-84 {
   position: absolute;
-  top:160px;
+  top: 160px;
   right: 60px;
   align-items: center;
   background-color: initial;
   background-image: linear-gradient(#000000, #25292e);
   border-radius: 8px;
   border-width: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-flex;
   flex-direction: column;
-  font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: expo-brand-demi, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 13px;
   font-weight: 500;
   height: 40px;
@@ -561,8 +567,8 @@
 }
 
 .button-84:hover {
-  box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
-  opacity: .85;
+  box-shadow: rgba(0, 1, 0, 0.2) 0 2px 8px;
+  opacity: 0.85;
 }
 
 .button-84:active {
@@ -570,7 +576,7 @@
 }
 
 .button-84:focus {
-  box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 3px;
 }
 
 @media (max-width: 420px) {
@@ -579,7 +585,7 @@
   }
 }
 
-.clock-leave{
+.clock-leave {
   // background-color: #153aac;
   position: absolute;
   bottom: 240%;

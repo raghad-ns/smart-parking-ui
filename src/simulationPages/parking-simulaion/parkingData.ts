@@ -1,16 +1,26 @@
-// ParkingData.ts
+import car from "../../sport-car.png";
+
 export interface Parkmeter {
   id: number;
-  status: 'Available' | 'Disabled'|'Deserved';
+  status: "Available" | "Disabled" | "Deserved";
   connection: boolean;
 }
 
-const parkmeterDatafile: Parkmeter[] = [
-  { id: 1, status: 'Available', connection: false },
-  { id: 2, status: 'Deserved', connection: false },
-  { id: 3, status: 'Disabled', connection: false },
-  { id: 4, status: 'Available', connection: false },
-  { id: 5, status: 'Disabled', connection: false },
+export interface Vehicle {
+  id: number;
+  imageUrl: string;
+  connection: boolean;
+}
+
+export const parkmeterDatafile: Parkmeter[] = [
+  { id: 1, status: "Deserved", connection: false },
+  { id: 2, status: "Available", connection: false },
+  { id: 3, status: "Disabled", connection: false },
+  { id: 4, status: "Available", connection: false },
+  { id: 5, status: "Disabled", connection: false },
 ];
 
-export default parkmeterDatafile;
+export const vehicleData: Vehicle[] = [
+  { id: 1, imageUrl: car, connection: false },
+  //{ id: 2, imageUrl: blackCar, connection: false },
+];
