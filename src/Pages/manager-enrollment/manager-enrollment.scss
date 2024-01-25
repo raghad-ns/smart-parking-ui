@@ -3,13 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  position: absolute;
-  top: 25%;
-  left: 20%;
   user-select: none;
-  height: max-content;
-  width: 300px;
-  padding: 0 20px; /* Adjust left padding to position the form to the left */
 
 
   
@@ -24,51 +18,28 @@
       padding: 14px 25px;
       border-radius: 5px;
       border: none;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.2);
       margin-bottom: 10px;
       font-size: larger;
 
       &::placeholder {
-        color: #ffffff;
-        font-family: "Montserrat";
+        color: #1f406599;
+        // font-family: "Montserrat";
         font-style: normal;
       }
 
       &:not(:placeholder-shown) {
-        color: white;
-        font-family: "Montserrat";
+        color: #1f4065;
+        // font-family: "Montserrat";
         font-style: normal;
       }
     }
   }
 
-  button {
-    width: 290px;
-    margin-bottom: 5px;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(161, 0, 161, 0.4);
-    color: #ffffff;
-    text-shadow: 1px 1px 7px white; /* Add white shadow effect */
-    font-family: "Montserrat";
-    font-style: normal;
-    font-size: larger;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background: linear-gradient(
-        268.29deg,
-        rgba(166, 0, 207, 0.21) 24.2%,
-        rgba(143, 151, 220, 0.21) 102.72%
-      );
-    }
-  }
 
   .icons {
     position: absolute;
-    color: #ffffff;
+    color: #1f4065;
     top: 20%;
     left: 85%;
   }
@@ -77,9 +48,4 @@
 button.disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-button:hover {
-  background-color: rgba(56, 0, 56, 0.9);
-  /* Hover color for the button */
 }

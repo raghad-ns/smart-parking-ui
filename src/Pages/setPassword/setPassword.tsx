@@ -34,40 +34,42 @@ const SetPassword = () => {
     }
   }
   return (
-    <div className="set-form">
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
-              {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
-            </button>
-          </InputAdornment>
-        </span>
-        <input
-          type={passwordVisibility ? "text" : "password"}
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
+    <div className="page-wrapper">
+      <div className="set-form form-wrapper">
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+                {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+              </button>
+            </InputAdornment>
+          </span>
+          <input
+            type={passwordVisibility ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <button className="invisible" onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
+                {confirmPasswordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+              </button>
+            </InputAdornment>
+          </span>
+          <input
+            type={confirmPasswordVisibility ? "text" : "password"}
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm-Password"
+          />
+        </div>
+        <button onClick={handlePasswordSetting}> Set </button>
       </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <button className="invisible" onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
-              {confirmPasswordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
-            </button>
-          </InputAdornment>
-        </span>
-        <input
-          type={confirmPasswordVisibility ? "text" : "password"}
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm-Password"
-        />
-      </div>
-      <button onClick={handlePasswordSetting}> Set </button>
     </div>
   );
 };

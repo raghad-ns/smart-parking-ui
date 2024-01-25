@@ -18,27 +18,29 @@ const OTPForm = () => {
     }
 
     return (
-        <div className="otp-form-wrapper">
-            <div className="input-group">
-                {code.map((digit, index) => {
-                    return (<input
-                        key={index}
-                        style={{ width: '30px', padding: '12px 8px', textAlign: 'center', margin: '0px 3px' }}
-                        className='digit'
-                        type="text"
-                        value={digit}
-                        onChange={e => {
-                            setCode(oldCode =>
-                                oldCode.map((oldDigit, idx) =>
-                                    idx === index && /^\d$/.test(e.target.value[e.target.value.length - 1])
-                                        ? e.target.value[e.target.value.length - 1]
-                                        : oldDigit
-                                ))
-                        }}
-                    />)
-                })}
+        <div className="page-wrapper">
+            <div className="otp-form-wrapper form-wrapper">
+                <div className="input-group">
+                    {code.map((digit, index) => {
+                        return (<input
+                            key={index}
+                            style={{ width: '30px', padding: '12px 8px', textAlign: 'center', margin: '0px 3px' }}
+                            className='digit'
+                            type="text"
+                            value={digit}
+                            onChange={e => {
+                                setCode(oldCode =>
+                                    oldCode.map((oldDigit, idx) =>
+                                        idx === index && /^\d$/.test(e.target.value[e.target.value.length - 1])
+                                            ? e.target.value[e.target.value.length - 1]
+                                            : oldDigit
+                                    ))
+                            }}
+                        />)
+                    })}
+                </div>
+                <button style={{ width: '100%' }} onClick={handleConfirmation}>Submit</button>
             </div>
-            <button style={{ width: '100%' }} onClick={handleConfirmation}>Submit</button>
         </div>
     );
 }

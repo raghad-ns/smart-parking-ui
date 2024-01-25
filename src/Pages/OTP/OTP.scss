@@ -3,12 +3,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    position: absolute;
-    top: 35%;
-    left: 20%;
-    width: fit-content;
-    height: max-content;
-    padding: 0 20px;
     /* Adjust left padding to position the form to the left */
 
     .input-group {
@@ -24,19 +18,19 @@
             padding: 8px 8px;
             border-radius: 5px;
             border: none;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.2);
             margin-bottom: 10px;
             font-size: larger;
 
             &::placeholder {
                 color: #ffffff;
-                font-family: "Montserrat";
+                // font-family: "Montserrat";
                 font-style: normal;
             }
 
             &:not(:placeholder-shown) {
-                color: white;
-                font-family: "Montserrat";
+                color: #1f4065;
+                // font-family: "Montserrat";
                 font-style: normal;
             }
         }

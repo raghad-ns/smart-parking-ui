@@ -18,54 +18,56 @@ const Register = () => {
   } = useRegistration('car');
 
   return (
-    <div className="register-form">
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <Person className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="ownerName"
-          value={ownerName}
-          onChange={(e) => setOwnerName(e.target.value)}
-          placeholder="Owner-Name"
-        />
+    <div className="page-wrapper">
+      <div className="register-form form-wrapper">
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <Person className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="ownerName"
+            value={ownerName}
+            onChange={(e) => setOwnerName(e.target.value)}
+            placeholder="Owner-Name"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <CarRental className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="carId"
+            value={carId}
+            onChange={(e) => setCarId(e.target.value)}
+            placeholder="Car-ID"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <Email className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+        </div>
+        <button
+          disabled={!buttonEnable}
+          onClick={handleRegistration}
+          className={buttonEnable ? '' : 'disabled'}
+        >Register</button>
       </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <CarRental className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="carId"
-          value={carId}
-          onChange={(e) => setCarId(e.target.value)}
-          placeholder="Car-ID"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <Email className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-      </div>
-      <button
-        disabled={!buttonEnable}
-        onClick={handleRegistration}
-        className={buttonEnable ? '' : 'disabled'}
-      >Register</button>
     </div>
   );
 };

@@ -1,24 +1,65 @@
-.background-image {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 100vh;
+  // width: 100%;
+  background-color: #e0e0e0;
+  z-index: 2;
+  color: #14233c;
+  // background-color: rgb(10 59 90);
+}
+
+.page-wrapper {
   display: flex;
-  background-image: url("./pg.png");
-  // background-size: 36.15cm;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 60%;
+  z-index: -1;
+}
+
+.form-wrapper {
+  padding: 40px 25px;
+  border-radius: 10px;
+  box-shadow: -11px 11px 22px #a1a5ac, 11px -11px 22px #ffffff;
+  z-index: 2;
+  // box-shadow: 10px 10px 12px #032036, -10px -10px 12px #145782;
+}
+
+.background-image {
+  // padding-top: 60px;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
   background-size: contain;
-  // background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
   width: 100%;
+  z-index: 0;
 
-  .logo {
-    position: absolute;
-    top: 10px;
-    /* Adjust top position as needed */
-    left: 0px;
-    /* Adjust left position as needed */
-    width: 70px;
-    /* Set the width of the logo */
-    height: auto;
-    /* Maintain aspect ratio */
-    z-index: 1;
+  .side-man-image{
+    height: 90%;
+  }
+}
+
+.logo {
+  position: absolute;
+  top: 6px;
+  /* Adjust top position as needed */
+  left: 0px;
+  /* Adjust left position as needed */
+  width: 65px;
+  /* Set the width of the logo */
+  height: auto;
+  /* Maintain aspect ratio */
+  z-index: 1;
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -35,11 +76,11 @@ button:hover {
   text-decoration: none;
   overflow: hidden;
   margin: 25px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
-    0px 2px 15px rgba(255, 255, 255, 0.5);
+  // text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+  //   0px 2px 15px rgba(255, 255, 255, 0.5);
   //   border: 2px solid #09bfed;
   transition: all 0.1s linear;
-  background-color: #010916;
+  background-color: #2a416a;
   cursor: pointer;
 
   &:hover {

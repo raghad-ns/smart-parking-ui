@@ -24,67 +24,68 @@ const Charge = () => {
     handleCharge,
   } = useWallet()
   return (
-    <div className="charge-page">
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <DirectionsCarFilledOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="carId"
-          value={carId}
-          onChange={(e) => setCarId(e.target.value)}
-          placeholder="Car ID"
-        />
+    <div className="page-wrapper">
+      <div className="charge-page form-wrapper">
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <DirectionsCarFilledOutlined className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="carId"
+            value={carId}
+            onChange={(e) => setCarId(e.target.value)}
+            placeholder="Car ID"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <LocalPhoneOutlined className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone Number"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <PaidOutlined className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="Amount"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+                {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+              </button>
+            </InputAdornment>
+          </span>
+          <input
+            type={passwordVisibility ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </div>
+        <button onClick={handleCharge}>Charge</button>
       </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <LocalPhoneOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone Number"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <PaidOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
-              {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
-            </button>
-          </InputAdornment>
-        </span>
-        <input
-          type={passwordVisibility ? "text" : "password"}
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-      </div>
-
-      <button onClick={handleCharge}>Charge</button>
     </div>
   );
 };

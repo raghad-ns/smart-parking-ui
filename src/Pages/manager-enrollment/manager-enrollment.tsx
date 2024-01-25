@@ -16,40 +16,42 @@ const ManagerEnrollment = () => {
   } = useRegistration('manager');
 
   return (
-    <div className="register-form">
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <Person className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="ownerName"
-          value={ownerName}
-          onChange={(e) => setOwnerName(e.target.value)}
-          placeholder="Name"
-        />
+    <div className="page-wrapper">
+      <div className="register-form form-wrapper">
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <Person className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="ownerName"
+            value={ownerName}
+            onChange={(e) => setOwnerName(e.target.value)}
+            placeholder="Name"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <Email className="icons" />
+            </InputAdornment>
+          </span>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+        </div>
+        <button
+          disabled={!buttonEnable}
+          onClick={handleManagerEnrollment}
+          className={buttonEnable ? '' : 'disabled'}
+        >Enroll manager</button>
       </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <Email className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-      </div>
-      <button
-        disabled={!buttonEnable}
-        onClick={handleManagerEnrollment}
-        className={buttonEnable ? '' : 'disabled'}
-      >Enroll manager</button>
     </div>
   );
 };

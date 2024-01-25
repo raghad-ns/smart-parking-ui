@@ -18,32 +18,34 @@ import Header from './components/core/header/header';
 import OTPForm from './Pages/OTP/OTP.page';
 import OTPMessage from './Pages/otp-message/otp-message.page';
 import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
+import sideImage from './assets/auto.png'
 function App() {
   return (
     <div className="App">
       <div className="background-image">
-        <UserProvider>
-          <BrowserRouter>
-            <Header />
-            <Routes>
-              <Route path='/' element={<Intro />} />
-              <Route path='/signin' element={<Login />} />
-              <Route path='/signup' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Register /></RoleGuard>} />
-              <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
-              <Route path='/set-password' element={<SetPassword />} />
-              <Route path='/info' element={<Info />} />
-              <Route path='/email' element={<EmailSimulator />} />
-              <Route path='/otp-message' element={<OTPMessage />} />
-              <Route path='/otp' element={<OTPForm />} />
-              <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager", "Admin"]}><Parking /></RoleGuard>} />
-              <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
-              <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
-              <Route path='/charge-wallet' element={<Charge />} />
-              <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
-            </Routes>
-          </BrowserRouter>
-        </UserProvider>
+        <img src={sideImage} alt="side-man" className="side-man-image" />
       </div>
+      <UserProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Intro />} />
+            <Route path='/signin' element={<Login />} />
+            <Route path='/signup' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Register /></RoleGuard>} />
+            <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
+            <Route path='/set-password' element={<SetPassword />} />
+            <Route path='/info' element={<Info />} />
+            <Route path='/email' element={<EmailSimulator />} />
+            <Route path='/otp-message' element={<OTPMessage />} />
+            <Route path='/otp' element={<OTPForm />} />
+            <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager", "Admin"]}><Parking /></RoleGuard>} />
+            <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
+            <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
+            <Route path='/charge-wallet' element={<Charge />} />
+            <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </div>
   );
 }
