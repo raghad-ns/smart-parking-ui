@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./parking-simulation.scss";
-// import CloudIcon from "@mui/icons-material/Cloud";
-import car from "../../sport-car.png";
+import CloudIcon from "@mui/icons-material/Cloud";
+import car from "../../assets/sport-car.png";
 import {
   parkmeterDatafile,
   Parkmeter,
   Vehicle,
   vehicleData,
 } from "./parkingData";
-import parkmeterImage from "../../parking-meter (4).png";
-import disabledParkMeterImage from "../../parking-meter (3).png";
-import noSignalImage from "../../no-signal.png";
-import moon from "../../moon.png";
-import star from "../../stars.png";
-import blackCar from "../../blackCar.png";
+import parkmeterImage from "../../assets/parking-meter (4).png";
+import disabledParkMeterImage from "../../assets/parking-meter (3).png";
+import noSignalImage from "../../assets/no-signal.png";
+// import moon from "../../moon.png";
+// import star from "../../stars.png";
+import blackCar from "../../assets/blackCar.png";
 
 const ParkingSimulationComponent: React.FC = () => {
   const [selectedPark, setSelectedPark] = useState<number | null>(null);
@@ -22,7 +22,7 @@ const ParkingSimulationComponent: React.FC = () => {
   const [parts, setParts] = useState<string[]>(["00", "00", "00"]);
   const [timerStarted, setTimerStarted] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
-
+  const [leaveButtonClicked, setLeaveButtonClicked] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(0);
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
 
@@ -76,6 +76,43 @@ const ParkingSimulationComponent: React.FC = () => {
     setStartedTimers((prevStartedTimers) => [...prevStartedTimers, parkId]);
     setTimerStarted(true);
   };
+  const handleLeaveButtonClick = () => {
+    console.log(leaveButtonClicked, "leave");
+    // Set the leaveButtonClicked state to true
+    setLeaveButtonClicked(true);
+
+    const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+    const meter = document.getElementById(`parkmeter-${selectedPark}`);
+
+    if (meter !== null && vehicle !== null) {
+      const vehicleBounds = vehicle.getBoundingClientRect();
+      const meterBounds = meter.getBoundingClientRect();
+
+      const horizontalDistance = 1300 + vehicleBounds.right;
+      const verticalDistance = vehicleBounds.bottom;
+
+      // logic is in progress...
+
+      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${
+        -100 + verticalDistance
+      }px) `;
+    }
+    // Calculate the elapsed time
+    const now = new Date();
+    const elapsedTime = now.getTime() - startDate.getTime();
+
+    // Convert milliseconds to seconds, minutes, and hours
+    const seconds = Math.floor(elapsedTime / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+
+    // Log the elapsed time
+    console.log(
+      `Elapsed time: ${hours} hours, ${minutes % 60} minutes, ${
+        seconds % 60
+      } seconds`
+    );
+  };
 
   const one_second = 1000;
   const one_minute = one_second * 60;
@@ -109,6 +146,11 @@ const ParkingSimulationComponent: React.FC = () => {
       setInitialRender(false);
       return;
     }
+    console.log(selectedPark, "selectedpark");
+    console.log(
+      selectedPark && parkmeterData[selectedPark - 1].status,
+      "status"
+    );
 
     const selectedParkData = parkmeterData.find(
       (park: any) => park.id === selectedPark
@@ -118,23 +160,48 @@ const ParkingSimulationComponent: React.FC = () => {
       tick();
     }
 
+    // Check if the Leave button is clicked
+    if (leaveButtonClicked && selectedPark) {
+      // Update park status to "Available"
+      setParkmeterData((prevParkmeterData: any) => {
+        return prevParkmeterData.map((park: any) =>
+          park.id === selectedPark ? { ...park, status: "Available" } : park
+        );
+      });
+
+      // Stop the clock timer
+      if (requestAnimationFrameRef.current) {
+        cancelAnimationFrame(requestAnimationFrameRef.current);
+      }
+
+      // Reset leaveButtonClicked state
+      setLeaveButtonClicked(false);
+    }
+
     return () => {
       if (requestAnimationFrameRef.current) {
         cancelAnimationFrame(requestAnimationFrameRef.current);
       }
     };
-  }, [parkmeterData, selectedPark, startedTimers, timerStarted, initialRender]);
+  }, [
+    parkmeterData,
+    selectedPark,
+    startedTimers,
+    timerStarted,
+    initialRender,
+    leaveButtonClicked,
+  ]);
 
   return (
     <div className="body">
       <div className="sky">
-        {/* <CloudIcon className="cloud-icon" /> */}
-        {/* <CloudIcon className="cloud-icon" /> */}
-        <img className="moon" src={moon} alt="moon" />
-        <img className="star1" src={star} alt="moon" />
-        <img className="star" src={star} alt="moon" />
+        <CloudIcon className="cloud-icon" />
+        <CloudIcon className="cloud-icon" />
+        {/* <img className="moon" src={moon} alt="moon" /> */}
+        {/* <img className="star1" src={star} alt="moon" /> */}
+        {/* <img className="star" src={star} alt="moon" /> */}
         {/* <img className="star2" src={star} alt="moon" /> */}
-        <img className="star3" src={star} alt="moon" />
+        {/* <img className="star3" src={star} alt="moon" /> */}
         {/* <img src={moon2} alt='moon'/> */}
       </div>
       <div className="grass"></div>
@@ -157,12 +224,14 @@ const ParkingSimulationComponent: React.FC = () => {
               {meter.status === "Deserved" && (
                 <div className="deservedParkMeter">
                   <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
+
                   <div className="wifi-symbol">
                     <div className="wifi-circle first"></div>
                     <div className="wifi-circle second"></div>
                     <div className="wifi-circle third"></div>
                     <div className="wifi-circle fourth"></div>
                   </div>
+
                   {selectedPark !== meter.id && (
                     <div className="blackCar">
                       <img src={blackCar} alt="blackCar" />
@@ -170,41 +239,7 @@ const ParkingSimulationComponent: React.FC = () => {
                   )}
                 </div>
               )}
-              {selectedPark === meter.id && meter.status === "Deserved" && (
-                <div className="clock-leave">
-                  <div className="timer-group">
-                    <div className="timer hour">
-                      <div className="hand">
-                        <span>{parts[0]}</span>
-                      </div>
-                      <div className="hand">
-                        <span>{parts[0]}</span>
-                      </div>
-                    </div>
-                    <div className="timer minute">
-                      <div className="hand">
-                        <span>{parts[1]}</span>
-                      </div>
-                      <div className="hand">
-                        <span>{parts[1]}</span>
-                      </div>
-                    </div>
-                    <div className="timer second">
-                      <div className="hand">
-                        <span>{parts[2]}</span>
-                      </div>
-                      <div className="hand">
-                        <span>{parts[2]}</span>
-                      </div>
-                    </div>
-                    <div className="face">
-                      <span>Parking Timer</span>
-                      <p id="lazy">{parts.join(":")}</p>
-                    </div>
-                  </div>
-                  <button className="button-84">Leave 🧭</button>
-                </div>
-              )}
+
               {meter.status === "Disabled" && (
                 <div className="disabledParkMeter">
                   <img
@@ -227,6 +262,44 @@ const ParkingSimulationComponent: React.FC = () => {
           </button>
         ))}
       </div>
+      {selectedPark !== null &&
+        parkmeterData[selectedPark - 1].status === "Deserved" && (
+          <div className="clock-leave">
+            <div className="timer-group">
+              <div className="timer hour">
+                <div className="hand">
+                  <span>{parts[0]}</span>
+                </div>
+                <div className="hand">
+                  <span>{parts[0]}</span>
+                </div>
+              </div>
+              <div className="timer minute">
+                <div className="hand">
+                  <span>{parts[1]}</span>
+                </div>
+                <div className="hand">
+                  <span>{parts[1]}</span>
+                </div>
+              </div>
+              <div className="timer second">
+                <div className="hand">
+                  <span>{parts[2]}</span>
+                </div>
+                <div className="hand">
+                  <span>{parts[2]}</span>
+                </div>
+              </div>
+              <div className="face">
+                <span>Parking Timer</span>
+                <p id="lazy">{parts.join(":")}</p>
+              </div>
+            </div>
+            <button onClick={handleLeaveButtonClick} className="button-84">
+              Leave 🧭
+            </button>
+          </div>
+        )}
       <div className="road">
         <div className="lines"></div>
         {vehicleData.map((ele) => (

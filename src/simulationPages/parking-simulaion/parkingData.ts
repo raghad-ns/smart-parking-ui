@@ -1,4 +1,4 @@
-import car from "../../sport-car.png";
+import car from "../../assets/sport-car.png";
 
 export interface Parkmeter {
   id: number;
