@@ -20,11 +20,12 @@ const OTPForm = () => {
     return (
         <div className="page-wrapper">
             <div className="otp-form-wrapper form-wrapper">
+        <div className='form-title'><h1>Transaction verification code</h1></div>
                 <div className="input-group">
                     {code.map((digit, index) => {
                         return (<input
                             key={index}
-                            style={{ width: '30px', padding: '12px 8px', textAlign: 'center', margin: '0px 3px' }}
+                            style={{ width: '45px', height:'30px', padding: '12px 8px', textAlign: 'center', margin: '0px 3px' }}
                             className='digit'
                             type="text"
                             value={digit}

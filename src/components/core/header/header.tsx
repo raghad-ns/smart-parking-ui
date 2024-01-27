@@ -13,7 +13,7 @@ const Header = () => {
             <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
             {user.user?.id &&
                 <div className='user-data'>
-                    <span className='user-name'>{user.user.owner}</span>
+                    {/* <span className='user-name'>{user.user.owner}</span> */}
                     <button className='signoutIcon' onClick={(handleSignout)}>
                         <ExitToApp fontSize='large' />
                     </button>

@@ -10,7 +10,26 @@ const Home = () => {
   return (
     <div >
       <div className='homeWrapper page-wrapper'>
-        {(user.user?.role.roleName === 'Manager' || user.user?.role.roleName === 'Admin') &&
+        {(user.user?.role.roleName === 'Admin') &&
+          <div className="user-buttons-wrapper form-wrapper" >
+            <h1>Wellcome Admin</h1>
+            <div className="button2" onClick={() => navigate('/manager-enrollment')}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Enroll new manager
+            </div>
+            <div className="button2" onClick={() => navigate('/reflect-enrollment')}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Add new reflect account
+            </div>
+          </div>
+        }
+        {(user.user?.role.roleName === 'Manager') &&
           <div className="user-buttons-wrapper form-wrapper" >
             <h1>Wellcome manager</h1>
             <div className="button2" onClick={() => navigate('/signup')}>

@@ -31,14 +31,14 @@ function App() {
           <Routes>
             <Route path='/' element={<Intro />} />
             <Route path='/signin' element={<Login />} />
-            <Route path='/signup' element={<RoleGuard allowedRoles={['Manager', 'Admin']}><Register /></RoleGuard>} />
+            <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />
             <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
             <Route path='/set-password' element={<SetPassword />} />
             <Route path='/info' element={<Info />} />
             <Route path='/email' element={<EmailSimulator />} />
             <Route path='/otp-message' element={<OTPMessage />} />
             <Route path='/otp' element={<OTPForm />} />
-            <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager", "Admin"]}><Parking /></RoleGuard>} />
+            <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />
             <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
             <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
             <Route path='/charge-wallet' element={<Charge />} />

@@ -10,7 +10,8 @@
         margin-bottom: 20px;
         position: relative;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
+        width: 100%;
         flex-basis: 2%;
 
         .digit {

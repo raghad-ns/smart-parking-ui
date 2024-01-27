@@ -11,6 +11,7 @@ const Reflect = () => {
     return (
         <div className="page-wrapper">
             <div className="reflect-page form-wrapper">
+        <div className='form-title'><h1>Create reflect wallet</h1></div>
                 <div className="input-group">
                     <span>
                         <InputAdornment position="start">

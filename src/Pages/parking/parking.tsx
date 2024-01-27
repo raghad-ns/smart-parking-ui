@@ -16,6 +16,7 @@ const Parking = () => {
   return (
     <div className="page-wrapper">
       <div className="parking-page form-wrapper">
+        <div className='form-title'><h1>Add parking</h1></div>
         <div className="input-group">
           <span>
             <InputAdornment position="start">

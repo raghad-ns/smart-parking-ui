@@ -26,6 +26,7 @@ const Charge = () => {
   return (
     <div className="page-wrapper">
       <div className="charge-page form-wrapper">
+        <div className='form-title'><h1>Charge car's wallet</h1></div>
         <div className="input-group">
           <span>
             <InputAdornment position="start">
