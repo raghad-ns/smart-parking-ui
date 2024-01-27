@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./parking-simulation.scss";
 import CloudIcon from "@mui/icons-material/Cloud";
 import car from "../../assets/sport-car.png";
+import trees from '../../assets/forest.png';
 import {
   parkmeterDatafile,
   Parkmeter,
@@ -70,9 +71,10 @@ const ParkingSimulationComponent: React.FC = () => {
   const updateParkStatus = (parkId: number) => {
     setParkmeterData((prevParkmeterData: any) => {
       return prevParkmeterData.map((park: any) =>
-        park.id === parkId ? { ...park, status: "Deserved" } : park
+        park.id === parkId ? { ...park, status: "Reserved",connection: true} : park
       );
     });
+  
     setStartedTimers((prevStartedTimers) => [...prevStartedTimers, parkId]);
     setTimerStarted(true);
   };
@@ -151,6 +153,10 @@ const ParkingSimulationComponent: React.FC = () => {
       selectedPark && parkmeterData[selectedPark - 1].status,
       "status"
     );
+    console.log(
+      selectedPark && parkmeterData[selectedPark - 1].connection,
+      "connection"
+    );
 
     const selectedParkData = parkmeterData.find(
       (park: any) => park.id === selectedPark
@@ -197,12 +203,11 @@ const ParkingSimulationComponent: React.FC = () => {
       <div className="sky">
         <CloudIcon className="cloud-icon" />
         <CloudIcon className="cloud-icon" />
-        {/* <img className="moon" src={moon} alt="moon" /> */}
-        {/* <img className="star1" src={star} alt="moon" /> */}
-        {/* <img className="star" src={star} alt="moon" /> */}
-        {/* <img className="star2" src={star} alt="moon" /> */}
-        {/* <img className="star3" src={star} alt="moon" /> */}
-        {/* <img src={moon2} alt='moon'/> */}
+        <img src={trees} alt="trees" className="tree1"/>
+        <img src={trees} alt="trees" className="tree2"/>
+        <img src={trees} alt="trees" className="tree3"/>
+        <img src={trees} alt="trees" className="tree4"/>
+        <img src={trees} alt="trees" className="tree5"/>
       </div>
       <div className="grass"></div>
       <div className="parkmeter">
@@ -212,7 +217,7 @@ const ParkingSimulationComponent: React.FC = () => {
             onClick={() => handleActiveParkmeter(meter)}
             id={`parkmeter-${meter.id}`}
             disabled={
-              meter.status === "Disabled" || meter.status === "Deserved"
+              meter.status === "Disabled" || meter.status === "Reserved"
             }
           >
             <div className="parkmeter-Info">
@@ -221,8 +226,8 @@ const ParkingSimulationComponent: React.FC = () => {
                   <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
                 </div>
               )}
-              {meter.status === "Deserved" && (
-                <div className="deservedParkMeter">
+              {meter.status === "Reserved" && (
+                <div className="ReservedParkMeter">
                   <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
 
                   <div className="wifi-symbol">
@@ -263,7 +268,7 @@ const ParkingSimulationComponent: React.FC = () => {
         ))}
       </div>
       {selectedPark !== null &&
-        parkmeterData[selectedPark - 1].status === "Deserved" && (
+        parkmeterData[selectedPark - 1].status === "Reserved" && (
           <div className="clock-leave">
             <div className="timer-group">
               <div className="timer hour">
