@@ -27,7 +27,15 @@ body {
   border-radius: 10px;
   box-shadow: -11px 11px 22px #a1a5ac, 11px -11px 22px #ffffff;
   z-index: 2;
+  // width: min-content;
   // box-shadow: 10px 10px 12px #032036, -10px -10px 12px #145782;
+}
+.form-title{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+  width: max-content;
 }
 
 .background-image {

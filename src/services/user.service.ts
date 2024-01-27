@@ -23,7 +23,7 @@ export const signupService = (carObject: IUser) => {
   })
     .then(async (response) => {
       try {
-        return { state: response.status === 201, value: await response.json() };
+        return { state: response.status, value: await response.json() };
       } catch (error) {
         console.error(error);
         return { state: false, value: {} };

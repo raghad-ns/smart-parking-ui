@@ -18,6 +18,7 @@ const ManagerEnrollment = () => {
   return (
     <div className="page-wrapper">
       <div className="register-form form-wrapper">
+        <div className='form-title'><h1>Manager enrollment</h1></div>
         <div className="input-group">
           <span>
             <InputAdornment position="start">

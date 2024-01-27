@@ -24,7 +24,7 @@ const useRegistration = (type: "car" | "manager") => {
     ];
     if (validateInputs(inputs)) {
       const signup = await signupService({ ownerName, carId, email });
-      if (signup.state) {
+      if (signup.state === 201) {
         sessionStorage.setItem(
           "setPassworkAPI",
           signup.value.data.passwordLink
@@ -32,6 +32,10 @@ const useRegistration = (type: "car" | "manager") => {
         window.alert("Car added successfully! set your password");
         const newTab: Window = window.open("", "_blank") as Window;
         newTab.location.href = "/email";
+      } else if (signup.state === 403) {
+        window.alert("You don't have the permission to modify this resource");
+      } else {
+        window.alert("Something went wrong, please try again!");
       }
     } else {
       window.alert("Invalid inputs format, please check your data!");

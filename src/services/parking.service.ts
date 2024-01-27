@@ -12,6 +12,7 @@ export const parkingEnrollmentService = (parking: IParking) => {
       process.env.REACT_APP_SECRET_KEY || ""
     ) as string
   ) as string;
+  console.log("token: ", token);
   return fetch(`${process.env.REACT_APP_SERVER_URL}/parking`, {
     method: "POST",
     headers: {

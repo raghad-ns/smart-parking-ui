@@ -36,6 +36,7 @@ const SetPassword = () => {
   return (
     <div className="page-wrapper">
       <div className="set-form form-wrapper">
+        <div className='form-title'><h1>Set your password</h1></div>
         <div className="input-group">
           <span>
             <InputAdornment position="start">
