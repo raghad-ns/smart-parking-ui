@@ -1,11 +1,18 @@
 /* HistoryTable.scss */
 
+.history-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 .history-table {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  position: relative;
+  // position: relative;
   .user-info {
     position: absolute;
     top: 5px;

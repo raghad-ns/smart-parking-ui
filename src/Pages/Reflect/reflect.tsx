@@ -11,7 +11,7 @@ const Reflect = () => {
     return (
         <div className="page-wrapper">
             <div className="reflect-page form-wrapper">
-        <div className='form-title'><h1>Create reflect wallet</h1></div>
+                <div className='form-title'><h1>Create reflect wallet</h1></div>
                 <div className="input-group">
                     <span>
                         <InputAdornment position="start">
@@ -27,6 +27,7 @@ const Reflect = () => {
                         </InputAdornment>
                     </span>
                     <input type="text" id="phone" value={phone.value} onChange={(e) => phone.setState(e.target.value)} placeholder="Phone Number" />
+                    <span className="desc">phone number should be 05xxxxxxxxx</span>
                 </div>
                 <div className="input-group">
                     <span>
@@ -59,6 +60,7 @@ const Reflect = () => {
                         onChange={(e) => confirmPassword.setState(e.target.value)}
                         placeholder="Confirm-Password"
                     />
+                    <span className="desc">password must be at least 8 characters includeing digits, symbols, upper and lower case letters</span>
                 </div>
                 <div className="input-group">
                     <span>

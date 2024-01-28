@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <div className="background-image">
-        <img src={sideImage} alt="side-man" className="side-man-image" />
+        <img src={sideImage} alt="side-man" className="side-man-image" style={window.location.pathname === '/history' ? { display: "none" } : {}} />
       </div>
       <UserProvider>
         <BrowserRouter>

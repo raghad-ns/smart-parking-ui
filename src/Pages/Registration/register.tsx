@@ -49,6 +49,7 @@ const Register = () => {
             placeholder="Car-ID"
           />
         </div>
+          <span className="desc">car id should begin with two uppercase letters followed by dash and 3-4 digits</span>
         <div className="input-group">
           <span>
             <InputAdornment position="start">

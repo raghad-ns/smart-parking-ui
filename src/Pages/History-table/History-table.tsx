@@ -55,26 +55,28 @@ const HistoryTable = () => {
   };
 
   return (
-    <div className="history-table">
-      <div className="user-info">
-        <Person className="icons" style={{ fontSize: "2.5rem" }} />
-        <span className="username">User-name</span>
-      </div>
-      {renderTables()[currentPage - 1]}
-      <div className="pagination">
-        <ArrowLeft
-          className="arrowleft"
-          onClick={() => paginate(currentPage - 1)}
-        />
-        {Array.from({ length: totalPageCount }, (_, index) => (
-          <button key={index} onClick={() => paginate(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-        <ArrowRight
-          className="arrowright"
-          onClick={() => paginate(currentPage + 1)}
-        />
+    <div className="history-page-wrapper">
+      <div className="history-table">
+        <div className="user-info">
+          <Person className="icons" style={{ fontSize: "2.5rem" }} />
+          <span className="username">User-name</span>
+        </div>
+        {renderTables()[currentPage - 1]}
+        <div className="pagination">
+          <ArrowLeft
+            className="arrowleft"
+            onClick={() => paginate(currentPage - 1)}
+          />
+          {Array.from({ length: totalPageCount }, (_, index) => (
+            <button key={index} onClick={() => paginate(index + 1)}>
+              {index + 1}
+            </button>
+          ))}
+          <ArrowRight
+            className="arrowright"
+            onClick={() => paginate(currentPage + 1)}
+          />
+        </div>
       </div>
     </div>
   );

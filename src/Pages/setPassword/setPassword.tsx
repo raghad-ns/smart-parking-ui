@@ -69,6 +69,7 @@ const SetPassword = () => {
             placeholder="Confirm-Password"
           />
         </div>
+        <span className="desc">Password must be at least 8 characters includeing digits, symbols, upper and lower case letters</span>
         <button onClick={handlePasswordSetting}> Set </button>
       </div>
     </div>

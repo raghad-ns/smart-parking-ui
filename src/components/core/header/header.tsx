@@ -9,16 +9,20 @@ const Header = () => {
     const { user, handleSignout } = useHeader()
     const navigate = useNavigate()
     return (
-        <div className='headerWrapper'>
-            <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
-            {user.user?.id &&
-                <div className='user-data'>
-                    {/* <span className='user-name'>{user.user.owner}</span> */}
-                    <button className='signoutIcon' onClick={(handleSignout)}>
-                        <ExitToApp fontSize='large' />
-                    </button>
-                </div>
-            }
+        <div className='nav-bar' style={{ width: '100%' }}>
+            <div className='headerWrapper'>
+                <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
+                {user.user?.id &&
+                    <div className='user-data'>
+                        <button className='signoutIcon' onClick={(handleSignout)}>
+                            <ExitToApp fontSize='large' />
+                        </button>
+                    </div>
+                }
+            </div>
+            {/* <div className='info-bar'>
+                {user.user?.id && <span className='user-name'>{user.user.owner}</span>}
+            </div> */}
         </div>
     )
 }

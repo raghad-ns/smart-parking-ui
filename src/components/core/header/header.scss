@@ -12,7 +12,7 @@
     justify-content: flex-end;
     z-index: 1;
 
-    .user-data{
+    .user-data {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -20,9 +20,7 @@
         color: white;
         column-gap: 10px;
         font-weight: 700;
-        .user-name {
-            padding-bottom: 6px;
-        }
+
     }
 
     .signoutIcon {
@@ -30,6 +28,31 @@
         width: fit-content;
         padding: 0px;
         margin: 0px;
+    }
+
+}
+
+.info-bar {
+    position: fixed;
+    width: 92%;
+    background: #4581b7;
+    left: 90px;
+    top: 10px;
+    height: 50px;
+    opacity: 0.6;
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: -2px 2px 2px 2px #4687bc4d;
+
+    .user-name {
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
     }
 
 }
