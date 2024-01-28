@@ -1,0 +1,589 @@
+.body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  //   position: relative;
+
+  .sky {
+    height: 40%;
+    background-color: rgb(105, 182, 212); 
+   
+    .cloud-icon {
+      // background-color: #000000;
+      color: #ffffff;
+      width: 500px;
+      font-size: 9.5rem;
+      margin-right: 120px;
+    }
+  }
+
+  .grass {
+    height: 30%;
+    background-color: rgb(31, 130, 54);
+    // position: relative;
+    z-index: 1;
+  }
+  .tree1{
+    position: absolute;
+    top: 110px;
+    right: 200px;
+  }
+  .tree2{
+    position: absolute;
+    top: 160px;
+    right: 450px;
+  }
+  .tree3{
+    position: absolute;
+    top: 110px;
+    right: 900px;
+  }
+  .tree4{
+    position: absolute;
+    top: 170px;
+    right: 1140px;
+  }
+  .tree5{
+    position: absolute;
+    top: 115px;
+    right: 780px;
+  }
+
+  .road {
+    height: 30%;
+    background: rgb(119, 118, 118);
+    box-sizing: border-box;
+    border-top: 10px solid rgb(151, 149, 149);
+    border-bottom: 10px solid rgb(144, 143, 143);
+    width: 100%;
+    position: relative;
+    z-index: 2;
+
+    .lines {
+      box-sizing: border-box;
+      border: 5px dashed #ffffff;
+      height: 0px;
+      width: 100%;
+      position: absolute;
+      top: 45%;
+    }
+
+    .vehicle {
+      z-index: 1000;
+      position: relative;
+      width: 140px;
+      margin-left: 5px;
+      cursor: pointer;
+      transition: transform 7s ease-in-out;
+    }
+
+    .vehicle-image {
+      width: 100%;
+      // position: absolute;
+      // top: 2px;
+      // right: 120px;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .vehicle-is-selected {
+      position: absolute;
+      top: -10px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid black;
+      background-color: rgb(2, 2, 2);
+      padding: 5px;
+      border-radius: 12px;
+      color: #ffffff;
+    }
+
+    @keyframes moveCar {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(600%);
+      }
+    }
+  }
+  .connect {
+    position: absolute;
+    top: 300px; /* Adjust top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    img {
+      width: 50px;
+    }
+  }
+
+  .parkmeter {
+    display: flex;
+    width: 100%;
+    // background-color: #00A9C2;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 53%; /* Adjust top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    button {
+      .parkmeter-Info {
+        // background-color: #00a9c2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: #ffffff;
+        font-size: 18px;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-weight: 600;
+      }
+      img {
+        width: 60px;
+      }
+      border: none;
+      background-color: rgba(250, 235, 215, 0);
+      .avilableParkMeter {
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+      }
+      .disabledParkMeter {
+        position: relative;
+        &:hover {
+          cursor: no-drop;
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8);
+        }
+        .no-signal-icon {
+          max-width: 30px;
+          position: absolute;
+          right: 10px;
+          top: -35px;
+        }
+      }
+      .ReservedParkMeter {
+        position: relative;
+        // width: 500px;
+        // background-color: #00a9c2;
+        &:hover {
+          cursor: no-drop;
+          box-shadow: 0 0 10px rgba(224, 3, 3, 0.8);
+        }
+
+        .blackCar {
+          position: absolute;
+          bottom: -70px;
+          right: -3px;
+          font-size: 2rem;
+          // background-color: #00a9c2;
+          img {
+            font-size: 2rem;
+            width: 120px;
+          }
+        }
+      }
+    }
+  }
+}
+//wifi
+.wifi-symbol {
+  display: flex;
+  max-width: 30px;
+  position: absolute;
+  left: 103px;
+  top: -75px;
+  // right: 310px;
+  // z-index: 10;
+}
+
+.wifi-symbol [foo],
+.wifi-symbol {
+  display: inline-block;
+  // width: .01px;
+  // height: .5rem;
+  -ms-transform: rotate(-45deg) translate(-100px);
+  -moz-transform: rotate(-45deg) translate(-100px);
+  -o-transform: rotate(-45deg) translate(-100px);
+  -webkit-transform: rotate(-45deg) translate(-100px);
+  transform: rotate(-45deg) translate(-100px);
+}
+
+.wifi-symbol .wifi-circle {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 7.42857px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-color: rgb(2, 3, 5);
+  border-style: solid;
+  border-width: 1em 1em 0 0;
+  -webkit-border-radius: 0 100% 0 0;
+  border-radius: 0 100% 0 0;
+  opacity: 0;
+  -o-animation: wifianimation 2s infinite;
+  -moz-animation: wifianimation 2s infinite;
+  -webkit-animation: wifianimation 2s infinite;
+  animation: wifianimation 2s infinite;
+}
+
+.wifi-symbol .wifi-circle.first {
+  -o-animation-delay: 800ms;
+  -moz-animation-delay: 800ms;
+  -webkit-animation-delay: 800ms;
+  animation-delay: 800ms;
+}
+
+.wifi-symbol .wifi-circle.second {
+  width: 5em;
+  height: 5em;
+  -o-animation-delay: 400ms;
+  -moz-animation-delay: 400ms;
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}
+
+.wifi-symbol .wifi-circle.third {
+  width: 3em;
+  height: 3em;
+}
+
+.wifi-symbol .wifi-circle.fourth {
+  width: 1em;
+  height: 1em;
+  opacity: 1;
+  background-color: #00a9c2;
+  -o-animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  animation: none;
+}
+
+@-o-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@-moz-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@-webkit-keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes wifianimation {
+  0% {
+    opacity: 0.4;
+  }
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+//timer clock
+
+.timer-group {
+  color: #fff;
+  position: absolute;
+  top: 6px;
+  // left: 88%;
+  transform: translateX(-50%);
+}
+
+.timer {
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+}
+
+.timer:after {
+  background: #111;
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 6px;
+  left: 6px;
+  position: absolute;
+  width: 6px;
+  top: 6px;
+}
+
+.timer .hand {
+  float: left;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 50%;
+}
+
+.timer .hand span {
+  border: 2px solid rgba(30, 232, 232, 0.4); /* Adjust the border thickness as needed */
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-radius: 50%;
+  display: block;
+  height: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: rotate(225deg);
+  width: 0;
+}
+
+.timer .hand:first-child {
+  transform: rotate(180deg);
+}
+
+.timer .hand span {
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.timer .hand:first-child span {
+  animation-name: spin1;
+}
+
+.timer .hand:last-child span {
+  animation-name: spin2;
+}
+
+.timer.hour {
+  background: rgba(0, 0, 0, 0.3);
+  height: 130px; /* Adjust the height as needed */
+  left: 0;
+  width: 130px; /* Adjust the width as needed */
+  top: 0;
+}
+
+.timer.hour .hand span {
+  animation-duration: 3600s;
+  border-top-color: rgba(255, 0, 255, 0.4);
+  border-right-color: rgba(255, 0, 255, 0.4);
+  border-width: 60px; /* Adjust the border-width as needed */
+}
+
+.timer.hour:after {
+  height: 105px; /* Adjust the height as needed */
+  left: 12px;
+  width: 105px; /* Adjust the width as needed */
+  top: 12px;
+}
+
+.timer.minute {
+  background: rgba(0, 0, 0, 0.2);
+  height: 110px; /* Adjust the height as needed */
+  left: 12.5px;
+  width: 110px; /* Adjust the width as needed */
+  top: 12.5px;
+}
+
+.timer.minute .hand span {
+  animation-duration: 60s;
+  border-top-color: rgba(0, 255, 255, 0.4);
+  border-right-color: rgba(0, 255, 255, 0.4);
+  border-width: 52.5px; /* Adjust the border-width as needed */
+}
+
+.timer.minute:after {
+  height: 90px; /* Adjust the height as needed */
+  left: 12px;
+  width: 90px; /* Adjust the width as needed */
+  top: 12px;
+}
+
+.timer.second {
+  background: rgba(0, 0, 0, 0.2);
+  height: 90px; /* Adjust the height as needed */
+  left: 25px;
+  width: 90px; /* Adjust the width as needed */
+  top: 25px;
+}
+
+.timer.second .hand span {
+  animation-duration: 1s;
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-right-color: rgba(255, 255, 255, 0.15);
+  border-width: 45px; /* Adjust the border-width as needed */
+}
+
+.timer.second:after {
+  height: 80px; /* Adjust the height as needed */
+  left: 4px;
+  width: 80px; /* Adjust the width as needed */
+  top: 4px;
+}
+
+.face {
+  // background-color: #ffffff;
+  height: 20px; /* Adjust the height as needed */
+  left: 26px;
+  position: relative;
+  display: flex;
+  width: 20px; /* Adjust the width as needed */
+  text-align: center;
+  justify-content: center;
+  top: 26px;
+  span {
+    position: absolute;
+    font-size: x-small;
+    top: 50px;
+    right: -55px;
+    // right: ;
+  }
+}
+
+.face p {
+  border-radius: 10px; /* Adjust the border-radius as needed */
+  font-size: 20px; /* Adjust the font-size as needed */
+  font-weight: 400;
+  position: absolute;
+  top: 8px;
+  width: 70px; /* Adjust the width as needed */
+  left: 8px;
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(225deg);
+  }
+  50% {
+    transform: rotate(225deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(225deg);
+  }
+  50% {
+    transform: rotate(405deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+//buttton leave
+.button-84 {
+  position: absolute;
+  top: 160px;
+  right: 60px;
+  align-items: center;
+  background-color: initial;
+  background-image: linear-gradient(#000000, #25292e);
+  border-radius: 8px;
+  border-width: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: expo-brand-demi, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 13px;
+  font-weight: 500;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 20px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all 150ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-84:hover {
+  box-shadow: rgba(0, 1, 0, 0.2) 0 2px 8px;
+  opacity: 0.85;
+}
+
+.button-84:active {
+  outline: 0;
+}
+
+.button-84:focus {
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 3px;
+}
+
+@media (max-width: 420px) {
+  .button-84 {
+    height: 48px;
+  }
+}
+
+.clock-leave {
+  //background-color: #153aac;
+  position: absolute;
+  // bottom: 240%;
+  top: 12px;
+  right: 1%;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

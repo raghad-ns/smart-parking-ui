@@ -1,6 +1,6 @@
 import React from 'react'
 import './header.scss'
-import logo from '../../../ps-logo.png';
+import logo from '../../../assets/ps-logo.png';
 import { ExitToApp } from '@mui/icons-material'
 import { useHeader } from '../../../hooks/header.hook';
 import { useNavigate } from 'react-router';

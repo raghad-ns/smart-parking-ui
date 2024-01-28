@@ -18,12 +18,14 @@ import Header from './components/core/header/header';
 import OTPForm from './Pages/OTP/OTP.page';
 import OTPMessage from './Pages/otp-message/otp-message.page';
 import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
+import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation';
 import sideImage from './assets/auto.png'
 function App() {
   return (
     <div className="App">
       <div className="background-image">
-        <img src={sideImage} alt="side-man" className="side-man-image" style={window.location.pathname === '/history' ? { display: "none" } : {}} />
+        <img src={sideImage} alt="side-man" className="side-man-image"
+          style={['/history', '/parking'].includes(window.location.pathname) ? { display: "none" } : {}} />
       </div>
       <UserProvider>
         <BrowserRouter>
@@ -43,6 +45,7 @@ function App() {
             <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
             <Route path='/charge-wallet' element={<Charge />} />
             <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
+            <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
           </Routes>
         </BrowserRouter>
       </UserProvider>
