@@ -10,12 +10,13 @@
   .input-group {
     margin-top: 5px;
     margin-bottom: 5px;
-    position: relative;
+    // position: relative;
     display: flex;
     justify-content:flex-start;
     input[type="text"],
     input[type="email"] {
-      padding: 14px 25px;
+      width: 234PX;
+      // padding: 14px 25px;
       border-radius: 5px;
       border: none;
       background-color: rgba(0, 0, 0, 0.2);
