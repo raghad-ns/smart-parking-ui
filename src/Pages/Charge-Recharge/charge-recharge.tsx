@@ -30,7 +30,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <DirectionsCarFilledOutlined className="icons" />
+              <DirectionsCarFilledOutlined className="symbols" />
             </InputAdornment>
           </span>
           <input
@@ -44,7 +44,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <LocalPhoneOutlined className="icons" />
+              <LocalPhoneOutlined className="symbols" />
             </InputAdornment>
           </span>
           <input
@@ -58,7 +58,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <PaidOutlined className="icons" />
+              <PaidOutlined className="symbols" />
             </InputAdornment>
           </span>
           <input
@@ -73,7 +73,7 @@ const Charge = () => {
           <span>
             <InputAdornment position="start">
               <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
-                {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+                {passwordVisibility ? <VisibilityOff className="passsymbols" /> : <RemoveRedEye className="passsymbols" />}
               </button>
             </InputAdornment>
           </span>

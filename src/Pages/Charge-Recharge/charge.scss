@@ -1,19 +1,17 @@
 .charge-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .input-group {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    position: relative;
-  
-    // width: calc(100% - 5px);
-  }
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
 
-  input[type="text"],
+input[type="text"],
 input[type="email"] {
   width: calc(100% - 1px);
   padding: 14px 20px;
@@ -34,7 +32,6 @@ input[type="email"]::placeholder {
   padding-left: 20px;
   font-family: "Montserrat";
   font-style: normal;
-  // text-shadow: 1px 1px 2px #1f4065 ; /* Add #1f4065 shadow effect */
 }
 input[type="text"]:not(:placeholder-shown),
 input[type="email"]:not(:placeholder-shown) {
@@ -44,11 +41,10 @@ input[type="email"]:not(:placeholder-shown) {
   padding-left: 30px;
 }
 
-  .icons {
-    position: absolute;
-    z-index: 0 ;
-    color: #1f4065;
-    top: 20%;
-    left: 3%;
-  }
-  
+.passsymbols {
+  color: #1f4065;
+  cursor: pointer;
+  position: absolute;
+  left: 450%;
+  top: 30%;
+}

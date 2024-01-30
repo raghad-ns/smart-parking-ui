@@ -5,18 +5,14 @@
   align-items: flex-start;
   user-select: none;
 
-
-  
   .input-group {
     margin-top: 5px;
     margin-bottom: 5px;
-    // position: relative;
     display: flex;
-    justify-content:flex-start;
+    flex-direction: column;
     input[type="text"],
     input[type="email"] {
-      width: 234PX;
-      // padding: 14px 25px;
+      width: 241px;
       border-radius: 5px;
       border: none;
       background-color: rgba(0, 0, 0, 0.2);
@@ -25,18 +21,15 @@
 
       &::placeholder {
         color: #1f406599;
-        // font-family: "Montserrat";
         font-style: normal;
       }
 
       &:not(:placeholder-shown) {
         color: #1f4065;
-        // font-family: "Montserrat";
         font-style: normal;
       }
     }
   }
-
 
   .icons {
     position: absolute;
