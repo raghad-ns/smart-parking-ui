@@ -18,7 +18,7 @@ import Header from './components/core/header/header';
 import OTPForm from './Pages/OTP/OTP.page';
 import OTPMessage from './Pages/otp-message/otp-message.page';
 import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
-import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation';
+import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation'
 import sideImage from './assets/auto.png'
 function App() {
   return (
@@ -44,8 +44,8 @@ function App() {
             <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
             <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
             <Route path='/charge-wallet' element={<Charge />} />
-            <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
-            <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
+            <Route path='/history' element={<HistoryTable />} />
+            <Route path='/parking' element={<ParkingSimulationComponent />}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>

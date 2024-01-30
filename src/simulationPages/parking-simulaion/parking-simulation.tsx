@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./parking-simulation.scss";
 import CloudIcon from "@mui/icons-material/Cloud";
 import car from "../../assets/sport-car.png";
-import trees from '../../assets/forest.png';
+import trees from "../../assets/forest.png";
 import {
   parkmeterDatafile,
   Parkmeter,
@@ -12,23 +12,38 @@ import {
 import parkmeterImage from "../../assets/parking-meter (4).png";
 import disabledParkMeterImage from "../../assets/parking-meter (3).png";
 import noSignalImage from "../../assets/no-signal.png";
-// import moon from "../../moon.png";
-// import star from "../../stars.png";
 import blackCar from "../../assets/blackCar.png";
-
+import { historyData } from "../../Pages/History-table/Data-table";
+import { useNavigate } from "react-router-dom";
+type HistoryDataRow = {
+  No: number;
+  "car-id": string;
+  "park-id": string;
+  Time: string;
+  duration: string;
+  cost: string;
+};
 const ParkingSimulationComponent: React.FC = () => {
-  const [selectedPark, setSelectedPark] = useState<number | null>(null);
+  const [data, setData] = useState<HistoryDataRow[]>(historyData);
+  const [selectedPark, setSelectedPark] = useState<string>("");
   const [parkmeterData, setParkmeterData] = useState(parkmeterDatafile);
   const [startedTimers, setStartedTimers] = useState<number[]>([]);
   const [parts, setParts] = useState<string[]>(["00", "00", "00"]);
   const [timerStarted, setTimerStarted] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
   const [leaveButtonClicked, setLeaveButtonClicked] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState(0);
+  const [selectedVehicle, setSelectedVehicle] = useState("");
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
+  const [durationParts, setDurationParts] = useState<string[]>([
+    "00",
+    "00",
+    "00",
+  ]);
+
+  const navigate = useNavigate();
 
   const handleActiveParkmeter = (ele: Parkmeter) => {
-    if (selectedVehicle === 0) {
+    if (selectedVehicle === "") {
       alert("You must select a car first!");
     } else if (ele.status === "Available") {
       setIsVehicleSelected(false);
@@ -64,20 +79,26 @@ const ParkingSimulationComponent: React.FC = () => {
   };
 
   const handleBlueCar = (ele: Vehicle) => {
-    setSelectedVehicle((prev) => (prev === ele.id ? 0 : ele.id));
+    setSelectedVehicle((prev) => (prev === ele.id ? "" : ele.id));
     setIsVehicleSelected(true);
   };
 
-  const updateParkStatus = (parkId: number) => {
+  const updateParkStatus = (parkId: string) => {
     setParkmeterData((prevParkmeterData: any) => {
       return prevParkmeterData.map((park: any) =>
-        park.id === parkId ? { ...park, status: "Reserved",connection: true} : park
+        park.id === parkId
+          ? { ...park, status: "Reserved", connection: true }
+          : park
       );
     });
-  
-    setStartedTimers((prevStartedTimers) => [...prevStartedTimers, parkId]);
+
+    setStartedTimers((prevStartedTimers) => [
+      ...prevStartedTimers,
+      parseInt(parkId, 10),
+    ]);
     setTimerStarted(true);
   };
+
   const handleLeaveButtonClick = () => {
     console.log(leaveButtonClicked, "leave");
     // Set the leaveButtonClicked state to true
@@ -88,32 +109,53 @@ const ParkingSimulationComponent: React.FC = () => {
 
     if (meter !== null && vehicle !== null) {
       const vehicleBounds = vehicle.getBoundingClientRect();
-      // const meterBounds = meter.getBoundingClientRect();
-
       const horizontalDistance = 1300 + vehicleBounds.right;
       const verticalDistance = vehicleBounds.bottom;
-
-      // logic is in progress...
 
       vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${
         -100 + verticalDistance
       }px) `;
     }
-    // Calculate the elapsed time
+
     const now = new Date();
     const elapsedTime = now.getTime() - startDate.getTime();
 
-    // Convert milliseconds to seconds, minutes, and hours
+    // Convert milliseconds to seconds
     const seconds = Math.floor(elapsedTime / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
 
-    // Log the elapsed time
-    console.log(
-      `Elapsed time: ${hours} hours, ${minutes % 60} minutes, ${
-        seconds % 60
-      } seconds`
-    );
+    // Calculate duration in hours, minutes, and seconds
+    const durationHours = Math.floor(seconds / 3600);
+    const durationMinutes = Math.floor((seconds % 3600) / 60);
+    const durationSeconds = seconds % 60;
+
+    // Format duration parts with leading zeros
+    const formattedHours = durationHours.toString().padStart(2, "0");
+    const formattedMinutes = durationMinutes.toString().padStart(2, "0");
+    const formattedSeconds = durationSeconds.toString().padStart(2, "0");
+
+    // Set the duration parts state
+    setDurationParts([formattedHours, formattedMinutes, formattedSeconds]);
+
+    // Calculate cost
+    const cost = durationHours * 5; // $5 per half hour
+
+    // Add a new row to history data
+    const newHistoryRow: HistoryDataRow = {
+      No: data.length + 1,
+      "car-id": selectedVehicle,
+      "park-id": selectedPark,
+      Time: `${startDate.toLocaleTimeString()} - ${now.toLocaleTimeString()}`,
+      duration: `${formattedHours}:${formattedMinutes}:${formattedSeconds}`,
+      cost: `$${cost}`,
+    };
+    console.log(newHistoryRow, "row");
+
+    setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
+
+    setTimeout(() => {
+      // Navigate to the history table
+      navigate("/history"); // Update the route path accordingly
+    }, 3000);
   };
 
   const one_second = 1000;
@@ -124,6 +166,11 @@ const ParkingSimulationComponent: React.FC = () => {
   const faceRef = useRef<HTMLParagraphElement | null>(null);
 
   const requestAnimationFrameRef = useRef<number | null>(null);
+
+  // Find the park data with the matching ID
+  const selectedParkData = parkmeterData.find(
+    (park: any) => park.id === selectedPark
+  );
 
   const tick = () => {
     const now = new Date();
@@ -148,21 +195,12 @@ const ParkingSimulationComponent: React.FC = () => {
       setInitialRender(false);
       return;
     }
-    console.log(selectedPark, "selectedpark");
-    console.log(
-      selectedPark && parkmeterData[selectedPark - 1].status,
-      "status"
-    );
-    console.log(
-      selectedPark && parkmeterData[selectedPark - 1].connection,
-      "connection"
-    );
 
-    // const selectedParkData = parkmeterData.find(
-    //   (park: any) => park.id === selectedPark
-    // );
-
-    if (timerStarted && selectedPark && startedTimers.includes(selectedPark)) {
+    if (
+      timerStarted &&
+      selectedPark &&
+      startedTimers.includes(parseInt(selectedPark, 10))
+    ) {
       tick();
     }
 
@@ -200,20 +238,21 @@ const ParkingSimulationComponent: React.FC = () => {
   ]);
 
   return (
-    <div className="body">
+    <div className="body-simulation">
       <div className="sky">
         <CloudIcon className="cloud-icon" />
         <CloudIcon className="cloud-icon" />
-        <img src={trees} alt="trees" className="tree1"/>
-        <img src={trees} alt="trees" className="tree2"/>
-        <img src={trees} alt="trees" className="tree3"/>
-        <img src={trees} alt="trees" className="tree4"/>
-        <img src={trees} alt="trees" className="tree5"/>
+        <img src={trees} alt="trees" className="tree1" />
+        <img src={trees} alt="trees" className="tree2" />
+        <img src={trees} alt="trees" className="tree3" />
+        <img src={trees} alt="trees" className="tree4" />
+        <img src={trees} alt="trees" className="tree5" />
       </div>
       <div className="grass"></div>
       <div className="parkmeter">
         {parkmeterData.map((meter: any) => (
           <button
+            className="button-simulation"
             key={meter.id}
             onClick={() => handleActiveParkmeter(meter)}
             id={`parkmeter-${meter.id}`}
@@ -269,7 +308,8 @@ const ParkingSimulationComponent: React.FC = () => {
         ))}
       </div>
       {selectedPark !== null &&
-        parkmeterData[selectedPark - 1].status === "Reserved" && (
+        parkmeterData.find((park) => park.id === selectedPark)?.status ===
+          "Reserved" && (
           <div className="clock-leave">
             <div className="timer-group">
               <div className="timer hour">

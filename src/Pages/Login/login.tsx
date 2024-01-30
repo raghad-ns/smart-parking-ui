@@ -34,11 +34,6 @@ const Login = () => {
         {selectedRole.value === "user" && (
           <div className="user-login">
             <div className="input-group">
-              <span>
-                <InputAdornment position="start">
-                  <CarRental className="icons" />
-                </InputAdornment>
-              </span>
               <input
                 type="text"
                 id="carId"
@@ -46,13 +41,13 @@ const Login = () => {
                 onChange={(e) => carId.setState(e.target.value)}
                 placeholder="Car-ID"
               />
-            </div>
-            <div className="input-group">
               <span>
                 <InputAdornment position="start">
-                  <Key className="icons" />
+                  <CarRental className="icons" />
                 </InputAdornment>
               </span>
+            </div>
+            <div className="input-group">
               <input
                 type="password"
                 id="password"
@@ -60,6 +55,11 @@ const Login = () => {
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
               />
+              <span>
+                <InputAdornment position="start">
+                  <Key className="icons" />
+                </InputAdornment>
+              </span>
             </div>
             <button className="sign-in-button" onClick={handleSignin}>Sign In</button>
           </div>
@@ -67,25 +67,21 @@ const Login = () => {
         {selectedRole.value === "manager" && (
           <div className="manager-login">
             <div className="input-group">
-              <span>
-                <InputAdornment position="start">
-                  <Email className="icons" />
-                </InputAdornment>
-              </span>
+             
               <input
                 type="email"
                 id="email"
                 value={email.value}
                 onChange={(e) => email.setState(e.target.value)}
                 placeholder="Email"
-              />
-            </div>
-            <div className="input-group">
+              /> 
               <span>
                 <InputAdornment position="start">
-                  <Key className="icons" />
+                  <Email className="icons" />
                 </InputAdornment>
               </span>
+            </div>
+            <div className="input-group">
               <input
                 type="password"
                 id="password"
@@ -93,6 +89,11 @@ const Login = () => {
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
               />
+              <span>
+                <InputAdornment position="start">
+                  <Key className="icons" />
+                </InputAdornment>
+              </span>
             </div>
             <button className="sign-in-button" type="submit" onClick={() => handleSignin()}>Sign In</button>
           </div>
