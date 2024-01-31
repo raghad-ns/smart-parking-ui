@@ -1,7 +1,8 @@
 import React from 'react'
 import './header.scss'
 import logo from '../../../assets/ps-logo.png';
-import { ExitToApp } from '@mui/icons-material'
+import { ExitToApp, AccountCircle } from '@mui/icons-material'
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useHeader } from '../../../hooks/header.hook';
 import { useNavigate } from 'react-router';
 
@@ -14,15 +15,18 @@ const Header = () => {
                 <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
                 {user.user?.id &&
                     <div className='user-data'>
+                        {user.user?.id && <span className='user-info'>
+                            <span>
+                                <AccountCircle fontSize='large' className='user-avatar' />
+                            </span>
+                            <span className='user-name'>{user.user.owner}</span>
+                        </span>}
                         <button className='signoutIcon' onClick={(handleSignout)}>
                             <ExitToApp fontSize='large' />
                         </button>
                     </div>
                 }
             </div>
-            {/* <div className='info-bar'>
-                {user.user?.id && <span className='user-name'>{user.user.owner}</span>}
-            </div> */}
         </div>
     )
 }
