@@ -51,10 +51,11 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                className="input-login"
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
-              />
+                />
               <span>
                 <InputAdornment position="start">
                   <Key className="icons" />
@@ -74,7 +75,7 @@ const Login = () => {
                 value={email.value}
                 onChange={(e) => email.setState(e.target.value)}
                 placeholder="Email"
-              /> 
+                /> 
               <span>
                 <InputAdornment position="start">
                   <Email className="icons" />
@@ -85,10 +86,11 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                className="input-login"
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
-              />
+                />
               <span>
                 <InputAdornment position="start">
                   <Key className="icons" />

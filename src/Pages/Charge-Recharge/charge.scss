@@ -3,7 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  // background-color: #1f4065;
+  height: 60%;
+  position: absolute;
+  top: 20%;
+  width: fit-content;
 }
+
 
 .input-group {
   margin-top: 5px;
@@ -12,7 +18,8 @@
 }
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="password"]{
   width: calc(100% - 1px);
   padding: 14px 20px;
   border-radius: 5px;
@@ -27,14 +34,18 @@ input[type="email"] {
   font-size: larger;
 }
 input[type="text"]::placeholder,
-input[type="email"]::placeholder {
+input[type="email"]::placeholder,
+input[type="password"]::placeholder
+ {
   color: #1f406599;
   padding-left: 20px;
   font-family: "Montserrat";
   font-style: normal;
 }
 input[type="text"]:not(:placeholder-shown),
-input[type="email"]:not(:placeholder-shown) {
+input[type="email"]:not(:placeholder-shown),
+input[type="password"]:not(:placeholder-shown)
+ {
   color: #1f4065;
   font-family: "Montserrat";
   font-style: normal;
@@ -45,6 +56,16 @@ input[type="email"]:not(:placeholder-shown) {
   color: #1f4065;
   cursor: pointer;
   position: absolute;
-  left: 450%;
+  left: 430%;
   top: 30%;
+}
+.chargebutton{
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.pass-charge{
+    width: 550px;
+}
+.symbols{
+  left: 85%;
 }

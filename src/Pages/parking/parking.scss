@@ -16,7 +16,7 @@
 input[type="text"],
 input[type="email"] {
   // width: calc(100% - 1px);
-  // width: 290px;
+  width: 280px;
   padding: 14px 20px;
   border-radius: 5px;
   border: none;
@@ -54,7 +54,7 @@ input[type="email"]:not(:placeholder-shown) {
 
 /* Style the Select component */
 .MuiSelect-root {
-  width: 290px;
+  width: 320px;
   border-radius: 5px;
   border: none;
   background-color: rgba(0, 0, 0, 0.2);
@@ -81,4 +81,8 @@ input[type="email"]:not(:placeholder-shown) {
   background-color: rgba(0, 0, 0, 0.2);
   color: #1f4065;
   font-style: normal;
+}
+.customid{
+  width: 300px;
+  background-color: #1f4065;
 }

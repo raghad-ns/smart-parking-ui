@@ -56,6 +56,7 @@ const Parking = () => {
           <input
             type="text"
             id="customId"
+            className="customid"
             value={customid.value}
             onChange={(e) => customid.setState(e.target.value)}
             placeholder="Custom-Id"

@@ -11,18 +11,18 @@
     position: relative;
     display: flex;
     justify-content: center;
+    width: 345px;
 
     input[type="text"],
     input[type="password"],
     input[type="email"] {
-      width: 285px;
+  
       padding: 14px 20px;
       border-radius: 5px;
       border: none;
       background-color: rgba(0, 0, 0, 0.2);
       margin-bottom: 10px;
       font-size: larger;
-      
 
       &::placeholder {
         color: #1f406599;
@@ -120,23 +120,11 @@
 
   }
 
-  .dont-have-account {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-top: 10px;
-    color: #1f4065;
-    font-size: larger;
-    // font-family: "Montserrat";
-    font-style: normal;
 
-    a {
-      margin-left: 5px;
-      text-decoration: none;
-      color: #1f4065;
-      font-weight: bold;
-      transition: color 0.3s ease;
-
-    }
-  }
 }
+
+  
+  .input-login{
+    background-color: #1f4065;
+    width: 550px;
+  }

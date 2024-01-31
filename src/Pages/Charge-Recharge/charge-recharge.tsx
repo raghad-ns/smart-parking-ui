@@ -85,7 +85,7 @@ const Charge = () => {
             placeholder="Password"
           />
         </div>
-        <button onClick={handleCharge}>Charge</button>
+        <button onClick={handleCharge} className="chargebutton">Charge</button>
       </div>
     </div>
   );

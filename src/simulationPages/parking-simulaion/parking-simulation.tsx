@@ -241,7 +241,7 @@ const ParkingSimulationComponent: React.FC = () => {
     <div className="body-simulation">
       <div className="sky">
         <CloudIcon className="cloud-icon" />
-        <CloudIcon className="cloud-icon" />
+        {/* <CloudIcon className="cloud-icon" /> */}
         <img src={trees} alt="trees" className="tree1" />
         <img src={trees} alt="trees" className="tree2" />
         <img src={trees} alt="trees" className="tree3" />

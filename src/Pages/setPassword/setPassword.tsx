@@ -51,11 +51,11 @@ const SetPassword = () => {
     <div className="page-wrapper">
       <div className="set-form form-wrapper">
         <div className='form-title'><h1>Set your password</h1></div>
-        <div className="input-group">
+        <div className="input-group-pass">
           <span>
             <InputAdornment position="start">
               <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
-                {passwordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+                {passwordVisibility ? <VisibilityOff className="eye-pass" /> : <RemoveRedEye className="eye-pass" />}
               </button>
             </InputAdornment>
           </span>
@@ -67,11 +67,11 @@ const SetPassword = () => {
             placeholder="Password"
           />
         </div>
-        <div className="input-group">
+        <div className="input-group-pass">
           <span>
             <InputAdornment position="start">
               <button className="invisible" onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
-                {confirmPasswordVisibility ? <VisibilityOff className="icons" /> : <RemoveRedEye className="icons" />}
+                {confirmPasswordVisibility ? <VisibilityOff className="eye-pass" /> : <RemoveRedEye className="eye-pass" />}
               </button>
             </InputAdornment>
           </span>
