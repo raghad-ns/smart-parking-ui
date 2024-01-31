@@ -10,7 +10,7 @@ const Parking = () => {
     location,
     handleAddParking,
     handleLocationChange,
-    capitalizeFirstLetter
+    capitalizeFirstLetter, buttonEnable
   } = useParkingEnrollment()
 
   return (
@@ -61,7 +61,10 @@ const Parking = () => {
             placeholder="Custom-Id"
           />
         </div>
-        <button onClick={handleAddParking}>Add Parking</button>
+        <button
+          onClick={handleAddParking}
+          className={buttonEnable ? '' : 'disabled'}
+          disabled={!buttonEnable}>Add Parking</button>
       </div>
     </div>
   );

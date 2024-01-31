@@ -25,27 +25,27 @@ function App() {
     <div className="App">
       <div className="background-image">
         <img src={sideImage} alt="side-man" className="side-man-image"
-          style={['/history', '/parking'].includes(window.location.pathname) ? { display: "none" } : {}} />
+          style={['/history', '/parking', '/history'].includes(window.location.pathname) ? { display: "none" } : {}} />
       </div>
       <UserProvider>
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path='/' element={<Intro />} />//done
-            <Route path='/signin' element={<Login />} />//done
+            <Route path='/' element={<Intro />} />
+            <Route path='/signin' element={<Login />} />
             <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />//notacces
-            <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />//done
-            <Route path='/set-password' element={<SetPassword />} />//done
-            <Route path='/info' element={<Info />} />//done
-            <Route path='/email' element={<EmailSimulator />} />//done
-            <Route path='/otp-message' element={<OTPMessage />} />//done
-            <Route path='/otp' element={<OTPForm />} />//done
+            <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
+            <Route path='/set-password' element={<SetPassword />} />
+            <Route path='/info' element={<Info />} />
+            <Route path='/email' element={<EmailSimulator />} />
+            <Route path='/otp-message' element={<OTPMessage />} />
+            <Route path='/otp' element={<OTPForm />} />
             <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />//notacces
-            <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />//done
-            <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />done
-            <Route path='/charge-wallet' element={<Charge />} />//done
-            <Route path='/history' element={<HistoryTable />} />//done
-            <Route path='/parking' element={<ParkingSimulationComponent />}/>//done
+            <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
+            <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
+            <Route path='/charge-wallet' element={<Charge />} />
+            <Route path='/history' element={<HistoryTable />} />
+            <Route path='/parking' element={<ParkingSimulationComponent />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

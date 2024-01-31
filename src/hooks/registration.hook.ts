@@ -7,6 +7,7 @@ const useRegistration = (type: "car" | "manager") => {
   const [carId, setCarId] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [buttonEnable, setButtonEnable] = useState<boolean>(false);
+  const [valid, setValid] = useState<boolean>(true);
 
   const checkButtonEnable = () => {
     setButtonEnable(
@@ -23,6 +24,7 @@ const useRegistration = (type: "car" | "manager") => {
       { value: email, type: "email" },
     ];
     if (validateInputs(inputs)) {
+      setValid(true);
       const signup = await signupService({ ownerName, carId, email });
       if (signup.state === 201) {
         sessionStorage.setItem(
@@ -32,6 +34,9 @@ const useRegistration = (type: "car" | "manager") => {
         window.alert("Car added successfully! set your password");
         const newTab: Window = window.open("", "_blank") as Window;
         newTab.location.href = "/email";
+        setCarId("");
+        setEmail("");
+        setOwnerName("");
       } else if (signup.state === 403) {
         window.alert("You don't have the permission to modify this resource");
       } else {
@@ -39,6 +44,7 @@ const useRegistration = (type: "car" | "manager") => {
       }
     } else {
       window.alert("Invalid inputs format, please check your data!");
+      setValid(false);
     }
   };
 
@@ -79,6 +85,7 @@ const useRegistration = (type: "car" | "manager") => {
     handleRegistration,
     buttonEnable,
     handleManagerEnrollment,
+    valid,
   };
 };
 

@@ -11,7 +11,7 @@ import { useReflect } from "../../hooks/refelct.hook";
 import { useState } from "react";
 
 const Reflect = () => {
-  const { owner, phone, amount, password, confirmPassword, handleAddReflect } =
+  const { owner, phone, amount, password, confirmPassword, handleAddReflect, valid, buttonEnable } =
     useReflect();
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
@@ -49,7 +49,7 @@ const Reflect = () => {
             onChange={(e) => phone.setState(e.target.value)}
             placeholder="Phone Number"
           />
-          {/* <span className="desc">phone number should be 05xxxxxxxxx</span> */}
+          <span className={valid ? "desc" : "desc invalid"}>phone number should be 05xxxxxxxxx</span>
         </div>
         <div className="input-group">
           <span>
@@ -98,7 +98,7 @@ const Reflect = () => {
             onChange={(e) => confirmPassword.setState(e.target.value)}
             placeholder="Confirm-Password"
           />
-          {/* <span className="desc">password must be at least 8 characters includeing digits, symbols, upper and lower case letters</span> */}
+          <span className={valid ? "desc" : "desc invalid"}>password must be at least 8 characters includeing digits, symbols, upper and lower case letters</span>
         </div>
         <div className="input-group">
           <span>
@@ -114,7 +114,10 @@ const Reflect = () => {
             placeholder="Amount"
           />
         </div>
-        <button onClick={handleAddReflect}>Add Account</button>
+        <button
+          onClick={handleAddReflect}
+          disabled={!buttonEnable}
+          className={buttonEnable ? '' : 'disabled'}>Add Account</button>
       </div>
     </div>
   );

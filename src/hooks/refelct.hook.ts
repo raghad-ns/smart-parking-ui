@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { reflectEnrollmentService } from "../services/reflect.service";
 import { validateInputs } from "../utils/utils";
 
@@ -8,6 +8,22 @@ export const useReflect = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
+  const [valid, setValid] = useState<boolean>(true);
+  const [buttonEnable, setButtonEnable] = useState<boolean>(false);
+  const checkButtonEnable = () => {
+    setButtonEnable(
+      owner !== "" &&
+        phone !== "" &&
+        amount !== "" &&
+        password !== "" &&
+        confirmPassword !== ""
+    );
+  };
+
+  useEffect(() => {
+    checkButtonEnable();
+    // eslint-disable-next-line
+  }, [owner, phone, amount, password, confirmPassword]);
   const handleAddReflect = async () => {
     if (
       validateInputs([
@@ -18,6 +34,7 @@ export const useReflect = () => {
         { value: phone, type: "mobileNo" },
       ])
     ) {
+      setValid(true);
       try {
         const reflect = await reflectEnrollmentService({
           owner,
@@ -41,15 +58,18 @@ export const useReflect = () => {
       }
     } else {
       window.alert("Invalid input format, please check it out!");
+      setValid(false);
     }
   };
 
   return {
+    valid,
     owner: { value: owner, setState: setOwner },
     phone: { value: phone, setState: setPhone },
     amount: { value: amount, setState: setAmount },
     password: { value: password, setState: setPassword },
     confirmPassword: { value: confirmPassword, setState: setConfirmPassword },
     handleAddReflect,
+    buttonEnable,
   };
 };

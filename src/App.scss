@@ -30,7 +30,8 @@ body {
   // width: min-content;
   // box-shadow: 10px 10px 12px #032036, -10px -10px 12px #145782;
 }
-.form-title{
+
+.form-title {
   text-align: center;
   display: flex;
   justify-content: center;
@@ -39,7 +40,11 @@ body {
 }
 
 .desc {
-  font-size: 12px;
+  font-size: 11.5px;
+}
+
+.invalid {
+  font-weight: 600;
 }
 
 .background-image {
@@ -53,7 +58,7 @@ body {
   width: 100%;
   z-index: 0;
 
-  .side-man-image{
+  .side-man-image {
     height: 90%;
   }
 }
