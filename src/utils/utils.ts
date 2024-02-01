@@ -14,14 +14,15 @@ export const validateInputs = (inputs: Array<IInputs>) => {
   return inputs.every((input) => {
     switch (input.type) {
       case "mobileNo":
+        // Verify that it matches the pattern: 05XXXXXXXX
         return /^05\d{8}$/.test(input.value) && regex.test(input.value);
       case "number":
-        return /^\d+$/.test(input.value) && regex.test(input.value);
       case "customid":
-        return (
-          /^[0-9]+(?:\.[0-9]+)?$/.test(input.value) && regex.test(input.value)
-        );
+        // Verify that it includes digits only
+        return /^\d+$/.test(input.value) && regex.test(input.value);
       case "password":
+        // Verify password strength, it should be at least 8 characters
+        // including digits, special symbols, upper and lower case letters
         const strongRegex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
         );
@@ -35,6 +36,7 @@ export const validateInputs = (inputs: Array<IInputs>) => {
           regex.test(input.value)
         );
       case "email":
+        // Verify that it matches the pattern: example@example.anything
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return emailPattern.test(input.value) && regex.test(input.value);
       case "carId":

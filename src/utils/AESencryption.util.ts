@@ -15,7 +15,6 @@ const generateRandomKey = (keyName: string) => {
 };
 
 const encryptMessage = (message: string, encryptionKey: string) => {
-  // console.log("string key: ", key);
   if (!encryptionKey) {
     console.error("Encryption key is not available.");
     return null;

@@ -64,6 +64,8 @@ const useRegistration = (type: "car" | "manager") => {
         window.alert("Manager enrolled successfully! set your password");
         const newTab: Window = window.open("", "_blank") as Window;
         newTab.location.href = "/email";
+        setEmail("");
+        setOwnerName("");
       }
     } else {
       window.alert("Invalid inputs format, please check your data!");
