@@ -4,7 +4,8 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    background-color: rgb(67 216 233 / 30%);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 20px 40px;
-    border-radius: 12px;
+    border-radius: 10px;
+    color: rgba($color: #fff, $alpha: 0.8);
 }

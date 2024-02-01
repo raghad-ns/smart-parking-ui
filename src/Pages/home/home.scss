@@ -1,3 +1,20 @@
-.homeWrapper {
-    padding: 100px 70px;
+
+
+.user-buttons-wrapper {
+    // background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+position: absolute;
+top: 17%;
+
+    .button2 {
+        width: 65%;
+        text-align: center;
+    }
 }

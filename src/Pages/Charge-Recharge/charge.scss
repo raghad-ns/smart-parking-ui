@@ -1,26 +1,25 @@
 .charge-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    position: absolute;
-    top: 25%;
-    left: 20%;
-    width: 250px;
-    height: max-content;
-    padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  // background-color: #1f4065;
+  height: 60%;
+  position: absolute;
+  top: 20%;
+  width: fit-content;
 }
 
-.input-group {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    position: relative;
-  
-    // width: calc(100% - 5px);
-  }
 
-  input[type="text"],
-input[type="email"] {
+.input-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
   width: calc(100% - 1px);
   padding: 14px 20px;
   border-radius: 5px;
@@ -29,55 +28,44 @@ input[type="email"] {
     0,
     0,
     0,
-    0.4
+    0.2
   ); /* Setting input background to transparent black */
   margin-bottom: 10px;
   font-size: larger;
 }
 input[type="text"]::placeholder,
-input[type="email"]::placeholder {
-  color: #ffffff;
+input[type="email"]::placeholder,
+input[type="password"]::placeholder
+ {
+  color: #1f406599;
   padding-left: 20px;
   font-family: "Montserrat";
   font-style: normal;
-  // text-shadow: 1px 1px 2px white ; /* Add white shadow effect */
 }
 input[type="text"]:not(:placeholder-shown),
-input[type="email"]:not(:placeholder-shown) {
-  color: white;
+input[type="email"]:not(:placeholder-shown),
+input[type="password"]:not(:placeholder-shown)
+ {
+  color: #1f4065;
   font-family: "Montserrat";
   font-style: normal;
   padding-left: 30px;
 }
 
-button {
-    width: 290px;
-    margin-bottom: 5px;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(161, 0, 161, 0.4);
-    color: #ffffff;
-    text-shadow: 1px 1px 7px white; /* Add white shadow effect */
-    font-family: "Montserrat";
-    font-style: normal;
-    font-size: larger;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background: linear-gradient(
-      268.29deg,
-      rgba(166, 0, 207, 0.21) 24.2%,
-      rgba(143, 151, 220, 0.21) 102.72%
-    );
-  }
-  .icons {
-    position: absolute;
-    z-index: 0 ;
-    color: #ffffff;
-    top: 20%;
-    left: 3%;
-  }
-  
+.passsymbols {
+  color: #1f4065;
+  cursor: pointer;
+  position: absolute;
+  left: 430%;
+  top: 30%;
+}
+.chargebutton{
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.pass-charge{
+    width: 550px;
+}
+.symbols{
+  left: 85%;
+}
