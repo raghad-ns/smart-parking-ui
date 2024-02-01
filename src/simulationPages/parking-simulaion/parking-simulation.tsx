@@ -15,6 +15,7 @@ import noSignalImage from "../../assets/no-signal.png";
 import blackCar from "../../assets/blackCar.png";
 import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
+import { getParkingsListService } from "../../services/parking.service";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -34,6 +35,8 @@ const ParkingSimulationComponent: React.FC = () => {
   const [leaveButtonClicked, setLeaveButtonClicked] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
+  const [refresh, setRefresh] = useState<number>(0)
+  // eslint-disable-next-line
   const [durationParts, setDurationParts] = useState<string[]>([
     "00",
     "00",
@@ -42,15 +45,47 @@ const ParkingSimulationComponent: React.FC = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    try {
+      getParkingsListService().then(response => {
+        setParkmeterData(response.value.data.data.parkings)
+      })
+    } catch (error: any) {
+      console.error(error.message)
+    }
+    const interval = setInterval(() => {
+      if (refresh < 10) {
+        try {
+          getParkingsListService().then(response => {
+            console.log('setting up parkings...')
+            setParkmeterData(response.value.data.data.parkings)
+            console.log('parkings: ', response.value.data.data.parkings)
+          })
+        } catch (error: any) {
+          console.error(error.message)
+        }
+        // window.location.reload();
+        setRefresh(refresh + 1);
+      }
+    }, 60000); // 60000 milliseconds = 1 minute
+
+    // Stop refreshing after 10 minutes
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 600000); // 600000 milliseconds = 10 minutes
+
+    return () => clearInterval(interval); // Clean up interval on component unmount
+  }, [refresh]);
+
   const handleActiveParkmeter = (ele: Parkmeter) => {
     if (selectedVehicle === "") {
       alert("You must select a car first!");
-    } else if (ele.status === "Available") {
+    } else if (ele.status === "available") {
       setIsVehicleSelected(false);
       // connect car to park meter
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
-      const meter = document.getElementById(`parkmeter-${ele.id}`);
+      const meter = document.getElementById(`parkmeter-${ele.customid}`);
 
       if (meter !== null && vehicle !== null) {
         const vehicleBounds = vehicle.getBoundingClientRect();
@@ -63,17 +98,16 @@ const ParkingSimulationComponent: React.FC = () => {
         if (horizontalDistance < 0) {
           vehicle.style.transform = "";
         } else {
-          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${
-            verticalDistance + 150
-          }px) `;
+          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
+            }px) `;
         }
       }
     }
 
-    setSelectedPark(ele.id);
+    setSelectedPark(ele.customid || '');
     // After 7 seconds, change the park status and show wifi symbol
     setTimeout(() => {
-      updateParkStatus(ele.id);
+      updateParkStatus(ele.customid || '');
       setStartDate(new Date());
     }, 7000);
   };
@@ -86,8 +120,8 @@ const ParkingSimulationComponent: React.FC = () => {
   const updateParkStatus = (parkId: string) => {
     setParkmeterData((prevParkmeterData: any) => {
       return prevParkmeterData.map((park: any) =>
-        park.id === parkId
-          ? { ...park, status: "Reserved", connection: true }
+        park.customid === parkId
+          ? { ...park, status: "reserved", connection: true }
           : park
       );
     });
@@ -112,9 +146,8 @@ const ParkingSimulationComponent: React.FC = () => {
       const horizontalDistance = 1300 + vehicleBounds.right;
       const verticalDistance = vehicleBounds.bottom;
 
-      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${
-        -100 + verticalDistance
-      }px) `;
+      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
+        }px) `;
     }
 
     const now = new Date();
@@ -168,8 +201,9 @@ const ParkingSimulationComponent: React.FC = () => {
   const requestAnimationFrameRef = useRef<number | null>(null);
 
   // Find the park data with the matching ID
+  // eslint-disable-next-line
   const selectedParkData = parkmeterData.find(
-    (park: any) => park.id === selectedPark
+    (park: any) => park.customid === selectedPark
   );
 
   const tick = () => {
@@ -206,10 +240,10 @@ const ParkingSimulationComponent: React.FC = () => {
 
     // Check if the Leave button is clicked
     if (leaveButtonClicked && selectedPark) {
-      // Update park status to "Available"
+      // Update park status to "available"
       setParkmeterData((prevParkmeterData: any) => {
         return prevParkmeterData.map((park: any) =>
-          park.id === selectedPark ? { ...park, status: "Available" } : park
+          park.customid === selectedPark ? { ...park, status: "available" } : park
         );
       });
 
@@ -253,22 +287,22 @@ const ParkingSimulationComponent: React.FC = () => {
         {parkmeterData.map((meter: any) => (
           <button
             className="button-simulation"
-            key={meter.id}
+            key={meter.customid}
             onClick={() => handleActiveParkmeter(meter)}
-            id={`parkmeter-${meter.id}`}
+            id={`parkmeter-${meter.customid}`}
             disabled={
-              meter.status === "Disabled" || meter.status === "Reserved"
+              meter.status === "disabled" || meter.status === "reserved"
             }
           >
             <div className="parkmeter-Info">
-              {meter.status === "Available" && (
+              {meter.status === "available" && (
                 <div className="avilableParkMeter">
-                  <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
+                  <img src={parkmeterImage} alt={`parkMeter-${meter.customid}`} />
                 </div>
               )}
-              {meter.status === "Reserved" && (
-                <div className="ReservedParkMeter">
-                  <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
+              {meter.status === "reserved" && (
+                <div className="reservedParkMeter">
+                  <img src={parkmeterImage} alt={`parkMeter-${meter.customid}`} />
 
                   <div className="wifi-symbol">
                     <div className="wifi-circle first"></div>
@@ -277,7 +311,7 @@ const ParkingSimulationComponent: React.FC = () => {
                     <div className="wifi-circle fourth"></div>
                   </div>
 
-                  {selectedPark !== meter.id && (
+                  {selectedPark !== meter.customid && (
                     <div className="blackCar">
                       <img src={blackCar} alt="blackCar" />
                     </div>
@@ -285,11 +319,11 @@ const ParkingSimulationComponent: React.FC = () => {
                 </div>
               )}
 
-              {meter.status === "Disabled" && (
+              {meter.status === "disabled" && (
                 <div className="disabledParkMeter">
                   <img
                     src={disabledParkMeterImage}
-                    alt={`parkMeter-${meter.id}`}
+                    alt={`parkMeter-${meter.customid}`}
                   />
                   <img
                     className="no-signal-icon"
@@ -300,7 +334,7 @@ const ParkingSimulationComponent: React.FC = () => {
               )}
 
               <div className="parkInfo">
-                <div>{`ID: ${meter.id}`}</div>
+                <div>{`ID: ${meter.customid}`}</div>
                 <div>{`${meter.status}`}</div>
               </div>
             </div>
@@ -308,8 +342,8 @@ const ParkingSimulationComponent: React.FC = () => {
         ))}
       </div>
       {selectedPark !== null &&
-        parkmeterData.find((park) => park.id === selectedPark)?.status ===
-          "Reserved" && (
+        parkmeterData.find((park) => park.customid === selectedPark)?.status ===
+        "reserved" && (
           <div className="clock-leave">
             <div className="timer-group">
               <div className="timer hour">
@@ -361,9 +395,8 @@ const ParkingSimulationComponent: React.FC = () => {
             <img
               src={car}
               alt=""
-              className={`vehicle-image car ${
-                selectedVehicle === ele.id ? "vehicle-is-active" : ""
-              }`}
+              className={`vehicle-image car ${selectedVehicle === ele.id ? "vehicle-is-active" : ""
+                }`}
             />
           </div>
         ))}

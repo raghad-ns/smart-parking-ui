@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./History-table.scss"; // Import your SCSS file here
-import { Person, ArrowLeft, ArrowRight } from "@mui/icons-material";
+import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import { historyData } from "./Data-table";
 import car from "../../assets/sport-car.png";
 const HistoryTable = () => {
+  // eslint-disable-next-line
   const [data, setData] = useState(historyData);
   const itemsPerPage = 5; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
   const [showCarAnimation, setShowCarAnimation] = useState(true);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPageCount = Math.ceil(data.length / itemsPerPage);
   useEffect(() => {
