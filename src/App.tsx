@@ -25,7 +25,8 @@ function App() {
     <div className="App">
       <div className="background-image">
         <img src={sideImage} alt="side-man" className="side-man-image"
-          style={['/history', '/parking', '/history'].includes(window.location.pathname) ? { display: "none" } : {}} />
+          style={['/history', '/parking'].includes(window.location.pathname) ? { display: "none" } : {}}
+        />
       </div>
       <UserProvider>
         <BrowserRouter>

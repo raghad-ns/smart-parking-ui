@@ -16,6 +16,7 @@ import blackCar from "../../assets/blackCar.png";
 import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
 import { getParkingsListService } from "../../services/parking.service";
+import { initiateConnectionService } from "../../services/connection.service";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -77,30 +78,39 @@ const ParkingSimulationComponent: React.FC = () => {
     return () => clearInterval(interval); // Clean up interval on component unmount
   }, [refresh]);
 
-  const handleActiveParkmeter = (ele: Parkmeter) => {
+  const handleActiveParkmeter = async (ele: Parkmeter) => {
     if (selectedVehicle === "") {
       alert("You must select a car first!");
     } else if (ele.status === "available") {
-      setIsVehicleSelected(false);
-      // connect car to park meter
+      const initiateConnection = await (initiateConnectionService(ele.customid || ''))
+      if (initiateConnection.state && initiateConnection.value.statusCode === 201) {
+        console.log(initiateConnection)
+        setIsVehicleSelected(false);
+        // connect car to park meter
 
-      const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
-      const meter = document.getElementById(`parkmeter-${ele.customid}`);
+        const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+        const meter = document.getElementById(`parkmeter-${ele.customid}`);
 
-      if (meter !== null && vehicle !== null) {
-        const vehicleBounds = vehicle.getBoundingClientRect();
-        const meterBounds = meter.getBoundingClientRect();
+        if (meter !== null && vehicle !== null) {
+          const vehicleBounds = vehicle.getBoundingClientRect();
+          const meterBounds = meter.getBoundingClientRect();
 
-        const horizontalDistance = meterBounds.left - vehicleBounds.right;
-        const verticalDistance = meterBounds.top - vehicleBounds.bottom;
+          const horizontalDistance = meterBounds.left - vehicleBounds.right;
+          const verticalDistance = meterBounds.top - vehicleBounds.bottom;
 
-        // logic is in progress...
-        if (horizontalDistance < 0) {
-          vehicle.style.transform = "";
-        } else {
-          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
-            }px) `;
+          // logic is in progress...
+          if (horizontalDistance < 0) {
+            vehicle.style.transform = "";
+          } else {
+            vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
+              }px) `;
+          }
         }
+      } else if (initiateConnection.state && initiateConnection.value.statusCode === 400) {
+        alert('You already have active connection!')
+      }
+      else {
+        window.alert('Unfortunatlly, something went wrong, please try another parking')
       }
     }
 
