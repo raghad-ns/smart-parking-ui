@@ -25,7 +25,7 @@ const Reflect = () => {
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
     useState<boolean>(false);
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper reflect-wrapper">
       <div className="reflect-page form-wrapper">
         <div className="form-title">
           <h1>Create reflect wallet</h1>
@@ -108,7 +108,7 @@ const Reflect = () => {
               </InputAdornment>
             </span>
             <input
-            className="input-reflect"
+              className="input-reflect"
               type={confirmPasswordVisibility ? "text" : "password"}
               id="confirmPassword"
               value={confirmPassword.value}
@@ -140,7 +140,7 @@ const Reflect = () => {
           <button
             onClick={handleAddReflect}
             disabled={!buttonEnable}
-            className={buttonEnable ? "" : "disabled"}
+            className={buttonEnable ? "reflect-button" : "disabled reflect-button"}
           >
             Add Account
           </button>
