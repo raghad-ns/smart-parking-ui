@@ -37,7 +37,7 @@ function App() {
           '/manager-enrollment',
           '/reflect-enrollment',
           '/charge-wallet'
-        ].includes(window.location.pathname) ? {} : { display: "none" }}
+        ].includes(window.location.pathname) ? { display: "none" } : {}}
       >
         <img src={sideImage} alt="side-man" className="side-man-image" />
       </div>
