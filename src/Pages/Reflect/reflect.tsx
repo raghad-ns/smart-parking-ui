@@ -34,7 +34,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <Person className="symbols" />
+                <Person className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input
@@ -49,7 +49,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <LocalPhoneOutlined className="symbols" />
+                <LocalPhoneOutlined className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input
@@ -125,7 +125,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <PaidOutlined className="symbols" />
+                <PaidOutlined className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input

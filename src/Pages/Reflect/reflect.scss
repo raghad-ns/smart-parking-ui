@@ -59,17 +59,12 @@ button {
 .reflect-button{
   height: 50px;
 }
-.symbols {
-  color: #1f4065;
-  position: absolute;
-  left: 100%;
-  top: 25%;
-}
+
 .eye {
   cursor: pointer;
   color: #1f4065;
   position: absolute;
-  top: 25%;
+  top: 2%;
   left: 450%;
 }
 .first-row{
@@ -95,5 +90,11 @@ button {
     background-color: #1f4065;
     margin-left: 50px;
    }
-}
-
+  }
+  
+  .symbols-reflect{
+   color: #1f4065;
+   position: absolute;
+   left: 100%;
+   top: 25%;
+  }
