@@ -2,10 +2,12 @@ import React from 'react'
 import './OTP.scss'
 import { confirmTransaction } from '../../services/wallet.service';
 import { useNavigate } from 'react-router';
+import { WalletBalanceContext } from '../../providers/wallet-balance.provider';
 
 const OTPForm = () => {
     const [code, setCode] = React.useState<string[]>(['', '', '', '', '', '']);
     const navigate = useNavigate()
+    const walletBalanceContext = React.useContext(WalletBalanceContext)
 
     const handleConfirmation = async () => {
         const otp = code.join('')
@@ -14,6 +16,7 @@ const OTPForm = () => {
             if (confirmation.value.statusCode === 201) {
                 window.alert("Transaction completed successfully")
                 navigate('/charge-wallet', { replace: true })
+                walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
             } else {
                 window.alert("Incorrect code, transaction discarded!");
             }
