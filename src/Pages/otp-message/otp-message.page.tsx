@@ -3,7 +3,6 @@ import PopUp from '../../components/core/popup/popup.component'
 import { decryptMessage } from '../../utils/AESencryption.util';
 
 const OTPMessage = () => {
-    console.log('otp message page')
     const otp = decryptMessage(
         sessionStorage.getItem("otp-code") || "",
         decryptMessage(

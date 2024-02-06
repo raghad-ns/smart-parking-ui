@@ -19,7 +19,6 @@ interface IPopupParams {
 const WalletBalanceProvider = (props: IPopupParams) => {
 
     const [walletBalance, setWalletBalance] = React.useState(0);
-    console.log('balance: ', walletBalance)
     const updateWalletBalance = () => {
         getBalance()
             .then(balance => setWalletBalance(balance))

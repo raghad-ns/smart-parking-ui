@@ -6,7 +6,6 @@ import React from 'react'
 const Home = () => {
   const navigate = useNavigate()
   const user = React.useContext(UserContext);
-  console.log(user.user?.role)
   return (
     <div >
       <div className='homeWrapper page-wrapper'>

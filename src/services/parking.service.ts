@@ -12,7 +12,6 @@ export const parkingEnrollmentService = (parking: IParking) => {
       process.env.REACT_APP_SECRET_KEY || ""
     ) as string
   ) as string;
-  console.log("token: ", token);
   return fetch(`${process.env.REACT_APP_SERVER_URL}/parking`, {
     method: "POST",
     headers: {
@@ -36,7 +35,6 @@ export const parkingEnrollmentService = (parking: IParking) => {
 };
 
 export const getParkingsListService = () => {
-  // console.log("fetching...");
   const token = decryptMessage(
     sessionStorage.getItem("token") || "",
     decryptMessage(
@@ -52,7 +50,6 @@ export const getParkingsListService = () => {
     },
   })
     .then(async (response) => {
-      // console.log("fetched successfully!");
       try {
         return { state: response.status !== 500, value: await response.json() };
       } catch (error) {
