@@ -3,6 +3,14 @@
 //   process.env.SECRET_KEY = cryptojs.lib.WordArray.random(256 / 8).toString();
 // };
 
+import { getWalletBalance } from "../services/wallet.service";
+
+export const getBalance = async () => {
+  const walletBalance = await getWalletBalance();
+  const balance: number = walletBalance.state ? walletBalance.value.data : 0;
+  return balance;
+};
+
 interface IInputs {
   value: any;
   type: string;

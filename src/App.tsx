@@ -20,6 +20,7 @@ import OTPMessage from './Pages/otp-message/otp-message.page';
 import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
 import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation'
 import sideImage from './assets/auto.png'
+import WalletBalanceProvider from './providers/wallet-balance.provider';
 function App() {
   return (
     <div className="App">
@@ -29,26 +30,28 @@ function App() {
         />
       </div>
       <UserProvider>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Intro />} />
-            <Route path='/signin' element={<Login />} />
-            <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />
-            <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
-            <Route path='/set-password' element={<SetPassword />} />
-            <Route path='/info' element={<Info />} />
-            <Route path='/email' element={<EmailSimulator />} />
-            <Route path='/otp-message' element={<OTPMessage />} />
-            <Route path='/otp' element={<OTPForm />} />
-            <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />
-            <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
-            <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
-            <Route path='/charge-wallet' element={<Charge />} />
-            <Route path='/history' element={<HistoryTable />} />
-            <Route path='/parking' element={<ParkingSimulationComponent />} />
-          </Routes>
-        </BrowserRouter>
+        <WalletBalanceProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path='/' element={<Intro />} />
+              <Route path='/signin' element={<Login />} />
+              <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />
+              <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
+              <Route path='/set-password' element={<SetPassword />} />
+              <Route path='/info' element={<Info />} />
+              <Route path='/email' element={<EmailSimulator />} />
+              <Route path='/otp-message' element={<OTPMessage />} />
+              <Route path='/otp' element={<OTPForm />} />
+              <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />
+              <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
+              <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
+              <Route path='/charge-wallet' element={<Charge />} />
+              <Route path='/history' element={<HistoryTable />} />
+              <Route path='/parking' element={<ParkingSimulationComponent />} />
+            </Routes>
+          </BrowserRouter>
+        </WalletBalanceProvider>
       </UserProvider>
     </div>
   );

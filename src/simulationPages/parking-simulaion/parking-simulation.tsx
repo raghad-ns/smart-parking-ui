@@ -17,6 +17,7 @@ import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
 import { getParkingsListService } from "../../services/parking.service";
 import { initiateConnectionService, terminateConnectionService } from "../../services/connection.service";
+import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -45,6 +46,7 @@ const ParkingSimulationComponent: React.FC = () => {
   ]);
 
   const navigate = useNavigate();
+  const walletBalanceContext = React.useContext(WalletBalanceContext)
 
   useEffect(() => {
     try {
@@ -145,6 +147,7 @@ const ParkingSimulationComponent: React.FC = () => {
     if (terminateConnection.state && terminateConnection.value.statusCode === 201) {
       // Set the leaveButtonClicked state to true
       setLeaveButtonClicked(true);
+      walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
       const meter = document.getElementById(`parkmeter-${selectedPark}`);
