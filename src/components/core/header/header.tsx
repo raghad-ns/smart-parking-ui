@@ -16,8 +16,8 @@ const Header = () => {
         <div className='nav-bar' style={{ width: '100%' }}>
             <div className='headerWrapper'>
                 <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
-                {user.user?.id &&
-                    <div className='user-data'>
+                {user.user?.id && user.user.role.roleName !== "Manager"
+                    ? <div className='user-data'>
                         {user.user?.id && <span className='user-info'>
                             <span>
                                 <AccountCircle fontSize='large' className='user-avatar' />
@@ -28,6 +28,17 @@ const Header = () => {
                                 <WalletIcon fontSize='large' className='user-avatar' />
                             </span>
                             <span className='user-name'>&#8362; {walletBalanceContext.walletBalance || NaN}</span>
+                        </span>}
+                        <button className='signoutIcon' onClick={(handleSignout)}>
+                            <ExitToApp fontSize='large' />
+                        </button>
+                    </div>
+                    : <div className='user-data'>
+                        {user.user?.id && <span className='user-info'>
+                            <span>
+                                <AccountCircle fontSize='large' className='user-avatar' />
+                            </span>
+                            <span className='user-name'>{user.user.owner}</span>
                         </span>}
                         <button className='signoutIcon' onClick={(handleSignout)}>
                             <ExitToApp fontSize='large' />

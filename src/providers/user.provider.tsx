@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { UserNS } from '../typess/user.type';
+import { WalletBalanceContext } from './wallet-balance.provider';
 // import { decryptMessage, encryptMessage, generateRandomKey } from '../utils/AESencryption.util';
 
 interface IState {
@@ -29,6 +30,7 @@ const UserProvider = (props: IPopupParams) => {
         //     ) as string
         // ) || '{}')
     );
+    const walletBalanceContext = React.useContext(WalletBalanceContext)
 
     useEffect(() => {
         sessionStorage.setItem(
@@ -42,6 +44,8 @@ const UserProvider = (props: IPopupParams) => {
             //     ) as string
             // ) as string
         );
+        walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
+        // eslint-disable-next-line
     }, [user])
 
     return (
