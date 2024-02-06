@@ -15,6 +15,7 @@ import noSignalImage from "../../assets/no-signal.png";
 import blackCar from "../../assets/blackCar.png";
 import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -40,6 +41,12 @@ const ParkingSimulationComponent: React.FC = () => {
     "00",
   ]);
 
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const navigate = useNavigate();
 
   const handleActiveParkmeter = (ele: Parkmeter) => {
@@ -63,9 +70,8 @@ const ParkingSimulationComponent: React.FC = () => {
         if (horizontalDistance < 0) {
           vehicle.style.transform = "";
         } else {
-          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${
-            verticalDistance + 150
-          }px) `;
+          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
+            }px) `;
         }
       }
     }
@@ -112,9 +118,8 @@ const ParkingSimulationComponent: React.FC = () => {
       const horizontalDistance = 1300 + vehicleBounds.right;
       const verticalDistance = vehicleBounds.bottom;
 
-      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${
-        -100 + verticalDistance
-      }px) `;
+      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
+        }px) `;
     }
 
     const now = new Date();
@@ -309,7 +314,7 @@ const ParkingSimulationComponent: React.FC = () => {
       </div>
       {selectedPark !== null &&
         parkmeterData.find((park) => park.id === selectedPark)?.status ===
-          "Reserved" && (
+        "Reserved" && (
           <div className="clock-leave">
             <div className="timer-group">
               <div className="timer hour">
@@ -361,9 +366,8 @@ const ParkingSimulationComponent: React.FC = () => {
             <img
               src={car}
               alt=""
-              className={`vehicle-image car ${
-                selectedVehicle === ele.id ? "vehicle-is-active" : ""
-              }`}
+              className={`vehicle-image car ${selectedVehicle === ele.id ? "vehicle-is-active" : ""
+                }`}
             />
           </div>
         ))}

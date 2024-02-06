@@ -9,8 +9,15 @@ import {
 import "./reflect.scss";
 import { useReflect } from "../../hooks/refelct.hook";
 import { useState } from "react";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Reflect = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     owner,
     phone,

@@ -1,7 +1,13 @@
 import React from "react";
 import "./intro.scss";
 import { useNavigate } from "react-router-dom";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 const Intro = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const navigate = useNavigate();
 
   return (
@@ -16,19 +22,19 @@ const Intro = () => {
         <p>
           🚗 <span className="title">Park with Confidence:</span> Tired of circling the block? SmartPark
           helps you find and reserve parking spaces effortlessly. Say goodbye to
-          stress and hello to convenience. 
-          <br/>
-          <br/>
+          stress and hello to convenience.
+          <br />
+          <br />
           💳 <span className="title">Secure Payment:</span>
           No more digging for change or worrying about overpayment. Our secure payment
           system ensures you only pay for the time you use.
-          <br/>
-          <br/>
+          <br />
+          <br />
           🕐 <span className="title">Flexibility at Your Fingertips</span>: With SmartPark, you have control. Park for as long
           as you need, and our system will automatically handle the payment when
           you're done.
-          <br/>
-          <br/>
+          <br />
+          <br />
           🔐 <span className="title">Your Security Matters</span>: Rest easy knowing that your data and transactions are
           protected by state-of-the-art security measures. SmartPark prioritizes
           your privacy .

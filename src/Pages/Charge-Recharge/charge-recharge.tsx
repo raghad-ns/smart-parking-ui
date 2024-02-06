@@ -8,8 +8,15 @@ import {
 } from "@mui/icons-material";
 import "./charge.scss";
 import { useWallet } from "../../hooks/wallet.hook";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Charge = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     carId,
     setCarId,

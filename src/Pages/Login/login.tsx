@@ -2,8 +2,15 @@ import "./login.scss"; // Import your SCSS module
 import { InputAdornment } from "@mui/material";
 import { CarRental, Email, Key } from "@mui/icons-material";
 import useSignin from "../../hooks/signin.hook";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Login = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     carId,
     email,
@@ -55,7 +62,7 @@ const Login = () => {
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
-                />
+              />
               <span>
                 <InputAdornment position="start">
                   <Key className="icons" />
@@ -68,14 +75,14 @@ const Login = () => {
         {selectedRole.value === "manager" && (
           <div className="manager-login">
             <div className="input-group">
-             
+
               <input
                 type="email"
                 id="email"
                 value={email.value}
                 onChange={(e) => email.setState(e.target.value)}
                 placeholder="Email"
-                /> 
+              />
               <span>
                 <InputAdornment position="start">
                   <Email className="icons" />
@@ -90,7 +97,7 @@ const Login = () => {
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
-                />
+              />
               <span>
                 <InputAdornment position="start">
                   <Key className="icons" />

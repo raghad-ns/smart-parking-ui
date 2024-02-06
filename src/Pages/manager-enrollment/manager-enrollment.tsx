@@ -4,8 +4,14 @@ import { Person, Email } from "@mui/icons-material";
 import "./manager-enrollment.scss";
 
 import useRegistration from '../../hooks/registration.hook';
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 
 const ManagerEnrollment = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     ownerName,
     setOwnerName,

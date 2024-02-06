@@ -3,8 +3,14 @@ import { InputAdornment, MenuItem, Select } from "@mui/material";
 import { LocationOn, Label } from "@mui/icons-material";
 import "./parking.scss";
 import { useParkingEnrollment } from "../../hooks/parking.hook";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 
 const Parking = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     customid,
     location,

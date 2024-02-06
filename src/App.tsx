@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import Intro from './Pages/Introduction/intro';
 import Login from './Pages/Login/login';
@@ -22,22 +22,29 @@ import ParkingSimulationComponent from './simulationPages/parking-simulaion/park
 import sideImage from './assets/auto.png'
 import NotFound from './Pages/not-found/not-found';
 import AccessDenied from './Pages/access-denied/access-denied.page';
+import { ViewSideManContext } from './providers/view-side-man.provider';
 function App() {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  useEffect(() => {
+    console.log('App rerendering...')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewSideManContext.viewSideMan])
   return (
     <div className="App">
       <div className="background-image"
-        style={[
-          '/signin',
-          '/signup',
-          '/home',
-          '/set-password',
-          '/info',
-          '/otp',
-          '/parking-enrollment',
-          '/manager-enrollment',
-          '/reflect-enrollment',
-          '/charge-wallet'
-        ].includes(window.location.pathname) ? { display: "none" } : {}}
+        style={viewSideManContext.viewSideMan ? {} : { display: 'none' }}
+      // style={[
+      //   '/signin',
+      //   '/signup',
+      //   '/home',
+      //   '/set-password',
+      //   '/info',
+      //   '/otp',
+      //   '/parking-enrollment',
+      //   '/manager-enrollment',
+      //   '/reflect-enrollment',
+      //   '/charge-wallet'
+      // ].includes(window.location.pathname) ? { display: "none" } : {}}
       >
         <img src={sideImage} alt="side-man" className="side-man-image" />
       </div>

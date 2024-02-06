@@ -5,8 +5,14 @@ import { RemoveRedEye, VisibilityOff } from "@mui/icons-material";
 import { passwordSetService } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import { validateInputs } from "../../utils/utils";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 
 const SetPassword = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const [password, setPassword] = useState<string>("");
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
   const [valid, setValid] = useState<boolean>(true)
