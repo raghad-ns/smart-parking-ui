@@ -147,6 +147,7 @@ const ParkingSimulationComponent: React.FC = () => {
     if (terminateConnection.state && terminateConnection.value.statusCode === 201) {
       // Set the leaveButtonClicked state to true
       setLeaveButtonClicked(true);
+      window.alert('Connection terminated successfully, money deducted from your wallet')
       walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
@@ -201,10 +202,12 @@ const ParkingSimulationComponent: React.FC = () => {
         navigate("/history"); // Update the route path accordingly
       }, 3000);
     } else if (terminateConnection.state && terminateConnection.value.statusCode === 400) {
-      alert('Bad request!')
+      alert('No connection to terminate!')
+    } else if (terminateConnection.state && terminateConnection.value.statusCode === 200) {
+      alert('Connection terminated successfully, but no enough money in your wallet!')
     }
     else {
-      window.alert('Unfortunatlly, something went wrong, please try another parking')
+      window.alert('Unfortunatlly, something went wrong, please try again!')
     }
   };
 
