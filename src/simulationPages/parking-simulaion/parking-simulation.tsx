@@ -16,7 +16,7 @@ import blackCar from "../../assets/blackCar.png";
 import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
 import { getParkingsListService } from "../../services/parking.service";
-import { initiateConnectionService } from "../../services/connection.service";
+import { initiateConnectionService, terminateConnectionService } from "../../services/connection.service";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -58,9 +58,7 @@ const ParkingSimulationComponent: React.FC = () => {
       if (refresh < 10) {
         try {
           getParkingsListService().then(response => {
-            console.log('setting up parkings...')
             setParkmeterData(response.value.data.data.parkings)
-            console.log('parkings: ', response.value.data.data.parkings)
           })
         } catch (error: any) {
           console.error(error.message)
@@ -84,7 +82,6 @@ const ParkingSimulationComponent: React.FC = () => {
     } else if (ele.status === "available") {
       const initiateConnection = await (initiateConnectionService(ele.customid || ''))
       if (initiateConnection.state && initiateConnection.value.statusCode === 201) {
-        console.log(initiateConnection)
         setIsVehicleSelected(false);
         // connect car to park meter
 
@@ -143,62 +140,69 @@ const ParkingSimulationComponent: React.FC = () => {
     setTimerStarted(true);
   };
 
-  const handleLeaveButtonClick = () => {
-    console.log(leaveButtonClicked, "leave");
-    // Set the leaveButtonClicked state to true
-    setLeaveButtonClicked(true);
+  const handleLeaveButtonClick = async () => {
+    const terminateConnection = await (terminateConnectionService(selectedPark || ''))
+    if (terminateConnection.state && terminateConnection.value.statusCode === 201) {
+      // Set the leaveButtonClicked state to true
+      setLeaveButtonClicked(true);
 
-    const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
-    const meter = document.getElementById(`parkmeter-${selectedPark}`);
+      const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+      const meter = document.getElementById(`parkmeter-${selectedPark}`);
 
-    if (meter !== null && vehicle !== null) {
-      const vehicleBounds = vehicle.getBoundingClientRect();
-      const horizontalDistance = 1300 + vehicleBounds.right;
-      const verticalDistance = vehicleBounds.bottom;
+      if (meter !== null && vehicle !== null) {
+        const vehicleBounds = vehicle.getBoundingClientRect();
+        const horizontalDistance = 1300 + vehicleBounds.right;
+        const verticalDistance = vehicleBounds.bottom;
 
-      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
-        }px) `;
+        vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
+          }px) `;
+      }
+
+      const now = new Date();
+      const elapsedTime = now.getTime() - startDate.getTime();
+
+      // Convert milliseconds to seconds
+      const seconds = Math.floor(elapsedTime / 1000);
+
+      // Calculate duration in hours, minutes, and seconds
+      const durationHours = Math.floor(seconds / 3600);
+      const durationMinutes = Math.floor((seconds % 3600) / 60);
+      const durationSeconds = seconds % 60;
+
+      // Format duration parts with leading zeros
+      const formattedHours = durationHours.toString().padStart(2, "0");
+      const formattedMinutes = durationMinutes.toString().padStart(2, "0");
+      const formattedSeconds = durationSeconds.toString().padStart(2, "0");
+
+      // Set the duration parts state
+      setDurationParts([formattedHours, formattedMinutes, formattedSeconds]);
+
+      // Calculate cost
+      const cost = durationHours * 5; // $5 per half hour
+
+      // Add a new row to history data
+      const newHistoryRow: HistoryDataRow = {
+        No: data.length + 1,
+        "car-id": selectedVehicle,
+        "park-id": selectedPark,
+        Time: `${startDate.toLocaleTimeString()} - ${now.toLocaleTimeString()}`,
+        duration: `${formattedHours}:${formattedMinutes}:${formattedSeconds}`,
+        cost: `$${cost}`,
+      };
+      console.log(newHistoryRow, "row");
+
+      setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
+
+      setTimeout(() => {
+        // Navigate to the history table
+        navigate("/history"); // Update the route path accordingly
+      }, 3000);
+    } else if (terminateConnection.state && terminateConnection.value.statusCode === 400) {
+      alert('Bad request!')
     }
-
-    const now = new Date();
-    const elapsedTime = now.getTime() - startDate.getTime();
-
-    // Convert milliseconds to seconds
-    const seconds = Math.floor(elapsedTime / 1000);
-
-    // Calculate duration in hours, minutes, and seconds
-    const durationHours = Math.floor(seconds / 3600);
-    const durationMinutes = Math.floor((seconds % 3600) / 60);
-    const durationSeconds = seconds % 60;
-
-    // Format duration parts with leading zeros
-    const formattedHours = durationHours.toString().padStart(2, "0");
-    const formattedMinutes = durationMinutes.toString().padStart(2, "0");
-    const formattedSeconds = durationSeconds.toString().padStart(2, "0");
-
-    // Set the duration parts state
-    setDurationParts([formattedHours, formattedMinutes, formattedSeconds]);
-
-    // Calculate cost
-    const cost = durationHours * 5; // $5 per half hour
-
-    // Add a new row to history data
-    const newHistoryRow: HistoryDataRow = {
-      No: data.length + 1,
-      "car-id": selectedVehicle,
-      "park-id": selectedPark,
-      Time: `${startDate.toLocaleTimeString()} - ${now.toLocaleTimeString()}`,
-      duration: `${formattedHours}:${formattedMinutes}:${formattedSeconds}`,
-      cost: `$${cost}`,
-    };
-    console.log(newHistoryRow, "row");
-
-    setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
-
-    setTimeout(() => {
-      // Navigate to the history table
-      navigate("/history"); // Update the route path accordingly
-    }, 3000);
+    else {
+      window.alert('Unfortunatlly, something went wrong, please try another parking')
+    }
   };
 
   const one_second = 1000;
