@@ -88,7 +88,7 @@ const Charge = () => {
             type={passwordVisibility ? "text" : "password"}
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            style={{ width: "105%" }}            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
         </div>

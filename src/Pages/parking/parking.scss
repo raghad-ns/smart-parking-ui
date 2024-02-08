@@ -51,6 +51,13 @@ input[type="email"]:not(:placeholder-shown) {
   top: 20%;
   left: 3%;
 }
+.custom-id-icon{
+  position: absolute;
+  z-index: 0;
+  color: #1f4065;
+  top: 20%;
+  left: 87%;
+}
 
 /* Style the Select component */
 .MuiSelect-root {
