@@ -1,8 +1,15 @@
 import React from 'react'
 import PopUp from '../../components/core/popup/popup.component'
 import { decryptMessage } from '../../utils/AESencryption.util';
+import { ViewSideManContext } from '../../providers/view-side-man.provider';
 
 const OTPMessage = () => {
+    const viewSideManContext = React.useContext(ViewSideManContext)
+    React.useEffect(() => {
+        viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    console.log('otp message page')
     const otp = decryptMessage(
         sessionStorage.getItem("otp-code") || "",
         decryptMessage(

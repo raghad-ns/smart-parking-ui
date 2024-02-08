@@ -3,8 +3,14 @@ import './OTP.scss'
 import { confirmTransaction } from '../../services/wallet.service';
 import { useNavigate } from 'react-router';
 import { WalletBalanceContext } from '../../providers/wallet-balance.provider';
+import { ViewSideManContext } from '../../providers/view-side-man.provider';
 
 const OTPForm = () => {
+    const viewSideManContext = React.useContext(ViewSideManContext)
+    React.useEffect(() => {
+        viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const [code, setCode] = React.useState<string[]>(['', '', '', '', '', '']);
     const navigate = useNavigate()
     const walletBalanceContext = React.useContext(WalletBalanceContext)

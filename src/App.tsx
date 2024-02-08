@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import Intro from './Pages/Introduction/intro';
 import Login from './Pages/Login/login';
@@ -20,14 +20,34 @@ import OTPMessage from './Pages/otp-message/otp-message.page';
 import ManagerEnrollment from './Pages/manager-enrollment/manager-enrollment';
 import ParkingSimulationComponent from './simulationPages/parking-simulaion/parking-simulation'
 import sideImage from './assets/auto.png'
+import NotFound from './Pages/not-found/not-found';
+import AccessDenied from './Pages/access-denied/access-denied.page';
+import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
 function App() {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  useEffect(() => {
+    console.log('App rerendering...')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewSideManContext.viewSideMan])
   return (
     <div className="App">
-      <div className="background-image">
-        <img src={sideImage} alt="side-man" className="side-man-image"
-          style={['/history', '/parking'].includes(window.location.pathname) ? { display: "none" } : {}}
-        />
+      <div className="background-image"
+        style={viewSideManContext.viewSideMan ? {} : { display: 'none' }}
+      // style={[
+      //   '/signin',
+      //   '/signup',
+      //   '/home',
+      //   '/set-password',
+      //   '/info',
+      //   '/otp',
+      //   '/parking-enrollment',
+      //   '/manager-enrollment',
+      //   '/reflect-enrollment',
+      //   '/charge-wallet'
+      // ].includes(window.location.pathname) ? { display: "none" } : {}}
+      >
+        <img src={sideImage} alt="side-man" className="side-man-image" />
       </div>
       <BrowserRouter>
         <UserProvider>
@@ -47,8 +67,10 @@ function App() {
               <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
               <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
               <Route path='/charge-wallet' element={<Charge />} />
-              <Route path='/history' element={<HistoryTable />} />
-              <Route path='/parking' element={<ParkingSimulationComponent />} />
+              <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
+              <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
+              <Route path='/no-access' element={<AccessDenied />} />
+              <Route path='/*' element={<NotFound />} />
             </Routes>
           </WalletBalanceProvider>
         </UserProvider>

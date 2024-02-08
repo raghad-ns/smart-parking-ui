@@ -9,8 +9,15 @@ import {
 import "./reflect.scss";
 import { useReflect } from "../../hooks/refelct.hook";
 import { useState } from "react";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Reflect = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     owner,
     phone,
@@ -25,7 +32,7 @@ const Reflect = () => {
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
     useState<boolean>(false);
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper reflect-wrapper">
       <div className="reflect-page form-wrapper">
         <div className="form-title">
           <h1>Create reflect wallet</h1>
@@ -34,7 +41,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <Person className="symbols" />
+                <Person className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input
@@ -49,7 +56,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <LocalPhoneOutlined className="symbols" />
+                <LocalPhoneOutlined className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input
@@ -108,7 +115,7 @@ const Reflect = () => {
               </InputAdornment>
             </span>
             <input
-            className="input-reflect"
+              className="input-reflect"
               type={confirmPasswordVisibility ? "text" : "password"}
               id="confirmPassword"
               value={confirmPassword.value}
@@ -125,7 +132,7 @@ const Reflect = () => {
           <div className="input-group-reflect">
             <span>
               <InputAdornment position="start">
-                <PaidOutlined className="symbols" />
+                <PaidOutlined className="symbols-reflect" />
               </InputAdornment>
             </span>
             <input
@@ -140,7 +147,7 @@ const Reflect = () => {
           <button
             onClick={handleAddReflect}
             disabled={!buttonEnable}
-            className={buttonEnable ? "" : "disabled"}
+            className={buttonEnable ? "reflect-button" : "disabled reflect-button"}
           >
             Add Account
           </button>

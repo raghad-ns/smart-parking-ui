@@ -8,12 +8,19 @@ import { UserContext } from "../../providers/user.provider";
 import { HistoryNS } from "../../typess/history.type";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 const HistoryTable = () => {
   // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams()
   const [data, setData] = useState<HistoryNS.IHistoryRecord[]>();
   const itemsPerPage = 7; // Number of items to display per page
   const [showCarAnimation, setShowCarAnimation] = useState(true);
+
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const userContext = React.useContext(UserContext)
   const navigate = useNavigate()
 

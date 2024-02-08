@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { getParkingsListService } from "../../services/parking.service";
 import { initiateConnectionService, terminateConnectionService } from "../../services/connection.service";
 import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 type HistoryDataRow = {
   No: number;
   "car-id": string;
@@ -44,6 +45,12 @@ const ParkingSimulationComponent: React.FC = () => {
     "00",
     "00",
   ]);
+
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const navigate = useNavigate();
   const walletBalanceContext = React.useContext(WalletBalanceContext)
@@ -199,7 +206,7 @@ const ParkingSimulationComponent: React.FC = () => {
 
       setTimeout(() => {
         // Navigate to the history table
-        navigate("/history"); // Update the route path accordingly
+        navigate("/history?p=1"); // Update the route path accordingly
       }, 3000);
     } else if (terminateConnection.state && terminateConnection.value.statusCode === 400) {
       alert('No connection to terminate!')
