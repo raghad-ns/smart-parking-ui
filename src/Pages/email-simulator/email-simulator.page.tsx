@@ -7,8 +7,9 @@ const EmailSimulator = () => {
             <PopUp>
                 <h1>Click this link to set your password!</h1>
                 <button onClick={() => {
-                    const newTab: Window = window.open('', '_blank') as Window;
-                    newTab.location.href = '/set-password';
+                    // const newTab: Window = window.open('', '_blank') as Window;
+                    // newTab.location.href = '/set-password';
+                    window.open('set-password', '_blank')
                 }}>Set password</button>
                 {/* <a href="http://localhost:3000/set-password">Password reset</a> */}
             </PopUp>

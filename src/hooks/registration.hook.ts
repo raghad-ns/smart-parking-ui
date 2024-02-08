@@ -32,8 +32,9 @@ const useRegistration = (type: "car" | "manager") => {
           signup.value.data.passwordLink
         );
         window.alert("Car added successfully! set your password");
-        const newTab: Window = window.open("", "_blank") as Window;
-        newTab.location.href = "/email";
+        // const newTab: Window = window.open("", "_blank") as Window;
+        // newTab.location.href = "/email";
+        window.open("/email", "_blank");
         setCarId("");
         setEmail("");
         setOwnerName("");
@@ -62,8 +63,9 @@ const useRegistration = (type: "car" | "manager") => {
           signup.value.data.passwordLink
         );
         window.alert("Manager enrolled successfully! set your password");
-        const newTab: Window = window.open("", "_blank") as Window;
-        newTab.location.href = "/email";
+        // const newTab: Window = window.open("", "_blank") as Window;
+        // newTab.location.href = "/email";
+        window.open("/set-password", "_blank");
         setEmail("");
         setOwnerName("");
       }
