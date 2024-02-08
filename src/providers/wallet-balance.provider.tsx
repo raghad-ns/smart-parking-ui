@@ -1,5 +1,8 @@
 import React from "react";
-import { getBalance } from "../utils/utils";
+import { getWalletBalance } from "../services/wallet.service";
+import { signoutService } from "../services/user.service";
+import { UserContext } from "./user.provider";
+import { useNavigate } from "react-router";
 
 interface IState {
     updateWalletBalance?: () => void,
@@ -17,13 +20,25 @@ interface IPopupParams {
 * }} props Component props
 */
 const WalletBalanceProvider = (props: IPopupParams) => {
-
+    const user = React.useContext(UserContext)
+    const navigate = useNavigate()
     const [walletBalance, setWalletBalance] = React.useState(0);
     const updateWalletBalance = () => {
-        getBalance()
-            .then(balance => setWalletBalance(balance))
-            .catch(error => window.alert('failed to fetch car\'s wallet balance'))
+        getWalletBalance().then(balance => {
+            if (balance.state && balance.value.statusCode === 401) {
+                user.user?.id && window.alert('Session expiered, you have to login again!')
+                signoutService()
+                    .then(response => {
+                        user.setUser && user.setUser({});
+                        sessionStorage.clear();
+                        navigate("/signin");
+                    }).catch(error => console.error(error))
+            }
+            else if (balance.state && balance.value.statusCode === 200) setWalletBalance(balance.value.data)
+            else if (!balance.state) setWalletBalance(NaN)
+        })
     }
+    // eslint-disable-next-line
     React.useEffect(updateWalletBalance, [])
 
     return (

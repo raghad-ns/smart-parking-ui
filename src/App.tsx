@@ -29,9 +29,9 @@ function App() {
           style={['/history', '/parking'].includes(window.location.pathname) ? { display: "none" } : {}}
         />
       </div>
-      <UserProvider>
-        <WalletBalanceProvider>
-          <BrowserRouter>
+      <BrowserRouter>
+        <UserProvider>
+          <WalletBalanceProvider>
             <Header />
             <Routes>
               <Route path='/' element={<Intro />} />
@@ -50,9 +50,9 @@ function App() {
               <Route path='/history' element={<HistoryTable />} />
               <Route path='/parking' element={<ParkingSimulationComponent />} />
             </Routes>
-          </BrowserRouter>
-        </WalletBalanceProvider>
-      </UserProvider>
+          </WalletBalanceProvider>
+        </UserProvider>
+      </BrowserRouter>
     </div>
   );
 }
