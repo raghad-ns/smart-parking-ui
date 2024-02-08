@@ -37,7 +37,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <DirectionsCarFilledOutlined className="symbols" />
+              <DirectionsCarFilledOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input
@@ -51,7 +51,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <LocalPhoneOutlined className="symbols" />
+              <LocalPhoneOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input
@@ -65,7 +65,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <PaidOutlined className="symbols" />
+              <PaidOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input

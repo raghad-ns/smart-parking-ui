@@ -58,7 +58,7 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="input-login"
+                className="input-login password-input"
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
@@ -93,7 +93,7 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="input-login"
+                className="input-login password-input"
                 value={password.value}
                 onChange={(e) => password.setState(e.target.value)}
                 placeholder="Password"
