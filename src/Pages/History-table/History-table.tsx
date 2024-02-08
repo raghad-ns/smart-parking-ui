@@ -3,11 +3,18 @@ import "./History-table.scss"; // Import your SCSS file here
 import { Person, ArrowLeft, ArrowRight } from "@mui/icons-material";
 import { historyData } from "./Data-table";
 import car from "../../assets/sport-car.png";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 const HistoryTable = () => {
   const [data, setData] = useState(historyData);
   const itemsPerPage = 5; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
   const [showCarAnimation, setShowCarAnimation] = useState(true);
+
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const indexOfLastItem = currentPage * itemsPerPage;

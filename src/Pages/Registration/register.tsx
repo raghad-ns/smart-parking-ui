@@ -4,8 +4,14 @@ import { Person, CarRental, Email } from "@mui/icons-material";
 import "./register.scss";
 
 import useRegistration from '../../hooks/registration.hook';
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
 
 const Register = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     ownerName,
     setOwnerName,

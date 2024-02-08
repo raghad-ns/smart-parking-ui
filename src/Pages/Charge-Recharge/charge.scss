@@ -69,3 +69,9 @@ input[type="password"]:not(:placeholder-shown)
 .symbols{
   left: 85%;
 }
+.symbols.wallet-icon{
+  color: #1f4065;
+  position: absolute;
+  left: 83%;
+  top:30%;
+}

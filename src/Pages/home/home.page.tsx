@@ -2,11 +2,17 @@ import { useNavigate } from 'react-router-dom'
 import './home.scss'
 import { UserContext } from '../../providers/user.provider'
 import React from 'react'
+import { ViewSideManContext } from '../../providers/view-side-man.provider'
 
 const Home = () => {
   const navigate = useNavigate()
   const user = React.useContext(UserContext);
   console.log(user.user?.role)
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div >
       <div className='homeWrapper page-wrapper'>

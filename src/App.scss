@@ -10,23 +10,29 @@ body {
   background-color: #e0e0e0;
   z-index: 2;
   color: #14233c;
+  overflow: hidden;
   // background-color: rgb(10 59 90);
 }
 
 .page-wrapper {
+  padding-top: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   width: 60%;
   z-index: -1;
 }
 
 .form-wrapper {
   padding: 40px 25px;
+  // margin-top: 60px;
   border-radius: 10px;
   box-shadow: -11px 11px 22px #a1a5ac, 11px -11px 22px #ffffff;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   // width: min-content;
   // box-shadow: 10px 10px 12px #032036, -10px -10px 12px #145782;
 }
@@ -41,6 +47,7 @@ body {
 
 .desc {
   font-size: 11.5px;
+  width: 320px;
 }
 
 .invalid {
@@ -56,7 +63,7 @@ body {
   background-position: center;
   height: 100vh;
   width: 100%;
-  z-index: 0;
+  z-index: -1;
 
   .side-man-image {
     height: 90%;

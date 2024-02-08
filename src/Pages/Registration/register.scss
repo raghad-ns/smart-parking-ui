@@ -6,9 +6,9 @@
   user-select: none;
   height: max-content;
   width: 300px;
-height: 55%;
-position: absolute;
-top:20%;
+  height: 55%;
+  position: absolute;
+  top: 20%;
 
 
   .input-group {
@@ -74,6 +74,10 @@ top:20%;
 button.disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+#root>div>div:nth-child(3)>div>div>span {
+  width: 290pxs;
 }
 
 // button:hover {

@@ -8,8 +8,15 @@ import {
 } from "@mui/icons-material";
 import "./charge.scss";
 import { useWallet } from "../../hooks/wallet.hook";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Charge = () => {
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const {
     carId,
     setCarId,
@@ -30,7 +37,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <DirectionsCarFilledOutlined className="symbols" />
+              <DirectionsCarFilledOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input
@@ -44,7 +51,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <LocalPhoneOutlined className="symbols" />
+              <LocalPhoneOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input
@@ -58,7 +65,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <PaidOutlined className="symbols" />
+              <PaidOutlined className="symbols wallet-icon" />
             </InputAdornment>
           </span>
           <input
@@ -81,7 +88,7 @@ const Charge = () => {
             type={passwordVisibility ? "text" : "password"}
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            style={{ width: "105%" }}            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
         </div>
