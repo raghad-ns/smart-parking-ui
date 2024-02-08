@@ -15,11 +15,13 @@ const OTPForm = () => {
         if (confirmation.state) {
             if (confirmation.value.statusCode === 201) {
                 window.alert("Transaction completed successfully")
-                navigate('/charge-wallet', { replace: true })
                 walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
             } else {
                 window.alert("Incorrect code, transaction discarded!");
             }
+            navigate('/charge-wallet', { replace: true })
+            sessionStorage.removeItem('transaction-id')
+            sessionStorage.removeItem('otp-code')
         } else {
             window.alert("Something went wrong, please try again!");
         }

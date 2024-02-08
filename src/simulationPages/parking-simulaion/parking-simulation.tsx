@@ -307,7 +307,7 @@ const ParkingSimulationComponent: React.FC = () => {
         {parkmeterData.map((meter: any) => (
           <button
             className="button-simulation"
-            key={meter.customid}
+            key={meter.id}
             onClick={() => handleActiveParkmeter(meter)}
             id={`parkmeter-${meter.customid}`}
             disabled={

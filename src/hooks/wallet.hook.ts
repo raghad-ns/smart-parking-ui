@@ -28,7 +28,7 @@ export const useWallet = () => {
           mobileNo: phone,
           amount: Number(amount),
         });
-        if (transaction.state) {
+        if (transaction.state && transaction.value.statusCode === 201) {
           window.alert(
             "Transaction is valid, please check your phone, enter sent OTP"
           );
@@ -53,12 +53,21 @@ export const useWallet = () => {
             ) as string
           );
           navigate("/otp");
-          const newTab: Window = window.open("", "_blank") as Window;
-          newTab.location.href = "/otp-message";
-        } else {
-          window.alert("invalid credentials, please check your data");
-        }
+          // const newTab: Window = window.open("", "_blank") as Window;
+          // newTab.location.href = "/otp-message";
+          window.open("/otp-message", "_blank");
+        } else if (
+          transaction.state &&
+          transaction.value.data.includes("Invalid Car ID")
+        )
+          window.alert("Car ID does not exist");
+        else if (transaction.state && transaction.value.statusCode === 400)
+          window.alert(
+            "Reflect account does not exist or there is no enough money for the transaction!"
+          );
+        else window.alert("invalid credentials, please check your data");
       } catch (error) {
+        console.error(error);
         window.alert("Something went wrong, please try again!");
         setCarId("");
         setPhone("");
