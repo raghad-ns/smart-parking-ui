@@ -123,7 +123,7 @@ const Reflect = () => {
               placeholder="Confirm-Password"
             />
             <span className={valid ? "desc" : "desc invalid"}>
-              password must be at least 8 characters includeing digits, symbols,
+              password must be at least 8 characters includeing digits, symbols other than '/' and '\',
               upper and lower case letters
             </span>
           </div>

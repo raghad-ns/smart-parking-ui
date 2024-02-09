@@ -89,7 +89,7 @@ const SetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm-Password"
           />
-          <span className={valid ? "desc" : "desc invalid"}>Password must be at least 8 characters includeing digits, symbols, upper and lower case letters</span>
+          <span className={valid ? "desc" : "desc invalid"}>Password must be at least 8 characters includeing digits, symbols other than '/' and '\', upper and lower case letters</span>
         </div>
         <button
           onClick={handlePasswordSetting}
