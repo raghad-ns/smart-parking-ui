@@ -16,7 +16,7 @@ const Header = () => {
         <div className='nav-bar' style={{ width: '100%' }}>
             <div className='headerWrapper'>
                 <img className="logo" src={logo} alt="Logo" onClick={e => navigate('/')} />
-                {user.user?.id && user.user.role.roleName !== "Manager"
+                {user.user?.id && (user.user.role.roleName !== "Manager"
                     ? <div className='user-data'>
                         {user.user?.id && <span className='user-info'>
                             <span>
@@ -43,7 +43,7 @@ const Header = () => {
                         <button className='signoutIcon' onClick={(handleSignout)}>
                             <ExitToApp fontSize='large' />
                         </button>
-                    </div>
+                    </div>)
                 }
             </div>
         </div>

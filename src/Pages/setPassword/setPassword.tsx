@@ -3,7 +3,7 @@ import "./setPassword.scss";
 import { InputAdornment } from "@mui/material";
 import { RemoveRedEye, VisibilityOff } from "@mui/icons-material";
 import { passwordSetService } from "../../services/user.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validateInputs } from "../../utils/utils";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
 
@@ -13,6 +13,7 @@ const SetPassword = () => {
     viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const { role, id, token } = useParams()
   const [password, setPassword] = useState<string>("");
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
   const [valid, setValid] = useState<boolean>(true)
@@ -38,7 +39,7 @@ const SetPassword = () => {
     if (validateInputs(inputs)) {
       setValid(true)
       if (password === confirmPassword) {
-        const setPassword = await passwordSetService(password, confirmPassword)
+        const setPassword = await passwordSetService(password, confirmPassword, id as string, token as string, role as string)
         if (setPassword.state) {
           window.alert('password set successfully!')
           navigate('/info', { replace: true })

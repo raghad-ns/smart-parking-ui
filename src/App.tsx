@@ -24,6 +24,7 @@ import NotFound from './Pages/not-found/not-found';
 import AccessDenied from './Pages/access-denied/access-denied.page';
 import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
+import UserDataAppearanceProvider from './providers/user-data-appearance.provider';
 function App() {
   const viewSideManContext = React.useContext(ViewSideManContext)
   return (
@@ -35,28 +36,30 @@ function App() {
       </div>
       <BrowserRouter>
         <UserProvider>
-          <WalletBalanceProvider>
-            <Header />
-            <Routes>
-              <Route path='/' element={<Intro />} />
-              <Route path='/signin' element={<Login />} />
-              <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />
-              <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
-              <Route path='/set-password' element={<SetPassword />} />
-              <Route path='/info' element={<Info />} />
-              <Route path='/email' element={<EmailSimulator />} />
-              <Route path='/otp-message' element={<OTPMessage />} />
-              <Route path='/otp' element={<OTPForm />} />
-              <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />
-              <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
-              <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
-              <Route path='/charge-wallet' element={<Charge />} />
-              <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
-              <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
-              <Route path='/no-access' element={<AccessDenied />} />
-              <Route path='/*' element={<NotFound />} />
-            </Routes>
-          </WalletBalanceProvider>
+          <UserDataAppearanceProvider>
+            <WalletBalanceProvider>
+              <Header />
+              <Routes>
+                <Route path='/' element={<Intro />} />
+                <Route path='/signin' element={<Login />} />
+                <Route path='/signup' element={<RoleGuard allowedRoles={['Manager']}><Register /></RoleGuard>} />
+                <Route path='/home' element={<RoleGuard><Home /></RoleGuard>} />
+                <Route path='/set-password/:role/:id/:token' element={<SetPassword />} />
+                <Route path='/info' element={<Info />} />
+                <Route path='/email/:role/:id/:token' element={<EmailSimulator />} />
+                <Route path='/otp-message' element={<OTPMessage />} />
+                <Route path='/otp' element={<OTPForm />} />
+                <Route path='/parking-enrollment' element={<RoleGuard allowedRoles={["Manager"]}><Parking /></RoleGuard>} />
+                <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
+                <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
+                <Route path='/charge-wallet' element={<Charge />} />
+                <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
+                <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
+                <Route path='/no-access' element={<AccessDenied />} />
+                <Route path='/*' element={<NotFound />} />
+              </Routes>
+            </WalletBalanceProvider>
+          </UserDataAppearanceProvider>
         </UserProvider>
       </BrowserRouter>
     </div>
