@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./History-table.scss"; // Import your SCSS file here
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
-// import { historyData } from "./Data-table";
+import noData from '../../assets/no-data.svg'
 import car from "../../assets/sport-car.png";
 import { getHistory } from "../../services/connection.service";
 import { UserContext } from "../../providers/user.provider";
@@ -10,17 +10,12 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
 const HistoryTable = () => {
-  // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams()
   const [data, setData] = useState<HistoryNS.IHistoryRecord[]>();
   const itemsPerPage = 7; // Number of items to display per page
   const [showCarAnimation, setShowCarAnimation] = useState(true);
 
   const viewSideManContext = React.useContext(ViewSideManContext)
-  useEffect(() => {
-    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   const userContext = React.useContext(UserContext)
   const navigate = useNavigate()
 
@@ -31,6 +26,7 @@ const HistoryTable = () => {
 
   const [totalPageCount, setTotalCount] = useState(1);
   useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(false)
     getHistoryRecords()
     setSearchParams(oldParams => {
       oldParams.set('p', searchParams.get('p') || '1')
@@ -49,11 +45,6 @@ const HistoryTable = () => {
     getHistoryRecords()
     // eslint-disable-next-line
   }, [searchParams]);
-  useEffect(() => {
-    // console.log('data updated: ', data)
-    setTables(renderTables)
-    // eslint-disable-next-line
-  }, [data]);
 
   const getHistoryRecords = () => {
     getHistory(Number(searchParams.get('p')), itemsPerPage).then(history => {
@@ -110,12 +101,56 @@ const HistoryTable = () => {
       `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     return formattedDuration
   }
-  const renderTables = () => {
-    console.log('generating tables...')
-    const tables = [];
-    for (let i = 1; i <= totalPageCount; i++) {
-      tables.push(
-        <div key={i} className="background-table">
+
+  return (
+    <div className="history-page-wrapper">
+      {/* {tables} */}
+      <div className="history-table">
+        {/* <div className="user-info">
+          <Person className="icons" style={{ fontSize: "2.5rem" }} />
+          <span className="username">User-name</span>
+        </div> */}
+        {showCarAnimation && (
+          <div className="car-animation">
+            <img src={car} alt="Car Animation" className="car-image" />
+          </div>
+        )}
+        {data?.length
+          ? <div className="background-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Car ID</th>
+                  <th>Park ID</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Time[from]</th>
+                  <th>Time[to]</th>
+                  <th>Duration</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data && data.map((row, index) => (
+                  <tr key={index}>
+                    <td>{userContext.user?.car_ID}</td>
+                    <td>{row.parking_id}</td>
+                    <td>{row.location}</td>
+                    <td>{row.status}</td>
+                    <td>{formatTime(row.park_At)}</td>
+                    <td>{row.leave_At ? formatTime(row.leave_At) : '-'}</td>
+                    <td>{formateDuration(Number(row.duration.split(' ')[0]))}</td>
+                    <td>{row.cost ? '₪ ' + row.cost : '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          : <div className="no-data">
+            <img src={noData} alt="no data to display" />
+            <span>No Data Available!</span>
+          </div>}
+        {/* <div className="background-table">
           <table>
             <thead>
               <tr>
@@ -144,33 +179,17 @@ const HistoryTable = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      );
-    }
-    return tables;
-  };
-
-  const [tables, setTables] = useState(renderTables())
-  return (
-    <div className="history-page-wrapper">
-      <div className="history-table">
-        {/* <div className="user-info">
-          <Person className="icons" style={{ fontSize: "2.5rem" }} />
-          <span className="username">User-name</span>
         </div> */}
-        {showCarAnimation && (
-          <div className="car-animation">
-            <img src={car} alt="Car Animation" className="car-image" />
-          </div>
-        )}
-        {tables && tables[Number(searchParams.get('p')) - 1]}
-        <div className="pagination">
+        {data?.length && <div className="pagination">
           <ArrowLeft
             className="arrowleft"
             onClick={() => paginate(Number(searchParams.get('p')) - 1)}
           />
           {Array.from({ length: totalPageCount }, (_, index) => (
-            <button key={index} onClick={() => paginate(index + 1)}>
+            <button
+              key={index}
+              onClick={() => paginate(index + 1)}
+              className={index === Number(searchParams.get('p')) - 1 ? 'focused' : ''}>
               {index + 1}
             </button>
           ))}
@@ -178,7 +197,8 @@ const HistoryTable = () => {
             className="arrowright"
             onClick={() => paginate(Number(searchParams.get('p')) + 1)}
           />
-        </div>
+        </div>}
+
       </div>
     </div>
   );

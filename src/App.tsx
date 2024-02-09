@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import Intro from './Pages/Introduction/intro';
 import Login from './Pages/Login/login';
@@ -26,26 +26,10 @@ import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
 function App() {
   const viewSideManContext = React.useContext(ViewSideManContext)
-  useEffect(() => {
-    console.log('App rerendering...')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewSideManContext.viewSideMan])
   return (
     <div className="App">
       <div className="background-image"
         style={viewSideManContext.viewSideMan ? {} : { display: 'none' }}
-      // style={[
-      //   '/signin',
-      //   '/signup',
-      //   '/home',
-      //   '/set-password',
-      //   '/info',
-      //   '/otp',
-      //   '/parking-enrollment',
-      //   '/manager-enrollment',
-      //   '/reflect-enrollment',
-      //   '/charge-wallet'
-      // ].includes(window.location.pathname) ? { display: "none" } : {}}
       >
         <img src={sideImage} alt="side-man" className="side-man-image" />
       </div>
