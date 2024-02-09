@@ -13,7 +13,6 @@ const RoleGuard = ({ children, allowedRoles = [] }: IGuardProps) => {
       return (<div>{children}</div>)
     }
     if (!allowedRoles.includes(userContext.user?.role.roleName as string)) {
-      // window.alert('You are not allowed to access this page!')
       return (<Navigate to={'/no-access'} replace />)
     } else
       return (<div>{children}</div>);
