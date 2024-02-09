@@ -53,8 +53,8 @@ function App() {
                 <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
                 <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
                 <Route path='/charge-wallet' element={<Charge />} />
-                <Route path='/history' element={<RoleGuard><HistoryTable /></RoleGuard>} />
-                <Route path='/parking' element={<RoleGuard><ParkingSimulationComponent /></RoleGuard>} />
+                <Route path='/history' element={<RoleGuard allowedRoles={['User']}><HistoryTable /></RoleGuard>} />
+                <Route path='/parking' element={<RoleGuard allowedRoles={['User']}><ParkingSimulationComponent /></RoleGuard>} />
                 <Route path='/no-access' element={<AccessDenied />} />
                 <Route path='/*' element={<NotFound />} />
               </Routes>
