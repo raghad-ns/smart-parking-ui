@@ -9,6 +9,7 @@ import {
   encryptMessage,
   generateRandomKey,
 } from "../utils/AESencryption.util";
+import { WalletBalanceContext } from "../providers/wallet-balance.provider";
 
 const useSignin = () => {
   const [carId, setCarId] = useState<string>("");
@@ -16,6 +17,7 @@ const useSignin = () => {
   const [email, setEmail] = useState<string>("");
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const walletBalanceContext = useContext(WalletBalanceContext);
 
   const [selectedRole, setSelectedRole] = useState<string | null>("user");
 
@@ -58,6 +60,9 @@ const useSignin = () => {
           ) as string
         );
         userContext.setUser && userContext?.setUser(signin.value.data.car);
+        userContext.user?.role?.roleName !== "Manager" &&
+          walletBalanceContext.updateWalletBalance &&
+          walletBalanceContext.updateWalletBalance();
         navigate("/home");
       } else {
         window.alert("Incorrect login credentials, please try agein!");
