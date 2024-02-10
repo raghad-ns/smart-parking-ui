@@ -50,11 +50,12 @@ const useSignin = () => {
         generateRandomKey("sessionKey");
         const user = {
           carID: signin.value.data.carID,
+          owner: signin.value.data.owner,
+          email: signin.value.data.email,
           wallet: signin.value.data.wallet,
           role: signin.value.data.role,
           connection: signin.value.data.connection,
         };
-        console.log("user: ", user);
         window.alert("logged in successfully!");
         sessionStorage.setItem(
           "token",
@@ -66,8 +67,7 @@ const useSignin = () => {
             ) as string
           ) as string
         );
-        console.log("signed in successfully");
-        userContext.setUser && userContext?.setUser(signin.value.data);
+        userContext.setUser && userContext?.setUser(user);
         userContext.user?.role?.roleName !== "Manager" &&
           walletBalanceContext.updateWalletBalance &&
           walletBalanceContext.updateWalletBalance();

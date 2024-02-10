@@ -49,7 +49,6 @@ const HistoryTable = () => {
   const getHistoryRecords = () => {
     getHistory(Number(searchParams.get('p')), itemsPerPage).then(history => {
       if (history.state && history.value.statusCode === 200) {
-        // console.log('fetched: ', history.value.data.data.hestory)
         setData(history.value.data.data.hestory);
         setTotalCount(Math.ceil(history.value.data.data.total / itemsPerPage))
       } else if (history.state && history.value.statusCode === 401) {
@@ -58,7 +57,7 @@ const HistoryTable = () => {
         navigate('/signin')
       }
     }).catch(error => {
-      console.log(error)
+      console.error(error)
     })
   }
   const formatTime = (timeStamp: string): string => {

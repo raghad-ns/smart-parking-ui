@@ -17,7 +17,6 @@ const RoleGuard = ({ children, allowedRoles = [] }: IGuardProps) => {
     } else
       return (<div>{children}</div>);
   } else {
-    console.log(userContext.user)
     window.alert('You have to login first!')
     return (<Navigate to={'/signin'} replace />)
   }

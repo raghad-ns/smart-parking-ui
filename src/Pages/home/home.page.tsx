@@ -8,7 +8,6 @@ import { WalletBalanceContext } from '../../providers/wallet-balance.provider'
 const Home = () => {
   const navigate = useNavigate()
   const user = React.useContext(UserContext);
-  console.log(user.user?.role)
   const viewSideManContext = React.useContext(ViewSideManContext)
   const walletBalanceContext = React.useContext(WalletBalanceContext)
   React.useEffect(() => {

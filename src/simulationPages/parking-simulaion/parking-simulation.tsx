@@ -192,11 +192,8 @@ const ParkingSimulationComponent: React.FC = () => {
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
       const meter = document.getElementById(`parkmeter-${selectedPark}`);
-      console.log('parking: ', meter)
-      console.log('car: ', vehicle)
 
       if (meter !== null && vehicle !== null) {
-        console.log('terminating...')
         const vehicleBounds = vehicle.getBoundingClientRect();
         const horizontalDistance = 1300 + vehicleBounds.right;
         const verticalDistance = vehicleBounds.bottom;
