@@ -8,7 +8,7 @@ interface IGuardProps {
 }
 const RoleGuard = ({ children, allowedRoles = [] }: IGuardProps) => {
   const userContext = React.useContext(UserContext);
-  if (userContext?.user?.id) {
+  if (userContext?.user?.email || userContext.user?.carID) {
     if (!allowedRoles.length) {
       return (<div>{children}</div>)
     }
@@ -17,6 +17,7 @@ const RoleGuard = ({ children, allowedRoles = [] }: IGuardProps) => {
     } else
       return (<div>{children}</div>);
   } else {
+    console.log(userContext.user)
     window.alert('You have to login first!')
     return (<Navigate to={'/signin'} replace />)
   }

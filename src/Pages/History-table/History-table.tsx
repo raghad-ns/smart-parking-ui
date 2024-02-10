@@ -133,7 +133,7 @@ const HistoryTable = () => {
               <tbody>
                 {data && data.map((row, index) => (
                   <tr key={index}>
-                    <td>{userContext.user?.car_ID}</td>
+                    <td>{userContext.user?.carID}</td>
                     <td>{row.parking_id}</td>
                     <td>{row.location}</td>
                     <td>{row.status}</td>

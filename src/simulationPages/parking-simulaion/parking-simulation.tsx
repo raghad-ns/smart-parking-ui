@@ -13,22 +13,15 @@ import parkmeterImage from "../../assets/parking-meter (4).png";
 import disabledParkMeterImage from "../../assets/parking-meter (3).png";
 import noSignalImage from "../../assets/no-signal.png";
 import blackCar from "../../assets/blackCar.png";
-import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
 import { getParkingsListService } from "../../services/parking.service";
 import { initiateConnectionService, terminateConnectionService } from "../../services/connection.service";
 import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
-type HistoryDataRow = {
-  No: number;
-  "car-id": string;
-  "park-id": string;
-  Time: string;
-  duration: string;
-  cost: string;
-};
+import { UserContext } from "../../providers/user.provider";
+
 const ParkingSimulationComponent: React.FC = () => {
-  const [data, setData] = useState<HistoryDataRow[]>(historyData);
+  const userContext = React.useContext(UserContext)
   const [selectedPark, setSelectedPark] = useState<string>("");
   const [parkmeterData, setParkmeterData] = useState(parkmeterDatafile);
   const [startedTimers, setStartedTimers] = useState<number[]>([]);
@@ -55,10 +48,47 @@ const ParkingSimulationComponent: React.FC = () => {
   const navigate = useNavigate();
   const walletBalanceContext = React.useContext(WalletBalanceContext)
 
+  const alreadyParked = () => {
+    setSelectedPark(userContext.user?.connection?.parking?.customid || '')
+    setSelectedVehicle('1')
+    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.start_time))
+    setTimerStarted(true)
+    setStartedTimers((prevStartedTimers) => [
+      ...prevStartedTimers,
+      parseInt(userContext.user?.connection?.parking?.customid, 10),
+
+    ]);
+    tick()
+  }
+  useEffect(() => {
+    if (userContext.user?.connection) {
+      const vehicle = document.getElementById(`vehicle-1`);
+      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking?.customid || ''}`);
+      if (meter !== null && vehicle !== null) {
+        const vehicleBounds = vehicle.getBoundingClientRect();
+        const meterBounds = meter.getBoundingClientRect();
+
+        const horizontalDistance = meterBounds.left - vehicleBounds.right;
+        const verticalDistance = meterBounds.top - vehicleBounds.bottom;
+
+        // logic is in progress...
+        if (horizontalDistance < 0) {
+          vehicle.style.transform = "";
+        } else {
+          vehicle.style.left = `${horizontalDistance + 65}px`
+          vehicle.style.top = `${verticalDistance + 150}px`
+        }
+      }
+    }
+    // eslint-disable-next-line
+  }, [parkmeterData])
+
   useEffect(() => {
     try {
       getParkingsListService().then(response => {
         setParkmeterData(response.value.data.data.parkings)
+        userContext.user?.connection && alreadyParked()
+        // userContext.user?.connection && carAnimation()
       })
     } catch (error: any) {
       console.error(error.message)
@@ -67,6 +97,7 @@ const ParkingSimulationComponent: React.FC = () => {
       if (refresh < 10) {
         try {
           getParkingsListService().then(response => {
+            userContext.user?.connection && alreadyParked()
             setParkmeterData(response.value.data.data.parkings)
           })
         } catch (error: any) {
@@ -83,6 +114,7 @@ const ParkingSimulationComponent: React.FC = () => {
     }, 600000); // 600000 milliseconds = 10 minutes
 
     return () => clearInterval(interval); // Clean up interval on component unmount
+    // eslint-disable-next-line
   }, [refresh]);
 
   const handleActiveParkmeter = async (ele: Parkmeter) => {
@@ -154,13 +186,17 @@ const ParkingSimulationComponent: React.FC = () => {
     if (terminateConnection.state && terminateConnection.value.statusCode === 201) {
       // Set the leaveButtonClicked state to true
       setLeaveButtonClicked(true);
+      userContext.setUser && userContext.setUser({ ...userContext.user, connection: null })
       window.alert('Connection terminated successfully, money deducted from your wallet')
       walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
       const meter = document.getElementById(`parkmeter-${selectedPark}`);
+      console.log('parking: ', meter)
+      console.log('car: ', vehicle)
 
       if (meter !== null && vehicle !== null) {
+        console.log('terminating...')
         const vehicleBounds = vehicle.getBoundingClientRect();
         const horizontalDistance = 1300 + vehicleBounds.right;
         const verticalDistance = vehicleBounds.bottom;
@@ -168,41 +204,7 @@ const ParkingSimulationComponent: React.FC = () => {
         vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
           }px) `;
       }
-
-      const now = new Date();
-      const elapsedTime = now.getTime() - startDate.getTime();
-
-      // Convert milliseconds to seconds
-      const seconds = Math.floor(elapsedTime / 1000);
-
-      // Calculate duration in hours, minutes, and seconds
-      const durationHours = Math.floor(seconds / 3600);
-      const durationMinutes = Math.floor((seconds % 3600) / 60);
-      const durationSeconds = seconds % 60;
-
-      // Format duration parts with leading zeros
-      const formattedHours = durationHours.toString().padStart(2, "0");
-      const formattedMinutes = durationMinutes.toString().padStart(2, "0");
-      const formattedSeconds = durationSeconds.toString().padStart(2, "0");
-
-      // Set the duration parts state
-      setDurationParts([formattedHours, formattedMinutes, formattedSeconds]);
-
-      // Calculate cost
-      const cost = durationHours * 5; // $5 per half hour
-
-      // Add a new row to history data
-      const newHistoryRow: HistoryDataRow = {
-        No: data.length + 1,
-        "car-id": selectedVehicle,
-        "park-id": selectedPark,
-        Time: `${startDate.toLocaleTimeString()} - ${now.toLocaleTimeString()}`,
-        duration: `${formattedHours}:${formattedMinutes}:${formattedSeconds}`,
-        cost: `$${cost}`,
-      };
-      console.log(newHistoryRow, "row");
-
-      setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
+      // setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
 
       setTimeout(() => {
         // Navigate to the history table
@@ -250,6 +252,7 @@ const ParkingSimulationComponent: React.FC = () => {
 
     requestAnimationFrameRef.current = requestAnimationFrame(tick);
   };
+
   useEffect(() => {
     // Check if it's the initial render
     if (initialRender) {

@@ -26,7 +26,7 @@ const WalletBalanceProvider = (props: IPopupParams) => {
     const updateWalletBalance = () => {
         getWalletBalance().then(balance => {
             if (balance.state && balance.value.statusCode === 401) {
-                user.user?.id && window.alert('Session expiered, you have to login again!')
+                user.user?.email && window.alert('Session expiered, you have to login again!')
                 signoutService()
                     .then(response => {
                         user.setUser && user.setUser({});

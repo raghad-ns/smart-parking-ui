@@ -22,7 +22,7 @@ const useSignin = () => {
   const [selectedRole, setSelectedRole] = useState<string | null>("user");
 
   useEffect(() => {
-    if (userContext.user?.id) {
+    if (userContext.user?.carID) {
       window.alert("you are already signed in");
       navigate("/home");
     }
@@ -48,6 +48,13 @@ const useSignin = () => {
       const signin = await signinService(payload, selectedRole || "");
       if (signin.state) {
         generateRandomKey("sessionKey");
+        const user = {
+          carID: signin.value.data.carID,
+          wallet: signin.value.data.wallet,
+          role: signin.value.data.role,
+          connection: signin.value.data.connection,
+        };
+        console.log("user: ", user);
         window.alert("logged in successfully!");
         sessionStorage.setItem(
           "token",
@@ -59,7 +66,8 @@ const useSignin = () => {
             ) as string
           ) as string
         );
-        userContext.setUser && userContext?.setUser(signin.value.data.car);
+        console.log("signed in successfully");
+        userContext.setUser && userContext?.setUser(signin.value.data);
         userContext.user?.role?.roleName !== "Manager" &&
           walletBalanceContext.updateWalletBalance &&
           walletBalanceContext.updateWalletBalance();
