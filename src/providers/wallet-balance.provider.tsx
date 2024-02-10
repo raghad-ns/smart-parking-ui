@@ -35,7 +35,7 @@ const WalletBalanceProvider = (props: IPopupParams) => {
                     }).catch(error => console.error(error))
             }
             else if (balance.state && balance.value.statusCode === 200) setWalletBalance(balance.value.data)
-            else if (!balance.state) setWalletBalance(NaN)
+            else if (!balance.state) setWalletBalance(0)
         })
     }
     // eslint-disable-next-line
