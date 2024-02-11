@@ -7,7 +7,6 @@ export const useHeader = () => {
   const user = React.useContext(UserContext);
   const navigate = useNavigate();
   const handleSignout = async () => {
-    console.log("Signing out... ");
     const signout = await signoutService();
     if (signout.state) {
       user.setUser && user.setUser({});

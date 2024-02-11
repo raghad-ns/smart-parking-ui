@@ -1,12 +1,9 @@
+import { IResponse } from "../types/response.types";
 import { decryptMessage } from "../utils/AESencryption.util";
 
-interface ITransaction {
-  carId: string;
-  mobileNo: string;
-  password: string;
-  amount: number;
-}
-export const chargeWallet = (transaction: ITransaction) => {
+export const initiateConnectionService = (
+  parkingId: string
+): Promise<IResponse> => {
   const token = decryptMessage(
     sessionStorage.getItem("token") || "",
     decryptMessage(
@@ -14,13 +11,13 @@ export const chargeWallet = (transaction: ITransaction) => {
       process.env.REACT_APP_SECRET_KEY || ""
     ) as string
   ) as string;
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/charge/`, {
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/simulation/park`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: token || "",
     },
-    body: JSON.stringify(transaction),
+    body: JSON.stringify({ parkingId }),
   })
     .then(async (response) => {
       try {
@@ -36,7 +33,9 @@ export const chargeWallet = (transaction: ITransaction) => {
     });
 };
 
-export const confirmTransaction = (OTP: string) => {
+export const terminateConnectionService = (
+  parkingId: string
+): Promise<IResponse> => {
   const token = decryptMessage(
     sessionStorage.getItem("token") || "",
     decryptMessage(
@@ -44,55 +43,59 @@ export const confirmTransaction = (OTP: string) => {
       process.env.REACT_APP_SECRET_KEY || ""
     ) as string
   ) as string;
-  const transactionId = decryptMessage(
-    sessionStorage.getItem("transaction-id") || "",
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/simulation/leave`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token || "",
+    },
+    body: JSON.stringify({ parkingId }),
+  })
+    .then(async (response) => {
+      try {
+        return {
+          state: response.status !== 500,
+          value: { statusCode: response.status },
+        };
+      } catch (error) {
+        console.error(error);
+        return { state: false, value: {} };
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return { state: false, value: {} };
+    });
+};
+
+export const getHistory = (
+  page?: number,
+  pageSize?: number
+): Promise<IResponse> => {
+  const token = decryptMessage(
+    sessionStorage.getItem("token") || "",
     decryptMessage(
       sessionStorage.getItem("sessionKey") || "",
       process.env.REACT_APP_SECRET_KEY || ""
     ) as string
   ) as string;
   return fetch(
-    `${process.env.REACT_APP_SERVER_URL}/charge/confirm/${transactionId}`,
+    `${process.env.REACT_APP_SERVER_URL}/simulation/history?page=${
+      page || 1
+    }&pageSize=${pageSize}`,
     {
-      method: "POST",
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: token || "",
       },
-      body: JSON.stringify({ OTP }),
     }
   )
     .then(async (response) => {
       try {
-        return { state: response.status !== 500, value: await response.json() };
-      } catch (error) {
-        console.error(error);
-        return { state: false, value: {} };
-      }
-    })
-    .catch((error) => {
-      console.error(error.message);
-      return { state: false, value: {} };
-    });
-};
-
-export const getWalletBalance = () => {
-  const token = decryptMessage(
-    sessionStorage.getItem("token") || "",
-    decryptMessage(
-      sessionStorage.getItem("sessionKey") || "",
-      process.env.REACT_APP_SECRET_KEY || ""
-    ) as string
-  ) as string;
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/transactions/balance`, {
-    method: "GET",
-    headers: {
-      Authorization: token || "",
-    },
-  })
-    .then(async (response) => {
-      try {
-        return { state: response.status !== 500, value: await response.json() };
+        return {
+          state: response.status !== 500,
+          value: await response.json(),
+        };
       } catch (error) {
         console.error(error);
         return { state: false, value: {} };

@@ -13,19 +13,15 @@ import parkmeterImage from "../../assets/parking-meter (4).png";
 import disabledParkMeterImage from "../../assets/parking-meter (3).png";
 import noSignalImage from "../../assets/no-signal.png";
 import blackCar from "../../assets/blackCar.png";
-import { historyData } from "../../Pages/History-table/Data-table";
 import { useNavigate } from "react-router-dom";
+import { getParkingsListService } from "../../services/parking.service";
+import { initiateConnectionService, terminateConnectionService } from "../../services/connection.service";
+import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
-type HistoryDataRow = {
-  No: number;
-  "car-id": string;
-  "park-id": string;
-  Time: string;
-  duration: string;
-  cost: string;
-};
+import { UserContext } from "../../providers/user.provider";
+
 const ParkingSimulationComponent: React.FC = () => {
-  const [data, setData] = useState<HistoryDataRow[]>(historyData);
+  const userContext = React.useContext(UserContext)
   const [selectedPark, setSelectedPark] = useState<string>("");
   const [parkmeterData, setParkmeterData] = useState(parkmeterDatafile);
   const [startedTimers, setStartedTimers] = useState<number[]>([]);
@@ -35,6 +31,8 @@ const ParkingSimulationComponent: React.FC = () => {
   const [leaveButtonClicked, setLeaveButtonClicked] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
+  const [refresh, setRefresh] = useState<number>(0)
+  // eslint-disable-next-line
   const [durationParts, setDurationParts] = useState<string[]>([
     "00",
     "00",
@@ -48,17 +46,24 @@ const ParkingSimulationComponent: React.FC = () => {
   }, [])
 
   const navigate = useNavigate();
+  const walletBalanceContext = React.useContext(WalletBalanceContext)
 
-  const handleActiveParkmeter = (ele: Parkmeter) => {
-    if (selectedVehicle === "") {
-      alert("You must select a car first!");
-    } else if (ele.status === "Available") {
-      setIsVehicleSelected(false);
-      // connect car to park meter
+  const alreadyParked = () => {
+    setSelectedPark(userContext.user?.connection?.parking?.customid || '')
+    setSelectedVehicle('1')
+    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.start_time))
+    setTimerStarted(true)
+    setStartedTimers((prevStartedTimers) => [
+      ...prevStartedTimers,
+      parseInt(userContext.user?.connection?.parking?.customid, 10),
 
-      const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
-      const meter = document.getElementById(`parkmeter-${ele.id}`);
-
+    ]);
+    tick()
+  }
+  useEffect(() => {
+    if (userContext.user?.connection) {
+      const vehicle = document.getElementById(`vehicle-1`);
+      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking?.customid || ''}`);
       if (meter !== null && vehicle !== null) {
         const vehicleBounds = vehicle.getBoundingClientRect();
         const meterBounds = meter.getBoundingClientRect();
@@ -70,16 +75,87 @@ const ParkingSimulationComponent: React.FC = () => {
         if (horizontalDistance < 0) {
           vehicle.style.transform = "";
         } else {
-          vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
-            }px) `;
+          vehicle.style.left = `${horizontalDistance + 65}px`
+          vehicle.style.top = `${verticalDistance + 150}px`
         }
       }
     }
+    // eslint-disable-next-line
+  }, [parkmeterData])
 
-    setSelectedPark(ele.id);
+  useEffect(() => {
+    try {
+      getParkingsListService().then(response => {
+        setParkmeterData(response.value.data.data.parkings)
+        userContext.user?.connection && alreadyParked()
+        // userContext.user?.connection && carAnimation()
+      })
+    } catch (error: any) {
+      console.error(error.message)
+    }
+    const interval = setInterval(() => {
+      if (refresh < 10) {
+        try {
+          getParkingsListService().then(response => {
+            userContext.user?.connection && alreadyParked()
+            setParkmeterData(response.value.data.data.parkings)
+          })
+        } catch (error: any) {
+          console.error(error.message)
+        }
+        // window.location.reload();
+        setRefresh(refresh + 1);
+      }
+    }, 60000); // 60000 milliseconds = 1 minute
+
+    // Stop refreshing after 10 minutes
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 600000); // 600000 milliseconds = 10 minutes
+
+    return () => clearInterval(interval); // Clean up interval on component unmount
+    // eslint-disable-next-line
+  }, [refresh]);
+
+  const handleActiveParkmeter = async (ele: Parkmeter) => {
+    if (selectedVehicle === "") {
+      alert("You must select a car first!");
+    } else if (ele.status === "available") {
+      const initiateConnection = await (initiateConnectionService(ele.customid || ''))
+      if (initiateConnection.state && initiateConnection.value.statusCode === 201) {
+        setIsVehicleSelected(false);
+        // connect car to park meter
+
+        const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+        const meter = document.getElementById(`parkmeter-${ele.customid}`);
+
+        if (meter !== null && vehicle !== null) {
+          const vehicleBounds = vehicle.getBoundingClientRect();
+          const meterBounds = meter.getBoundingClientRect();
+
+          const horizontalDistance = meterBounds.left - vehicleBounds.right;
+          const verticalDistance = meterBounds.top - vehicleBounds.bottom;
+
+          // logic is in progress...
+          if (horizontalDistance < 0) {
+            vehicle.style.transform = "";
+          } else {
+            vehicle.style.transform = `translate(${horizontalDistance + 65}px, ${verticalDistance + 150
+              }px) `;
+          }
+        }
+      } else if (initiateConnection.state && initiateConnection.value.statusCode === 400) {
+        alert('You already have active connection!')
+      }
+      else {
+        window.alert('Unfortunatlly, something went wrong, please try another parking')
+      }
+    }
+
+    setSelectedPark(ele.customid || '');
     // After 7 seconds, change the park status and show wifi symbol
     setTimeout(() => {
-      updateParkStatus(ele.id);
+      updateParkStatus(ele.customid || '');
       setStartDate(new Date());
     }, 7000);
   };
@@ -92,8 +168,8 @@ const ParkingSimulationComponent: React.FC = () => {
   const updateParkStatus = (parkId: string) => {
     setParkmeterData((prevParkmeterData: any) => {
       return prevParkmeterData.map((park: any) =>
-        park.id === parkId
-          ? { ...park, status: "Reserved", connection: true }
+        park.customid === parkId
+          ? { ...park, status: "reserved", connection: true }
           : park
       );
     });
@@ -105,62 +181,40 @@ const ParkingSimulationComponent: React.FC = () => {
     setTimerStarted(true);
   };
 
-  const handleLeaveButtonClick = () => {
-    console.log(leaveButtonClicked, "leave");
-    // Set the leaveButtonClicked state to true
-    setLeaveButtonClicked(true);
+  const handleLeaveButtonClick = async () => {
+    const terminateConnection = await (terminateConnectionService(selectedPark || ''))
+    if (terminateConnection.state && terminateConnection.value.statusCode === 201) {
+      // Set the leaveButtonClicked state to true
+      setLeaveButtonClicked(true);
+      userContext.setUser && userContext.setUser({ ...userContext.user, connection: null })
+      window.alert('Connection terminated successfully, money deducted from your wallet')
+      walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
-    const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
-    const meter = document.getElementById(`parkmeter-${selectedPark}`);
+      const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
+      const meter = document.getElementById(`parkmeter-${selectedPark}`);
 
-    if (meter !== null && vehicle !== null) {
-      const vehicleBounds = vehicle.getBoundingClientRect();
-      const horizontalDistance = 1300 + vehicleBounds.right;
-      const verticalDistance = vehicleBounds.bottom;
+      if (meter !== null && vehicle !== null) {
+        const vehicleBounds = vehicle.getBoundingClientRect();
+        const horizontalDistance = 1300 + vehicleBounds.right;
+        const verticalDistance = vehicleBounds.bottom;
 
-      vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
-        }px) `;
+        vehicle.style.transform = `translate(${horizontalDistance + 1800}px, ${-100 + verticalDistance
+          }px) `;
+      }
+      // setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
+
+      setTimeout(() => {
+        // Navigate to the history table
+        navigate("/history?p=1"); // Update the route path accordingly
+      }, 3000);
+    } else if (terminateConnection.state && terminateConnection.value.statusCode === 400) {
+      alert('No connection to terminate!')
+    } else if (terminateConnection.state && terminateConnection.value.statusCode === 200) {
+      alert('Connection terminated successfully, but no enough money in your wallet!')
     }
-
-    const now = new Date();
-    const elapsedTime = now.getTime() - startDate.getTime();
-
-    // Convert milliseconds to seconds
-    const seconds = Math.floor(elapsedTime / 1000);
-
-    // Calculate duration in hours, minutes, and seconds
-    const durationHours = Math.floor(seconds / 3600);
-    const durationMinutes = Math.floor((seconds % 3600) / 60);
-    const durationSeconds = seconds % 60;
-
-    // Format duration parts with leading zeros
-    const formattedHours = durationHours.toString().padStart(2, "0");
-    const formattedMinutes = durationMinutes.toString().padStart(2, "0");
-    const formattedSeconds = durationSeconds.toString().padStart(2, "0");
-
-    // Set the duration parts state
-    setDurationParts([formattedHours, formattedMinutes, formattedSeconds]);
-
-    // Calculate cost
-    const cost = durationHours * 5; // $5 per half hour
-
-    // Add a new row to history data
-    const newHistoryRow: HistoryDataRow = {
-      No: data.length + 1,
-      "car-id": selectedVehicle,
-      "park-id": selectedPark,
-      Time: `${startDate.toLocaleTimeString()} - ${now.toLocaleTimeString()}`,
-      duration: `${formattedHours}:${formattedMinutes}:${formattedSeconds}`,
-      cost: `$${cost}`,
-    };
-    console.log(newHistoryRow, "row");
-
-    setData((prevData: HistoryDataRow[]) => [...prevData, newHistoryRow]);
-
-    setTimeout(() => {
-      // Navigate to the history table
-      navigate("/history"); // Update the route path accordingly
-    }, 3000);
+    else {
+      window.alert('Unfortunatlly, something went wrong, please try again!')
+    }
   };
 
   const one_second = 1000;
@@ -173,8 +227,9 @@ const ParkingSimulationComponent: React.FC = () => {
   const requestAnimationFrameRef = useRef<number | null>(null);
 
   // Find the park data with the matching ID
+  // eslint-disable-next-line
   const selectedParkData = parkmeterData.find(
-    (park: any) => park.id === selectedPark
+    (park: any) => park.customid === selectedPark
   );
 
   const tick = () => {
@@ -194,6 +249,7 @@ const ParkingSimulationComponent: React.FC = () => {
 
     requestAnimationFrameRef.current = requestAnimationFrame(tick);
   };
+
   useEffect(() => {
     // Check if it's the initial render
     if (initialRender) {
@@ -211,10 +267,10 @@ const ParkingSimulationComponent: React.FC = () => {
 
     // Check if the Leave button is clicked
     if (leaveButtonClicked && selectedPark) {
-      // Update park status to "Available"
+      // Update park status to "available"
       setParkmeterData((prevParkmeterData: any) => {
         return prevParkmeterData.map((park: any) =>
-          park.id === selectedPark ? { ...park, status: "Available" } : park
+          park.customid === selectedPark ? { ...park, status: "available" } : park
         );
       });
 
@@ -260,20 +316,20 @@ const ParkingSimulationComponent: React.FC = () => {
             className="button-simulation"
             key={meter.id}
             onClick={() => handleActiveParkmeter(meter)}
-            id={`parkmeter-${meter.id}`}
+            id={`parkmeter-${meter.customid}`}
             disabled={
-              meter.status === "Disabled" || meter.status === "Reserved"
+              meter.status === "disabled" || meter.status === "reserved"
             }
           >
             <div className="parkmeter-Info">
-              {meter.status === "Available" && (
+              {meter.status === "available" && (
                 <div className="avilableParkMeter">
-                  <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
+                  <img src={parkmeterImage} alt={`parkMeter-${meter.customid}`} />
                 </div>
               )}
-              {meter.status === "Reserved" && (
-                <div className="ReservedParkMeter">
-                  <img src={parkmeterImage} alt={`parkMeter-${meter.id}`} />
+              {meter.status === "reserved" && (
+                <div className="reservedParkMeter">
+                  <img src={parkmeterImage} alt={`parkMeter-${meter.customid}`} />
 
                   <div className="wifi-symbol">
                     <div className="wifi-circle first"></div>
@@ -282,7 +338,7 @@ const ParkingSimulationComponent: React.FC = () => {
                     <div className="wifi-circle fourth"></div>
                   </div>
 
-                  {selectedPark !== meter.id && (
+                  {selectedPark !== meter.customid && (
                     <div className="blackCar">
                       <img src={blackCar} alt="blackCar" />
                     </div>
@@ -290,11 +346,11 @@ const ParkingSimulationComponent: React.FC = () => {
                 </div>
               )}
 
-              {meter.status === "Disabled" && (
+              {meter.status === "disabled" && (
                 <div className="disabledParkMeter">
                   <img
                     src={disabledParkMeterImage}
-                    alt={`parkMeter-${meter.id}`}
+                    alt={`parkMeter-${meter.customid}`}
                   />
                   <img
                     className="no-signal-icon"
@@ -305,7 +361,7 @@ const ParkingSimulationComponent: React.FC = () => {
               )}
 
               <div className="parkInfo">
-                <div>{`ID: ${meter.id}`}</div>
+                <div>{`ID: ${meter.customid}`}</div>
                 <div>{`${meter.status}`}</div>
               </div>
             </div>
@@ -313,8 +369,8 @@ const ParkingSimulationComponent: React.FC = () => {
         ))}
       </div>
       {selectedPark !== null &&
-        parkmeterData.find((park) => park.id === selectedPark)?.status ===
-        "Reserved" && (
+        parkmeterData.find((park) => park.customid === selectedPark)?.status ===
+        "reserved" && (
           <div className="clock-leave">
             <div className="timer-group">
               <div className="timer hour">

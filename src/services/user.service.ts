@@ -103,18 +103,26 @@ export const signinService = (userObject: IUser, role: string) => {
 
 export const passwordSetService = (
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  id: string,
+  token: string,
+  role: string
 ) => {
-  return fetch(sessionStorage.getItem("setPassworkAPI") || "", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      Password: password,
-      Confirm_Password: confirmPassword,
-    }),
-  })
+  return fetch(
+    `${process.env.REACT_APP_SERVER_URL}/home/${
+      role === "Manager" ? "set-manager-password" : "set-password"
+    }/${id}/${token}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Password: password,
+        Confirm_Password: confirmPassword,
+      }),
+    }
+  )
     .then(async (response) => {
       try {
         return { state: response.status === 200, value: await response.json() };

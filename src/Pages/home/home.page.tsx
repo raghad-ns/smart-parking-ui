@@ -3,14 +3,18 @@ import './home.scss'
 import { UserContext } from '../../providers/user.provider'
 import React from 'react'
 import { ViewSideManContext } from '../../providers/view-side-man.provider'
+import { WalletBalanceContext } from '../../providers/wallet-balance.provider'
 
 const Home = () => {
   const navigate = useNavigate()
   const user = React.useContext(UserContext);
-  console.log(user.user?.role)
   const viewSideManContext = React.useContext(ViewSideManContext)
+  const walletBalanceContext = React.useContext(WalletBalanceContext)
   React.useEffect(() => {
     viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    user.user?.role.roleName !== "Manager"
+      && walletBalanceContext.updateWalletBalance
+      && walletBalanceContext.updateWalletBalance()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
@@ -32,6 +36,20 @@ const Home = () => {
               <span></span>
               <span></span>
               Add new reflect account
+            </div>
+            <div className="button2" onClick={() => navigate('/signup')}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Enroll new car
+            </div>
+            <div className="button2" onClick={() => navigate('/parking-enrollment')}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Enroll new parking
             </div>
           </div>
         }

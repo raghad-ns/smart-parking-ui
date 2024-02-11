@@ -27,13 +27,14 @@ const useRegistration = (type: "car" | "manager") => {
       setValid(true);
       const signup = await signupService({ ownerName, carId, email });
       if (signup.state === 201) {
-        sessionStorage.setItem(
-          "setPassworkAPI",
-          signup.value.data.passwordLink
+        const identifier = signup.value.data.passwordLink.substring(
+          signup.value.data.passwordLink.indexOf("set-password") +
+            "set-password".length
         );
         window.alert("Car added successfully! set your password");
-        const newTab: Window = window.open("", "_blank") as Window;
-        newTab.location.href = "/email";
+        // const newTab: Window = window.open("", "_blank") as Window;
+        // newTab.location.href = "/email";
+        window.open(`/email/User${identifier}`, "_blank");
         setCarId("");
         setEmail("");
         setOwnerName("");
@@ -57,13 +58,14 @@ const useRegistration = (type: "car" | "manager") => {
     if (validateInputs(inputs)) {
       const signup = await managerEnrollment({ Name: ownerName, Email: email });
       if (signup.state) {
-        sessionStorage.setItem(
-          "setPassworkAPI",
-          signup.value.data.passwordLink
+        const identifier = signup.value.data.passwordLink.substring(
+          signup.value.data.passwordLink.indexOf("set-manager-password") +
+            "set-manager-password".length
         );
         window.alert("Manager enrolled successfully! set your password");
-        const newTab: Window = window.open("", "_blank") as Window;
-        newTab.location.href = "/email";
+        // const newTab: Window = window.open("", "_blank") as Window;
+        // newTab.location.href = "/email";
+        window.open(`/email/Manager${identifier}`, "_blank");
         setEmail("");
         setOwnerName("");
       }

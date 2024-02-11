@@ -9,7 +9,6 @@ const OTPMessage = () => {
         viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    console.log('otp message page')
     const otp = decryptMessage(
         sessionStorage.getItem("otp-code") || "",
         decryptMessage(

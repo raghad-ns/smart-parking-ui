@@ -8,12 +8,11 @@ interface IGuardProps {
 }
 const RoleGuard = ({ children, allowedRoles = [] }: IGuardProps) => {
   const userContext = React.useContext(UserContext);
-  if (userContext?.user?.id) {
+  if (userContext?.user?.email || userContext.user?.carID) {
     if (!allowedRoles.length) {
       return (<div>{children}</div>)
     }
     if (!allowedRoles.includes(userContext.user?.role.roleName as string)) {
-      // window.alert('You are not allowed to access this page!')
       return (<Navigate to={'/no-access'} replace />)
     } else
       return (<div>{children}</div>);
