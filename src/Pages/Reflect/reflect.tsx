@@ -77,7 +77,7 @@ const Reflect = () => {
             <span>
               <InputAdornment position="start">
                 <button
-                  className="invisible"
+                  className="invisible button"
                   onClick={() => setPasswordVisibility(!passwordVisibility)}
                 >
                   {passwordVisibility ? (
@@ -101,7 +101,7 @@ const Reflect = () => {
             <span>
               <InputAdornment position="start">
                 <button
-                  className="invisible"
+                  className="invisible button"
                   onClick={() =>
                     setConfirmPasswordVisibility(!confirmPasswordVisibility)
                   }
@@ -147,7 +147,7 @@ const Reflect = () => {
           <button
             onClick={handleAddReflect}
             disabled={!buttonEnable}
-            className={buttonEnable ? "reflect-button" : "disabled reflect-button"}
+            className={buttonEnable ? "reflect-button button" : "disabled reflect-button button"}
           >
             Add Account
           </button>

@@ -69,7 +69,7 @@ const Login = () => {
                 </InputAdornment>
               </span>
             </div>
-            <button className="sign-in-button" onClick={handleSignin}>Sign In</button>
+            <button className="button sign-in-button" type="submit" onClick={handleSignin}>Sign In</button>
           </div>
         )}
         {selectedRole.value === "manager" && (
@@ -104,7 +104,7 @@ const Login = () => {
                 </InputAdornment>
               </span>
             </div>
-            <button className="sign-in-button" type="submit" onClick={() => handleSignin()}>Sign In</button>
+            <button className="button sign-in-button" type="submit" onClick={() => handleSignin()}>Sign In</button>
           </div>
         )}
       </div>

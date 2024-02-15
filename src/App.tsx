@@ -24,6 +24,7 @@ import NotFound from './Pages/not-found/not-found';
 import AccessDenied from './Pages/access-denied/access-denied.page';
 import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
+import Notification from './components/core/notification/notification.component';
 function App() {
   const viewSideManContext = React.useContext(ViewSideManContext)
   return (
@@ -59,6 +60,7 @@ function App() {
           </WalletBalanceProvider>
         </UserProvider>
       </BrowserRouter>
+      <Notification />
     </div>
   );
 }

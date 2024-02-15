@@ -56,7 +56,7 @@ const OTPForm = () => {
                         />)
                     })}
                 </div>
-                <button style={{ width: '100%' }} onClick={handleConfirmation}>Submit</button>
+                <button className='button' style={{ width: '100%' }} onClick={handleConfirmation}>Submit</button>
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -25,6 +26,10 @@ code {
 }
 
 button {
+  width: fit-content;
+}
+
+.button {
   width: 290px;
   margin-bottom: 5px;
   padding: 12px 30px;
@@ -40,10 +45,8 @@ button {
   transition: background-color 0.3s ease;
 
   &:hover {
-    background: linear-gradient(
-      268.29deg,
-      #1f4065 24.2%,
-      #4581b6 102.72%
-    );
+    background: linear-gradient(268.29deg,
+        #1f4065 24.2%,
+        #4581b6 102.72%);
   }
 }

@@ -8,7 +8,7 @@ const EmailSimulator = () => {
         <div>
             <PopUp>
                 <h1>Click this link to set your password!</h1>
-                <button onClick={() => {
+                <button className='button' onClick={() => {
                     // const newTab: Window = window.open('', '_blank') as Window;
                     // newTab.location.href = '/set-password';
                     window.open(`../../../set-password/${role}/${id}/${token}`, '_blank')

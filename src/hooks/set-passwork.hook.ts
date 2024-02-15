@@ -1,8 +1,10 @@
 import { useState } from "react";
+import useNotification from "./notification.hook";
 
 const useSetPassword = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const { setNotification } = useNotification();
   const handlePasswordSetting = () => {
     fetch(sessionStorage.getItem("setPassworkAPI") || "", {
       method: "POST",
@@ -15,9 +17,13 @@ const useSetPassword = () => {
       }),
     })
       .then((response) => {
-        if (response.status === 200) window.alert("password set successfully!");
+        if (response.status === 200)
+          setNotification({
+            message: "Password set successfully.",
+            status: "success",
+          });
         else {
-          window.alert("invalid password!");
+          setNotification({ message: "Invalid password!", status: "error" });
         }
       })
       .catch((error) => {

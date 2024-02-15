@@ -19,6 +19,7 @@ import { initiateConnectionService, terminateConnectionService } from "../../ser
 import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
 import { UserContext } from "../../providers/user.provider";
+import useNotification from "../../hooks/notification.hook";
 
 const ParkingSimulationComponent: React.FC = () => {
   const userContext = React.useContext(UserContext)
@@ -32,6 +33,7 @@ const ParkingSimulationComponent: React.FC = () => {
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
   const [refresh, setRefresh] = useState<number>(0)
+  const { setNotification } = useNotification()
   // eslint-disable-next-line
   const [durationParts, setDurationParts] = useState<string[]>([
     "00",
@@ -49,13 +51,13 @@ const ParkingSimulationComponent: React.FC = () => {
   const walletBalanceContext = React.useContext(WalletBalanceContext)
 
   const alreadyParked = () => {
-    setSelectedPark(userContext.user?.connection?.parking?.customid || '')
+    setSelectedPark(userContext.user?.connection?.parking_id || '')
     setSelectedVehicle('1')
-    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.start_time))
+    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.park_At))
     setTimerStarted(true)
     setStartedTimers((prevStartedTimers) => [
       ...prevStartedTimers,
-      parseInt(userContext.user?.connection?.parking?.customid, 10),
+      parseInt(userContext.user?.connection?.parking_id, 10),
 
     ]);
     tick()
@@ -63,7 +65,7 @@ const ParkingSimulationComponent: React.FC = () => {
   useEffect(() => {
     if (userContext.user?.connection) {
       const vehicle = document.getElementById(`vehicle-1`);
-      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking?.customid || ''}`);
+      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking_id || ''}`);
       if (meter !== null && vehicle !== null) {
         const vehicleBounds = vehicle.getBoundingClientRect();
         const meterBounds = meter.getBoundingClientRect();
@@ -148,7 +150,8 @@ const ParkingSimulationComponent: React.FC = () => {
         alert('You already have active connection!')
       }
       else {
-        window.alert('Unfortunatlly, something went wrong, please try another parking')
+        setNotification({ message: 'Unfortunatlly, something went wrong, please try another parking', status: 'error' })
+        // window.alert('Unfortunatlly, something went wrong, please try another parking')
       }
     }
 
@@ -187,7 +190,8 @@ const ParkingSimulationComponent: React.FC = () => {
       // Set the leaveButtonClicked state to true
       setLeaveButtonClicked(true);
       userContext.setUser && userContext.setUser({ ...userContext.user, connection: null })
-      window.alert('Connection terminated successfully, money deducted from your wallet')
+      setNotification({ message: 'Connection terminated successfully, money deducted from your wallet', status: 'success' })
+      // window.alert('Connection terminated successfully, money deducted from your wallet')
       walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
@@ -213,7 +217,8 @@ const ParkingSimulationComponent: React.FC = () => {
       alert('Connection terminated successfully, but no enough money in your wallet!')
     }
     else {
-      window.alert('Unfortunatlly, something went wrong, please try again!')
+      setNotification({ message: 'Unfortunatlly, something went wrong, please try again!' })
+      // window.alert('Unfortunatlly, something went wrong, please try again!')
     }
   };
 
