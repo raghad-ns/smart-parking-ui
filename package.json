@@ -28,7 +28,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.4",
     "sass": "^1.69.5",
-    "typescript": "^5.3.3",
+    "typescript": "^2.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
