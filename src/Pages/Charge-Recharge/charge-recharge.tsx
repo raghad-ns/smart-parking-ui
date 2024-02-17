@@ -1,84 +1,99 @@
-import { useState } from "react";
 import { InputAdornment } from "@mui/material";
 import {
   DirectionsCarFilledOutlined,
   LocalPhoneOutlined,
-  VpnKeyOutlined,
   PaidOutlined,
+  VisibilityOff,
+  RemoveRedEye,
 } from "@mui/icons-material";
 import "./charge.scss";
+import { useWallet } from "../../hooks/wallet.hook";
+import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import React from "react";
 
 const Charge = () => {
-  const [carID, setCarId] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const handleCharge = () => {
-    console.log("Car ID: ", carID);
-    console.log("Phone: ", phone);
-    console.log("Amount: ", amount);
-    console.log("Password: ", password);
-  };
+  const viewSideManContext = React.useContext(ViewSideManContext)
+  React.useEffect(() => {
+    viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const {
+    carId,
+    setCarId,
+    password,
+    setPassword,
+    amount,
+    setAmount,
+    phone,
+    setPhone,
+    passwordVisibility,
+    setPasswordVisibility,
+    handleCharge,
+  } = useWallet()
   return (
-    <div className="charge-page">
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <DirectionsCarFilledOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="carID"
-          value={carID}
-          onChange={(e) => setCarId(e.target.value)}
-          placeholder="Car ID"
-        />
+    <div className="page-wrapper">
+      <div className="charge-page form-wrapper">
+        <div className='form-title'><h1>Charge car's wallet</h1></div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <DirectionsCarFilledOutlined className="symbols wallet-icon" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="carId"
+            value={carId}
+            onChange={(e) => setCarId(e.target.value)}
+            placeholder="Car ID"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <LocalPhoneOutlined className="symbols wallet-icon" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone Number"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <PaidOutlined className="symbols wallet-icon" />
+            </InputAdornment>
+          </span>
+          <input
+            type="text"
+            id="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="Amount"
+          />
+        </div>
+        <div className="input-group">
+          <span>
+            <InputAdornment position="start">
+              <button className="invisible button" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+                {passwordVisibility ? <VisibilityOff className="passsymbols" /> : <RemoveRedEye className="passsymbols" />}
+              </button>
+            </InputAdornment>
+          </span>
+          <input
+            type={passwordVisibility ? "text" : "password"}
+            id="password"
+            value={password}
+            style={{ width: "105%" }} onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </div>
+        <button onClick={handleCharge} className="chargebutton button" style={{ width: '320px' }}>Charge</button>
       </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <LocalPhoneOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone Number"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <PaidOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount"
-        />
-      </div>
-      <div className="input-group">
-        <span>
-          <InputAdornment position="start">
-            <VpnKeyOutlined className="icons" />
-          </InputAdornment>
-        </span>
-        <input
-          type="text"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-      </div>
-
-      <button onClick={handleCharge}>Charge</button>
     </div>
   );
 };

@@ -1,75 +1,103 @@
 /* HistoryTable.scss */
 
-.history-table {
+.history-page-wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  position: relative;
-  .user-info {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 12px;
-    font-size: large;
-    font-weight: bold;
-    color: white;
+  height: 100%
+}
+
+.no-data {
+  width:90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  font-weight: 700;
+  font-size: 30px;
+  img {
+    width: 50%;
   }
+}
+
+.history-table {
+  padding-top: 50px;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  // .user-info {
+  //   position: absolute;
+  //   top: 20%;
+  //   right: 15px;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   flex-direction: column;
+  //   padding: 12px;
+  //   font-size: large;
+  //   font-weight: bold;
+  //   color: white;
+  // }
   .pagination {
-    position: absolute;
-    // position: relative;
-    bottom: 25px;
-    right: 180px;
+    // position: fixed;
+    // top: 103%;
+    // right: 460px;
     display: flex;
-    // width: 50px;
     justify-content: space-evenly;
-    // margin: 12px;
     border-radius: 12px;
-    width: 150px;
-    padding-left: 12px;
-    padding-right: 12px;
-    background-color: rgba(35, 35, 35, 0.54);
+    width: fit-content;
+    background-color: #1f4065;
+
     button {
-      margin: 8px;
       font-size: large;
-      font-weight: bold;
+      font-weight: 600;
       color: white;
+      margin: 5px;
+      max-width: 50px;
       border: none;
       background: none;
       cursor: pointer;
-      &:focus {
+      text-align: center;
+
+      &.focused {
         background-color: #ffffff;
-        border-radius: 50%;
-        color: black;
+        border-radius: 20%;
+        color: #729ec5;
       }
     }
-    .arrowleft {
-      cursor: pointer;
-      padding-top: 8px;
-      color: #e2e2e2;
-    }
+
+    .arrowleft,
     .arrowright {
       cursor: pointer;
-      color: #e2e2e2;
-      padding-top: 6px;
+      padding-top: 12px;
+      color: #fff;
+      font-size: 30px;
     }
+
   }
+
   .background-table {
-    background-color: rgba(70, 38, 78, 0.4);
-    width: 900px;
+    background: linear-gradient(268.29deg, #84a4c9 24.2%, #729ec5 102.72%);
+    width: 1100px;
     padding: 15px;
     padding-top: 18px;
     border-radius: 30px;
+
     table {
       width: 100%;
-      border-collapse: separate; /* Use separate border model */
+      border-collapse: separate;
+      /* Use separate border model */
       border-spacing: 0 10px;
-      //   border-collapse: collapse;
       color: #e2e2e2;
+
       th,
       td {
         border: none;
@@ -78,43 +106,86 @@
       }
 
       th {
-        background-color: rgba(
-          140,
-          60,
-          242,
-          0.5
-        ); /* Background color with 63% transparency */
+        background-color: #1f4065;
       }
-      th:nth-child(6) {
+
+      th:nth-child(8) {
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
       }
+
       th:nth-child(1) {
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
       }
+
       td {
         padding: 15px;
         margin-top: 12px;
-        background-color: rgba(35, 35, 35, 0.54);
+        color: #1f4065;
+        background-color: rgba(248, 245, 245, 0.54);
       }
+
       td:nth-child(1) {
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
       }
-      td:nth-child(6) {
+
+      td:nth-child(8) {
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
       }
+
       tr {
         border-collapse: collapse;
         margin-bottom: 12px;
       }
 
       tr:hover {
-        color: black;
-        background-color: rgba(255, 255, 255);
+        cursor: pointer;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.782);
+        /* Adjust the shadow values as needed */
+
+        background-color: #729ec5;
       }
     }
+  }
+}
+
+
+.car-animation {
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  z-index: 1000;
+  /* Adjust the z-index as needed to ensure it's above other elements */
+  animation: moveForward 7s forwards, fadeOut 1s 7s forwards;
+  /* Adjusted for a 10-second durati
+}
+
+.car-image {
+  width: 150px; /* Adjust the width as needed */
+  height: auto;
+  /* Maintain aspect ratio */
+}
+
+@keyframes moveForward {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(calc(-50% + 400%));
+    /* Move to the right by 100% of the container width */
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

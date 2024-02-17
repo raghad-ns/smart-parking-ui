@@ -1,0 +1,40 @@
+.otp-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    /* Adjust left padding to position the form to the left */
+
+    .input-group {
+        margin-top: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-basis: 2%;
+
+        .digit {
+            width: 50px;
+            padding: 8px 8px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            font-size: larger;
+
+            &::placeholder {
+                color: #ffffff;
+                // font-family: "Montserrat";
+                font-style: normal;
+            }
+
+            &:not(:placeholder-shown) {
+                color: #1f4065;
+                // font-family: "Montserrat";
+                font-style: normal;
+            }
+        }
+    }
+
+}
