@@ -19,6 +19,7 @@ interface IInputs {
 export const validateInputs = (inputs: Array<IInputs>) => {
   // Regular expression to match inputs not containing '\' or '/'
   // To defend against sql injection  attacks
+  // eslint-disable-next-line
   const sqlInjectionDefence = /^[^\/\\]*$/;
   // This regex is used to defense against XSS vulnerabilities
   const xssDefence = /^(?!(<script>|<object>|<embed>|<link>)).*$/;

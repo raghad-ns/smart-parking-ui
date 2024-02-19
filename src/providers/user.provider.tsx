@@ -22,18 +22,19 @@ interface IPopupParams {
 const UserProvider = (props: IPopupParams) => {
 
     const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") || '{}')
-    // const [user, setUser] = useState(JSON.parse(decryptMessage(
-    //     sessionStorage.getItem("user") || "",
-    //     decryptMessage(
-    //         sessionStorage.getItem("userKey") || "",
-    //         process.env.REACT_APP_SECRET_KEY || ""
-    //     ) as string
-    // ) || '{}')
+        // const [user, setUser] = useState(JSON.parse(decryptMessage(
+        //     sessionStorage.getItem("user") || "",
+        //     decryptMessage(
+        //         sessionStorage.getItem("userKey") || "",
+        //         process.env.REACT_APP_SECRET_KEY || ""
+        //     ) as string
+        // ) || '{}')
 
     );
     const walletBalanceContext = React.useContext(WalletBalanceContext)
 
     useEffect(() => {
+        console.log('user: ', user)
         sessionStorage.setItem(
             "user",
             JSON.stringify(user)
