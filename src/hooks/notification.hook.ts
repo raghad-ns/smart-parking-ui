@@ -20,7 +20,6 @@ const useNotification = () => {
     status: "info",
   });
   const showNotification = (notification: INotification) => {
-    console.log("notification: ", notification);
     setNotification(notification);
     return new Promise(() => {
       notify(notification);

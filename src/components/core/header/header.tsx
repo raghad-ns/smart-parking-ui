@@ -27,7 +27,7 @@ const Header = () => {
                             <span>
                                 <WalletIcon fontSize='large' className='user-avatar' />
                             </span>
-                            <span className='user-name'>&#8362; {walletBalanceContext.walletBalance || 0}</span>
+                            <span className='user-name'>&#8362; {walletBalanceContext.walletBalance?.toFixed(2) || 0}</span>
                         </span>}
                         <button className='signoutIcon' onClick={(handleSignout)}>
                             <ExitToApp fontSize='large' />

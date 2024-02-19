@@ -62,6 +62,29 @@ const ParkingSimulationComponent: React.FC = () => {
     ]);
     tick()
   }
+
+  const formatDate = (dateString: string | Date): string => {
+    const date = new Date(dateString);
+
+    // Extract individual components
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Month is zero-indexed, so add 1
+    const day = date.getDate();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const meridiem = hours >= 12 ? 'PM' : 'AM'; // Determine AM or PM
+
+    // Convert hours to 12-hour format
+    hours %= 12;
+    hours = hours || 12; // 12 AM is represented as 0 hours
+
+    // Format the date and time components into the desired string format
+    const formattedDate = `${month}/${day}/${year}, ${hours}:${minutes}:${seconds} ${meridiem}`;
+
+    console.log('Formatted date: ', formattedDate); // Output: "2/19/2024, 7:21:19 PM"
+    return formattedDate
+  }
   useEffect(() => {
     if (userContext.user?.connection) {
       const vehicle = document.getElementById(`vehicle-1`);
@@ -126,6 +149,13 @@ const ParkingSimulationComponent: React.FC = () => {
       const initiateConnection = await (initiateConnectionService(ele.customid || ''))
       if (initiateConnection.state && initiateConnection.value.statusCode === 201) {
         setIsVehicleSelected(false);
+        // userContext.setUser && userContext.setUser({
+        //   ...userContext.user, connection: {
+        //     park_At: formatDate(startDate),
+        //     parking_id: ele.customid,
+        //     status: "active"
+        //   }
+        // })
         // connect car to park meter
 
         const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);

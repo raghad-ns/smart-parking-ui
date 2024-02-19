@@ -25,30 +25,10 @@ import AccessDenied from './Pages/access-denied/access-denied.page';
 import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
 import Notification from './components/core/notification/notification.component';
-// import BraintreeDropIn from './Pages/payment/payment.page';
+import Visa from './Pages/payment/visa.page';
 function App() {
   const viewSideManContext = React.useContext(ViewSideManContext)
-  const [paymentMethodNonce, setPaymentMethodNonce] = React.useState(null);
-
-  // const handlePaymentSuccess = (nonce: any) => {
-  // Handle the payment success, e.g., send the nonce to your server for further processing
-  // setPaymentMethodNonce(nonce);
-  // };
-  React.useEffect(() => {
-    console.log('nonce: ', paymentMethodNonce)
-  }, [paymentMethodNonce])
   return (
-    // <div>
-    //   <h1>React Braintree Integration</h1>
-    //   {paymentMethodNonce ? (
-    //     <div>
-    //       <h2>Payment Successful!</h2>
-    //       <p>Nonce: {paymentMethodNonce}</p>
-    //     </div>
-    //   ) : (
-    //     <BraintreeDropIn onPaymentMethodNonce={handlePaymentSuccess} />
-    //   )}
-    // </div>
     <div className="App">
       <div className="background-image"
         style={viewSideManContext.viewSideMan ? {} : { display: 'none' }}
@@ -73,6 +53,7 @@ function App() {
               <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
               <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
               <Route path='/charge-wallet' element={<Charge />} />
+              <Route path='/visa-payment' element={<Visa />} />
               <Route path='/history' element={<RoleGuard allowedRoles={['User']}><HistoryTable /></RoleGuard>} />
               <Route path='/parking' element={<RoleGuard allowedRoles={['User']}><ParkingSimulationComponent /></RoleGuard>} />
               <Route path='/no-access' element={<AccessDenied />} />
