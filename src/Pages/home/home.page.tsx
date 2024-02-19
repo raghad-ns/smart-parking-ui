@@ -89,7 +89,7 @@ const Home = () => {
               <span></span>
               Charge car's wallet
             </div>
-            <div className="button2" onClick={() => navigate('/history')}>
+            <div className="button2" onClick={() => navigate('/history?p=1')}>
               <span></span>
               <span></span>
               <span></span>

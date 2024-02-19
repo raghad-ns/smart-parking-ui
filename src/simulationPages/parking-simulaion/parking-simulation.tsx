@@ -19,6 +19,7 @@ import { initiateConnectionService, terminateConnectionService } from "../../ser
 import { WalletBalanceContext } from "../../providers/wallet-balance.provider";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
 import { UserContext } from "../../providers/user.provider";
+import useNotification from "../../hooks/notification.hook";
 
 const ParkingSimulationComponent: React.FC = () => {
   const userContext = React.useContext(UserContext)
@@ -32,6 +33,7 @@ const ParkingSimulationComponent: React.FC = () => {
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [isVehicleSelected, setIsVehicleSelected] = useState(false);
   const [refresh, setRefresh] = useState<number>(0)
+  const { setNotification } = useNotification()
   // eslint-disable-next-line
   const [durationParts, setDurationParts] = useState<string[]>([
     "00",
@@ -49,21 +51,44 @@ const ParkingSimulationComponent: React.FC = () => {
   const walletBalanceContext = React.useContext(WalletBalanceContext)
 
   const alreadyParked = () => {
-    setSelectedPark(userContext.user?.connection?.parking?.customid || '')
+    setSelectedPark(userContext.user?.connection?.parking_id || '')
     setSelectedVehicle('1')
-    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.start_time))
+    userContext.user?.connection && setStartDate(new Date(userContext.user.connection.park_At))
     setTimerStarted(true)
     setStartedTimers((prevStartedTimers) => [
       ...prevStartedTimers,
-      parseInt(userContext.user?.connection?.parking?.customid, 10),
+      parseInt(userContext.user?.connection?.parking_id, 10),
 
     ]);
     tick()
   }
+
+  const formatDate = (dateString: string | Date): string => {
+    const date = new Date(dateString);
+
+    // Extract individual components
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Month is zero-indexed, so add 1
+    const day = date.getDate();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const meridiem = hours >= 12 ? 'PM' : 'AM'; // Determine AM or PM
+
+    // Convert hours to 12-hour format
+    hours %= 12;
+    hours = hours || 12; // 12 AM is represented as 0 hours
+
+    // Format the date and time components into the desired string format
+    const formattedDate = `${month}/${day}/${year}, ${hours}:${minutes}:${seconds} ${meridiem}`;
+
+    console.log('Formatted date: ', formattedDate); // Output: "2/19/2024, 7:21:19 PM"
+    return formattedDate
+  }
   useEffect(() => {
     if (userContext.user?.connection) {
       const vehicle = document.getElementById(`vehicle-1`);
-      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking?.customid || ''}`);
+      const meter = document.getElementById(`parkmeter-${userContext.user?.connection?.parking_id || ''}`);
       if (meter !== null && vehicle !== null) {
         const vehicleBounds = vehicle.getBoundingClientRect();
         const meterBounds = meter.getBoundingClientRect();
@@ -124,6 +149,13 @@ const ParkingSimulationComponent: React.FC = () => {
       const initiateConnection = await (initiateConnectionService(ele.customid || ''))
       if (initiateConnection.state && initiateConnection.value.statusCode === 201) {
         setIsVehicleSelected(false);
+        // userContext.setUser && userContext.setUser({
+        //   ...userContext.user, connection: {
+        //     park_At: formatDate(startDate),
+        //     parking_id: ele.customid,
+        //     status: "active"
+        //   }
+        // })
         // connect car to park meter
 
         const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
@@ -148,7 +180,8 @@ const ParkingSimulationComponent: React.FC = () => {
         alert('You already have active connection!')
       }
       else {
-        window.alert('Unfortunatlly, something went wrong, please try another parking')
+        setNotification({ message: 'Unfortunatlly, something went wrong, please try another parking', status: 'error' })
+        // window.alert('Unfortunatlly, something went wrong, please try another parking')
       }
     }
 
@@ -187,7 +220,8 @@ const ParkingSimulationComponent: React.FC = () => {
       // Set the leaveButtonClicked state to true
       setLeaveButtonClicked(true);
       userContext.setUser && userContext.setUser({ ...userContext.user, connection: null })
-      window.alert('Connection terminated successfully, money deducted from your wallet')
+      setNotification({ message: 'Connection terminated successfully, money deducted from your wallet', status: 'success' })
+      // window.alert('Connection terminated successfully, money deducted from your wallet')
       walletBalanceContext.updateWalletBalance && walletBalanceContext.updateWalletBalance()
 
       const vehicle = document.getElementById(`vehicle-${selectedVehicle}`);
@@ -213,7 +247,8 @@ const ParkingSimulationComponent: React.FC = () => {
       alert('Connection terminated successfully, but no enough money in your wallet!')
     }
     else {
-      window.alert('Unfortunatlly, something went wrong, please try again!')
+      setNotification({ message: 'Unfortunatlly, something went wrong, please try again!' })
+      // window.alert('Unfortunatlly, something went wrong, please try again!')
     }
   };
 

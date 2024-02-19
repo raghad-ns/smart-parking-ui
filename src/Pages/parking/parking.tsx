@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { InputAdornment, MenuItem, Select } from "@mui/material";
-import { LocationOn,LockPerson } from "@mui/icons-material";
+import { LocationOn, LockPerson } from "@mui/icons-material";
 import "./parking.scss";
 import { useParkingEnrollment } from "../../hooks/parking.hook";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
@@ -70,7 +70,8 @@ const Parking = () => {
         </div>
         <button
           onClick={handleAddParking}
-          className={buttonEnable ? '' : 'disabled'}
+          className={buttonEnable ? 'button' : 'disabled button'}
+          style={{width:'320px'}}
           disabled={!buttonEnable}>Add Parking</button>
       </div>
     </div>

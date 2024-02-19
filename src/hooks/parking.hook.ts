@@ -1,11 +1,13 @@
 import React, { ChangeEvent, useEffect } from "react";
 import { parkingEnrollmentService } from "../services/parking.service";
 import { validateInputs } from "../utils/utils";
+import useNotification from "./notification.hook";
 
 export const useParkingEnrollment = () => {
   const [location, setLocation] = React.useState("");
   const [customid, setCustomid] = React.useState("");
   const [buttonEnable, setButtonEnable] = React.useState<boolean>(false);
+  const { setNotification } = useNotification();
   const checkButtonEnable = () => {
     setButtonEnable(location !== "" && customid !== "");
   };
@@ -22,14 +24,27 @@ export const useParkingEnrollment = () => {
       });
       if (parkingEnrollment.state) {
         parkingEnrollment.value.statusCode === 201
-          ? window.alert("Parking added successfully!")
-          : window.alert("Invalid Parking credentials!");
+          ? setNotification({
+              message: "Parking added successfully!",
+              status: "success",
+            })
+          : setNotification({
+              message: "Invalid parking credentials!",
+              status: "error",
+            });
       } else {
-        window.alert("Something went wrong, please try again!");
+        setNotification({
+          message: "Something went wrong, please try again!",
+          status: "error",
+        });
       }
       setCustomid("");
       setLocation("");
-    } else window.alert("Invalid inputs format!");
+    } else
+      setNotification({
+        message: "Invalid input format, please check it out!",
+        status: "error",
+      });
   };
 
   const handleLocationChange = (event: ChangeEvent<{ value: unknown }>) => {

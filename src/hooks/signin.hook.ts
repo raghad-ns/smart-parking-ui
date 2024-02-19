@@ -10,6 +10,7 @@ import {
   generateRandomKey,
 } from "../utils/AESencryption.util";
 import { WalletBalanceContext } from "../providers/wallet-balance.provider";
+import useNotification from "./notification.hook";
 
 const useSignin = () => {
   const [carId, setCarId] = useState<string>("");
@@ -18,12 +19,16 @@ const useSignin = () => {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const walletBalanceContext = useContext(WalletBalanceContext);
+  const { setNotification } = useNotification();
 
   const [selectedRole, setSelectedRole] = useState<string | null>("user");
-
   useEffect(() => {
+    console.log("user:", userContext.user);
     if (userContext.user?.carID) {
-      window.alert("you are already signed in");
+      setNotification({
+        message: "You are already signed in!",
+        status: "info",
+      });
       navigate("/home");
     }
     // eslint-disable-next-line
@@ -56,7 +61,10 @@ const useSignin = () => {
           role: signin.value.data.role,
           connection: signin.value.data.connection,
         };
-        window.alert("logged in successfully!");
+        setNotification({
+          message: `Welcome back, ${user.owner}!`,
+          status: "success",
+        });
         sessionStorage.setItem(
           "token",
           encryptMessage(
@@ -73,10 +81,16 @@ const useSignin = () => {
           walletBalanceContext.updateWalletBalance();
         navigate("/home");
       } else {
-        window.alert("Incorrect login credentials, please try agein!");
+        setNotification({
+          message: "Incorrect login credentials, please try again!!",
+          status: "error",
+        });
       }
     } else {
-      window.alert("Invalid input format, please check the values you entered");
+      setNotification({
+        message: "Invalid input formate, please check it out!",
+        status: "error",
+      });
     }
   };
   return {

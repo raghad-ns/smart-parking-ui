@@ -2,9 +2,11 @@ import React from "react";
 import { UserContext } from "../providers/user.provider";
 import { useNavigate } from "react-router-dom";
 import { signoutService } from "../services/user.service";
+import useNotification from "./notification.hook";
 
 export const useHeader = () => {
   const user = React.useContext(UserContext);
+  const { setNotification } = useNotification();
   const navigate = useNavigate();
   const handleSignout = async () => {
     const signout = await signoutService();
@@ -12,9 +14,15 @@ export const useHeader = () => {
       user.setUser && user.setUser({});
       sessionStorage.clear();
       navigate("/signin");
-      window.alert("Signed out successfully!");
+      setNotification({
+        message: "Signed out successfully!",
+        status: "success",
+      });
+
+      // window.alert("Signed out successfully!");
     } else {
-      window.alert("Something went wrong!");
+      setNotification({ message: "Something went wrong!", status: "error" });
+      // window.alert("Something went wrong!");
     }
   };
 

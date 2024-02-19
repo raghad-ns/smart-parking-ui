@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { managerEnrollment, signupService } from "../services/user.service";
 import { validateInputs } from "../utils/utils";
+import useNotification from "./notification.hook";
 
 const useRegistration = (type: "car" | "manager") => {
   const [ownerName, setOwnerName] = useState<string>("");
@@ -8,6 +9,7 @@ const useRegistration = (type: "car" | "manager") => {
   const [email, setEmail] = useState<string>("");
   const [buttonEnable, setButtonEnable] = useState<boolean>(false);
   const [valid, setValid] = useState<boolean>(true);
+  const { setNotification } = useNotification();
 
   const checkButtonEnable = () => {
     setButtonEnable(
@@ -31,7 +33,12 @@ const useRegistration = (type: "car" | "manager") => {
           signup.value.data.passwordLink.indexOf("set-password") +
             "set-password".length
         );
-        window.alert("Car added successfully! set your password");
+        setNotification({
+          message:
+            "Car added successfully! set account's password for activation",
+          status: "success",
+        });
+        // window.alert("Car added successfully! set your password");
         // const newTab: Window = window.open("", "_blank") as Window;
         // newTab.location.href = "/email";
         window.open(`/email/User${identifier}`, "_blank");
@@ -39,12 +46,24 @@ const useRegistration = (type: "car" | "manager") => {
         setEmail("");
         setOwnerName("");
       } else if (signup.state === 403) {
-        window.alert("You don't have the permission to modify this resource");
+        setNotification({
+          message: "You don't have the permission to modify this resource!",
+          status: "error",
+        });
+        // window.alert("You don't have the permission to modify this resource");
       } else {
-        window.alert("Something went wrong, please try again!");
+        setNotification({
+          message: "Something went wrong, please try again!",
+          status: "error",
+        });
+        // window.alert("Something went wrong, please try again!");
       }
     } else {
-      window.alert("Invalid inputs format, please check your data!");
+      setNotification({
+        message: "Invalid input format, please check it out!",
+        status: "error",
+      });
+      // window.alert("Invalid inputs format, please check your data!");
       setValid(false);
     }
   };
@@ -62,7 +81,12 @@ const useRegistration = (type: "car" | "manager") => {
           signup.value.data.passwordLink.indexOf("set-manager-password") +
             "set-manager-password".length
         );
-        window.alert("Manager enrolled successfully! set your password");
+        setNotification({
+          message:
+            "Manager enrolled successfully! set account's password for activation",
+          status: "success",
+        });
+        // window.alert("Manager enrolled successfully! set your password");
         // const newTab: Window = window.open("", "_blank") as Window;
         // newTab.location.href = "/email";
         window.open(`/email/Manager${identifier}`, "_blank");
@@ -70,7 +94,11 @@ const useRegistration = (type: "car" | "manager") => {
         setOwnerName("");
       }
     } else {
-      window.alert("Invalid inputs format, please check your data!");
+      setNotification({
+        message: "Invalid input format, please check it out!",
+        status: "error",
+      });
+      // window.alert("Invalid inputs format, please check your data!");
     }
   };
 

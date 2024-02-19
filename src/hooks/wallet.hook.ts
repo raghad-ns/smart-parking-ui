@@ -3,6 +3,7 @@ import { chargeWallet } from "../services/wallet.service";
 import { decryptMessage, encryptMessage } from "../utils/AESencryption.util";
 import { useNavigate } from "react-router-dom";
 import { validateInputs } from "../utils/utils";
+import useNotification from "./notification.hook";
 
 export const useWallet = () => {
   const [carId, setCarId] = useState<string>("");
@@ -10,6 +11,7 @@ export const useWallet = () => {
   const [amount, setAmount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
+  const { setNotification } = useNotification();
   const navigate = useNavigate();
 
   const handleCharge = async () => {
@@ -29,9 +31,14 @@ export const useWallet = () => {
           amount: Number(amount),
         });
         if (transaction.state && transaction.value.statusCode === 201) {
-          window.alert(
-            "Transaction is valid, please check your phone, enter sent OTP"
-          );
+          setNotification({
+            message:
+              "Transaction triggered, you should receive otp code to complete it ",
+            status: "success",
+          });
+          // window.alert(
+          //   "Transaction is valid, please check your phone, enter sent OTP"
+          // );
           sessionStorage.setItem(
             "otp-code",
             encryptMessage(
@@ -60,22 +67,43 @@ export const useWallet = () => {
           transaction.state &&
           transaction.value.data.includes("Invalid Car ID")
         )
-          window.alert("Car ID does not exist");
+          setNotification({
+            message: "Car ID does not exist",
+            status: "error",
+          });
+        // window.alert("Car ID does not exist");
         else if (transaction.state && transaction.value.statusCode === 400)
-          window.alert(
-            "Reflect account does not exist or there is no enough money for the transaction!"
-          );
-        else window.alert("invalid credentials, please check your data");
+          setNotification({
+            message:
+              "Reflect account does not exist or there is no enough money for the transaction!",
+            status: "error",
+          });
+        // window.alert(
+        //   "Reflect account does not exist or there is no enough money for the transaction!"
+        // );
+        else
+          setNotification({
+            message: "Invalid credentials, please check your data",
+            status: "error",
+          });
       } catch (error) {
         console.error(error);
-        window.alert("Something went wrong, please try again!");
+        setNotification({
+          message: "Something went wrong, please try again!",
+          status: "error",
+        });
+        // window.alert("Something went wrong, please try again!");
         setCarId("");
         setPhone("");
         setAmount("");
         setPassword("");
       }
     } else {
-      window.alert("Invalid input format, please check it out!");
+      setNotification({
+        message: "Invalid input format, please check it out",
+        status: "error",
+      });
+      // window.alert("Invalid input format, please check it out!");
     }
   };
   return {

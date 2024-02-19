@@ -10,9 +10,11 @@ import "./charge.scss";
 import { useWallet } from "../../hooks/wallet.hook";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Charge = () => {
   const viewSideManContext = React.useContext(ViewSideManContext)
+  const navigate = useNavigate();
   React.useEffect(() => {
     viewSideManContext.setViewSideMan && viewSideManContext.setViewSideMan(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +81,7 @@ const Charge = () => {
         <div className="input-group">
           <span>
             <InputAdornment position="start">
-              <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+              <button className="invisible button" onClick={() => setPasswordVisibility(!passwordVisibility)}>
                 {passwordVisibility ? <VisibilityOff className="passsymbols" /> : <RemoveRedEye className="passsymbols" />}
               </button>
             </InputAdornment>
@@ -88,11 +90,14 @@ const Charge = () => {
             type={passwordVisibility ? "text" : "password"}
             id="password"
             value={password}
-            style={{ width: "105%" }}            onChange={(e) => setPassword(e.target.value)}
+            style={{ width: "105%" }} onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
         </div>
-        <button onClick={handleCharge} className="chargebutton">Charge</button>
+        <button onClick={handleCharge} className="chargebutton button" style={{ width: '320px' }}>Charge</button>
+        <button onClick={() => {
+          navigate('/visa-payment')
+        }} className="chargebutton button" style={{ width: '320px', marginTop: '0px', position:'relative', top:'-10px' }}>Another payment method</button>
       </div>
     </div>
   );

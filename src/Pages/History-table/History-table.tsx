@@ -9,11 +9,13 @@ import { HistoryNS } from "../../typess/history.type";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import useNotification from "../../hooks/notification.hook";
 const HistoryTable = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [data, setData] = useState<HistoryNS.IHistoryRecord[]>();
   const itemsPerPage = 7; // Number of items to display per page
   const [showCarAnimation, setShowCarAnimation] = useState(true);
+  const { setNotification } = useNotification()
 
   const viewSideManContext = React.useContext(ViewSideManContext)
   const userContext = React.useContext(UserContext)
@@ -52,7 +54,8 @@ const HistoryTable = () => {
         setData(history.value.data.data.hestory);
         setTotalCount(Math.ceil(history.value.data.data.total / itemsPerPage))
       } else if (history.state && history.value.statusCode === 401) {
-        window.alert('Session expiered, you have to login again!')
+        setNotification({ message: 'Session expiered, you have to login again!' })
+        // window.alert('Session expiered, you have to login again!')
         sessionStorage.clear()
         navigate('/signin')
       }
@@ -61,27 +64,19 @@ const HistoryTable = () => {
     })
   }
   const formatTime = (timeStamp: string): string => {
-    const formattedDate = timeStamp.split(' ')[0]
-    // const [, time] = timeStamp.split(' ');
-    // const [hours, minutes, seconds] = time.split(':');
+    // const formattedDate = timeStamp.split(' ')[0]
+    const date = new Date(timeStamp);
 
-    // // Construct Date object
-    // const date = new Date();
-    // date.setHours(parseInt(hours, 10));
-    // date.setMinutes(parseInt(minutes, 10));
-    // date.setSeconds(parseInt(seconds, 10));
-
-    // // Format the date in a human-readable format
-    // const options: Intl.DateTimeFormatOptions = {
-    //   weekday: 'long',
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: 'numeric',
-    //   hour: 'numeric',
-    //   minute: 'numeric',
-    //   second: 'numeric'
-    // };
-    // const formattedDate = date.toLocaleDateString('en-US', options);
+    // Format the date in a human-readable format
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    };
+    const formattedDate = date.toLocaleDateString('en-US', options);
     return formattedDate
   }
   const formateDuration = (duration: number) => {

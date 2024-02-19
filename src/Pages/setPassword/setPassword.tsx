@@ -6,6 +6,7 @@ import { passwordSetService } from "../../services/user.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { validateInputs } from "../../utils/utils";
 import { ViewSideManContext } from "../../providers/view-side-man.provider";
+import useNotification from "../../hooks/notification.hook";
 
 const SetPassword = () => {
   const viewSideManContext = React.useContext(ViewSideManContext)
@@ -21,6 +22,7 @@ const SetPassword = () => {
   const [buttonEnable, setButtonEnable] = useState<boolean>(false)
   const navigate = useNavigate()
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const { setNotification } = useNotification()
 
   const checkButtonEnable = () => {
     setButtonEnable(
@@ -41,16 +43,22 @@ const SetPassword = () => {
       if (password === confirmPassword) {
         const setPassword = await passwordSetService(password, confirmPassword, id as string, token as string, role as string)
         if (setPassword.state) {
-          window.alert('password set successfully!')
+          setNotification({ message: 'Password set successfully!', status: 'success' })
+          // window.alert('password set successfully!')
           navigate('/info', { replace: true })
         } else {
-          window.alert('invalid password!')
+          setNotification({ message: 'Invalid password!', status: 'error' })
+          // window.alert('invalid password!')
         }
       } else {
-        window.alert('Password confirmation does not match the password you entered!')
+        setNotification({ message: 'Password confirmation does not match the password you entered!', status: 'error' })
+        // window.alert('Password confirmation does not match the password you entered!')
       }
     } else {
-      window.alert('Password must be at least 8 characters containing digits, special symbols, upper and lower case letters')
+      setNotification({
+        message: 'Password must be at least 8 characters containing digits, special symbols except \\ and /, upper and lower case letters', status: 'info'
+      })
+      // window.alert('Password must be at least 8 characters containing digits, special symbols, upper and lower case letters')
       setValid(false)
     }
   }
@@ -61,7 +69,7 @@ const SetPassword = () => {
         <div className="input-group-pass">
           <span>
             <InputAdornment position="start">
-              <button className="invisible" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+              <button className="invisible button" onClick={() => setPasswordVisibility(!passwordVisibility)}>
                 {passwordVisibility ? <VisibilityOff className="eye-pass" /> : <RemoveRedEye className="eye-pass" />}
               </button>
             </InputAdornment>
@@ -77,7 +85,7 @@ const SetPassword = () => {
         <div className="input-group-pass">
           <span>
             <InputAdornment position="start">
-              <button className="invisible" onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
+              <button className="invisible button" onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
                 {confirmPasswordVisibility ? <VisibilityOff className="eye-pass" /> : <RemoveRedEye className="eye-pass" />}
               </button>
             </InputAdornment>
@@ -94,7 +102,8 @@ const SetPassword = () => {
         <button
           onClick={handlePasswordSetting}
           disabled={!buttonEnable}
-          className={buttonEnable ? '' : 'disabled'}> Set </button>
+          style={{ width: '320px' }}
+          className={buttonEnable ? 'button' : 'disabled button'}> Set </button>
       </div>
     </div>
   );

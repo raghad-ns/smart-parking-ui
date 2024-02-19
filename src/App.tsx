@@ -24,6 +24,8 @@ import NotFound from './Pages/not-found/not-found';
 import AccessDenied from './Pages/access-denied/access-denied.page';
 import { ViewSideManContext } from './providers/view-side-man.provider';
 import WalletBalanceProvider from './providers/wallet-balance.provider';
+import Notification from './components/core/notification/notification.component';
+import Visa from './Pages/payment/visa.page';
 function App() {
   const viewSideManContext = React.useContext(ViewSideManContext)
   return (
@@ -51,6 +53,7 @@ function App() {
               <Route path='/reflect-enrollment' element={<RoleGuard allowedRoles={['Admin']}><Reflect /></RoleGuard>} />
               <Route path='/manager-enrollment' element={<RoleGuard allowedRoles={['Admin']}><ManagerEnrollment /></RoleGuard>} />
               <Route path='/charge-wallet' element={<Charge />} />
+              <Route path='/visa-payment' element={<Visa />} />
               <Route path='/history' element={<RoleGuard allowedRoles={['User']}><HistoryTable /></RoleGuard>} />
               <Route path='/parking' element={<RoleGuard allowedRoles={['User']}><ParkingSimulationComponent /></RoleGuard>} />
               <Route path='/no-access' element={<AccessDenied />} />
@@ -59,6 +62,7 @@ function App() {
           </WalletBalanceProvider>
         </UserProvider>
       </BrowserRouter>
+      <Notification />
     </div>
   );
 }
